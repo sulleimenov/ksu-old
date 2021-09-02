@@ -1,0 +1,129 @@
+.d-flex
+	display: flex
+	flex-wrap: wrap
+.show
+	display: block
+.active
+	display: block
+
+.title
+	position: relative
+	color: #009ee0
+	font-family: $userfont
+	font-size: 36px
+	font-weight: 900
+	text-transform: uppercase
+	text-align: center
+	display: flex
+	justify-content: center
+	margin: 50px 0
+	@include media-breakpoint-down(md)
+		font-size: 28px
+	@include media-breakpoint-down(sm)
+		font-size: 26px
+	@include media-breakpoint-down(xs)
+		font-size: 21px
+	&-m
+		margin-bottom: 50px
+		margin-top: 50px
+	&:before
+		position: absolute
+		content: ''
+		width: 200px
+		margin: 0 auto
+		height: 2px
+		background-color: #f7c052
+		bottom: -10px
+
+.title-one
+	font-size: 19px
+	text-align: center
+  font-weight: 900
+  font-size: 56px
+  line-height: 62px
+  color: $yellow
+
+.title-content
+	margin-bottom: 30px
+	line-height: 45px
+	font-size: 36px
+
+.menu.active
+	display: block
+	left: 0
+
+.dropdown-2.active
+	display: flex
+
+.owl-stage
+	width: 650px
+
+.development
+	height: 650px
+	margin: 0 auto
+	padding: 50px 0
+	&__text
+		font-size: 56px
+		font-weight: 900
+		text-align: center
+		color: #041677
+
+.pagination
+	display: flex
+	margin-left: auto
+	margin-right: 0
+	justify-content: flex-end
+	margin-top: 45px
+	&__list
+		display: flex
+		li
+			@include shadow
+			width: 35px
+			height: 35px
+			line-height: 35px
+			text-align: center
+			border-radius: 5px
+			padding-top: 1px
+			margin: 0 5px
+			background-color: #fff
+			@include ease
+			&.pagination__dot
+				color: $accent
+				font-size: 22px
+				box-shadow: none
+				background-color: #f5f5f5
+				&:hover
+					transform: none
+					box-shadow: none
+			&::before
+				width: 0!important
+				height: 0!important
+			&:hover
+				@include hover 
+			&.active
+				background-color: $accent
+				a
+					color: #fff
+			a
+				display: block
+				color: $accent
+				border-bottom: none!important
+	&-button
+		width: 35px
+		height: 35px
+		cursor: pointer
+		&_prev
+			background: url($uri+'icons/visual/prev.svg') center center no-repeat
+			border-bottom: none!important
+		&_next
+			background: url($uri+'icons/visual/next.svg') center center no-repeat
+			border-bottom: none!important
+
+.author
+	background-color: #fff
+	margin: 15px 0 30px
+	display: inline-block
+	@include shadow
+	padding: 10px 20px
+	border-radius: 5px
+	font-size: 14px

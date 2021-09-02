@@ -1,0 +1,207 @@
+.page-news
+	display: flex
+	justify-content: space-between
+	@include media-breakpoint-down(md)
+		flex-wrap: wrap-reverse
+	&__list
+		width: 100%
+	&__right
+		position: relative
+		margin-left: 40px
+		min-width: 285px
+		max-width: 285px
+		@include media-breakpoint-down(md)
+			margin-left: 0
+			max-width: none
+		&::before
+			content: ''
+			position: absolute
+			top: 36px
+			left: -20px
+			width: 1px
+			height: 100%
+			background-color: #F8F8F8
+			@include media-breakpoint-down(md)
+				display: none
+	&-title
+		border-bottom: 1px solid #e1e1e1
+		padding-bottom: 10px
+		margin-bottom: 25px
+		font-weight: 700
+		font-size: 18px
+	&-box
+		display: flex
+		flex-wrap: wrap
+		margin-bottom: 50px
+	&-category__item
+		padding: 8px 15px
+		border-radius: 3px
+		background-color: #f2f2f2
+		margin-right: 8px
+		margin-bottom: 10px
+		color: #282c34
+		font-size: 13px
+		@include media-breakpoint-down(md)
+			flex: 1 2 calc((100% / 4) - 30px)
+		@include media-breakpoint-down(xs)
+			flex: 0 1 100%
+
+.page-news-category
+	margin-bottom: 50px
+	&--mobile
+		@include media-breakpoint-down(md)
+			display: none
+	&--mobile-bottom
+		@include media-breakpoint-down(md)
+			display: block!important
+			margin-top: 30px
+
+.page-news-box
+	@include media-breakpoint-down(md)
+		gap: 5px
+	
+.page-news-list
+	&__item
+		display: flex
+		align-items: center
+		justify-content: space-between
+		max-width: 710px
+		margin-bottom: 25px
+		padding-bottom: 25px
+		border-bottom: 1px solid rgba($gray, 0.5)
+		&:last-child
+			margin-bottom: 0
+		@include media-breakpoint-down(md)
+			max-width: none
+		@include media-breakpoint-up(lg)
+			max-width: 100%
+	&__images
+		margin-left: 35px
+		min-width: 220px
+		height: 140px
+		border-radius: 3px
+	&__title
+		display: block
+		color: $textcolor
+		font-size: 18px
+		font-weight: 700
+		margin-bottom: 10px
+	&__subtitle
+		margin-bottom: 8px
+		font-size: 15px
+	&__category
+		color: $blueLink
+		text-transform: uppercase
+		text-decoration: underline
+		font-weight: 600
+		margin-right: 20px
+	&__info
+		display: flex
+		font-size: 13px
+		color: $gray
+	&__date
+		margin-right: 8px
+		color: #858585
+	&__tags
+		margin-top: 5px
+		&>a,
+		&>a:visited
+			position: relative
+			display: inline-block
+			border-radius: 3px
+			padding: .02rem .3rem
+			border: 1px solid rgba(0, 122, 197, 0.3)
+			margin: 0 .32rem 0 0
+			color: rgb(0,122,197)
+			white-space: nowrap
+			text-overflow: ellipsis
+			overflow: hidden
+			vertical-align: middle
+			transition: border-color .2s ease 0s
+			font-size: 14px
+		&>a:hover,
+		&>a:visited:hover
+			border: 1px solid #007AC5
+			color: #db960a
+
+
+.page-news-category__item--active
+	background-color: #FFE0A3
+
+.page-news-popular
+	margin-left: 70px
+	width: 27%
+	&__title
+		border-bottom: 1px solid #E2E2E2
+		padding-bottom: 10px
+		margin-bottom: 40px
+		font-weight: 700
+		font-size: 18px
+
+.popular-list
+	padding-left: 60px
+	&__item
+		position: relative
+		display: flex
+		align-items: center
+		margin-bottom: 30px
+		&:last-child
+			margin-bottom: 0
+	&__info
+		display: flex
+		color: $gray
+		font-size: 13px
+		margin-top: 10px
+	&__views
+		margin-right: 10px
+		padding-left: 15px
+		background: url(../img/icons/views.svg) left center no-repeat
+	&__top-number
+		position: absolute
+		display: flex
+		align-items: center
+		justify-content: center
+		left: -50px
+		top: 4px
+		width: 35px
+		height: 35px
+		padding-top: 1px
+		color: $accent
+		@include shadow
+		border-radius: 3px
+
+.page-news-contacts
+	position: relative
+	font-size: 13px
+	p
+		strong
+			display: block
+			margin-top: 25px
+			margin-bottom: 20px
+	ul
+		li
+			margin-bottom: 10px
+			&:last-child
+				margin-bottom: 0
+	a
+		@include link
+
+.page-news-events
+	font-size: 14px
+	&__lists
+	&__item
+		margin-bottom: 15px
+		&:last-child
+			margin-bottom: 0
+		span
+			display: block
+			margin-top: 5px
+			font-size: 13px
+			color: $gray
+	&__button
+		display: inline-block
+		font-size: 13px
+		margin-top: 15px
+		border-bottom: 1px solid $textcolor
+		&:hover
+			border-bottom: 1px solid $yellow

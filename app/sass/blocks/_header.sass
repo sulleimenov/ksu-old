@@ -1,0 +1,562 @@
+.header-top-bg
+	background-color: $accent
+	position: relative
+	z-index: 10
+
+.header-top
+	display: flex
+	justify-content: space-between
+	align-items: center
+	height: 60px
+	&__left
+		display: flex
+		align-items: center
+	&__right
+		display: flex
+		justify-content: flex-end
+	&__logo
+		width: 27px
+		height: 27px
+		background: url(../img/logo-white.svg) no-repeat center / contain
+		margin-left: 20px
+		@include media-breakpoint-up(lg)
+			display: none
+	&__nav
+		display: flex
+		flex-direction: row-reverse
+	&__nav-item
+		position: relative
+		color: white
+		margin-left: 10px
+		padding: 4px 10px 3px
+		border-radius: 15px
+		z-index: 101
+		&:hover
+			background-color: #0161AE
+			color: white
+			.header-top__nav-dropdown
+				display: block
+		&:last-child
+			margin-left: 0
+	&__nav-item--dropdown
+		background-image: url(../img/icons/dropdown.svg)
+		background-repeat: no-repeat
+		background-position: right center
+		padding-right: 14px
+		cursor: pointer
+		&:hover
+			background-color: $accent
+			color: white
+	&__nav-item--lang
+		text-transform: uppercase
+	&__nav-item--cabinet
+		@include media-breakpoint-down(sm)
+			font-size: 1px
+			color: transparent
+			background: url(../img/icons/teeny/user.svg) no-repeat center
+			background-size: 20px
+			padding-left: 14px
+			&:hover
+				color: transparent
+	&__nav-item--blog
+		@include media-breakpoint-down(sm)
+			font-size: 1px
+			color: transparent
+			background: url(../img/icons/teeny/blog-new.svg) no-repeat center
+			background-size: 18px
+			padding-left: 11px
+			padding-right: 11px
+	&__nav-item--portal
+		@include media-breakpoint-down(sm)
+			font-size: 1px
+			color: transparent
+			background: url(../img/icons/teeny/portal.svg) no-repeat center
+			background-size: 22px
+			padding-left: 11px
+			padding-right: 11px
+	&__nav-item--search
+		background: url(../img/icons/teeny/search.svg) no-repeat center
+		padding-left: 11px
+		padding-right: 11px
+		background-size: 20px
+		@include media-breakpoint-up(md)
+			display: none
+	&__nav-dropdown
+		display: none
+		position: absolute
+		top: 100%
+		right: 0
+		z-index: 100
+		background-color: white
+		border-radius: 3px
+		font-size: 15px
+		+shadow
+		a
+			display: block
+			padding: 5px 13px
+			border-bottom: 1px solid #E8EAEA
+			&:last-child
+				border-bottom: none
+	&__burger-menu
+		display: none
+		position: relative
+		width: 30px
+		height: 31px
+		padding: 7px 0
+		span
+			position: absolute
+			width: 25px
+			height: 1px
+			background-color: white
+			&:first-child
+				top: 7px
+			&:nth-child(2)
+				top: 15px
+			&:last-child
+				bottom: 7px
+		@include media-breakpoint-down(md)
+			display: block
+
+.social
+	display: flex
+	@include media-breakpoint-down(md)
+		display: none
+	&__item
+		display: flex
+		align-items: center
+		justify-content: center
+		width: 27px
+		height: 27px
+		border-radius: 50%
+		border: 1px solid white
+		margin-right: 10px
+		border-bottom: 1px solid white!important
+		&:last-child
+			margin-right: 0
+
+.menu
+	display: flex
+	align-items: center
+	justify-content: space-between
+	@include media-breakpoint-down(md)
+		display: none
+
+.nav
+	display: flex
+	align-items: center
+	height: 75px
+	&__item
+		padding: 10px 15px
+		position: relative
+		cursor: pointer
+		&:first-child
+			margin-left: 0
+		&:hover
+			.nav__item-dropdown
+				display: block
+				// // height: auto
+				// transition: height 0.25s ease-in
+				// height: auto
+				
+	&__item-dropdown
+		display: none
+		// height: 0
+		// transition: height 0.15s ease-out
+		overflow: hidden
+		position: absolute
+		z-index: 12
+		top: 100%
+		border-radius: 3px
+		left: 0
+		width: 390px
+		background-color: white
+		+shadow-dark
+		li
+			&:hover
+				background-color: rgba(#0161AE, 0.3)
+			a
+				display: block
+				padding: 8px 15px
+				color: $textcolor
+	&__logo
+		margin-right: 10px
+		display: flex
+		align-items: center
+
+.search
+	display: flex
+	position: relative
+	z-index: 10
+	align-items: center
+	justify-content: center
+	border: none
+	width: 25px
+	height: 25px
+	background: url(../img/icons/teeny/search-black.svg) no-repeat center
+	&--close
+		background: url(../img/icons/teeny/close-black.svg) no-repeat center
+
+.swiper-offer
+	height: 400px
+	background-color: $accent
+	@include media-breakpoint-down(md)
+		height: auto
+
+.offer
+	margin-bottom: 40px
+	&__box
+		display: flex
+		justify-content: space-between
+		height: 400px
+		@include media-breakpoint-down(md)
+			height: auto
+			padding: 100px 0
+		@include media-breakpoint-down(sm)
+			padding: 40px 0 50px
+	&__left,
+	&__right
+		width: 50%
+	&__left
+		display: flex
+		align-items: center
+		justify-content: center
+		flex-direction: column
+		color: white
+		@include media-breakpoint-down(md)
+			width: 100%
+	&__right
+		@include media-breakpoint-down(md)
+			display: none
+	&__title
+		// font-size: 24px
+		// text-transform: uppercase
+		text-align: center
+		font-family: 'Montserrat', sans-serif
+		line-height: 1.45
+		>*
+			line-height: 1.45
+		>h1,h2,h3,h4,h5,h6
+			text-transform: uppercase
+		@include media-breakpoint-down(xs)
+			font-size: 18px
+			padding-left: 20px
+			padding-right: 20px
+		&--small
+			font-size: 20px
+			@include media-breakpoint-down(xs)
+				font-size: 18px
+		&--medium
+			font-size: 24px
+			@include media-breakpoint-down(sm)
+				font-size: 20px
+			@include media-breakpoint-down(xs)
+				font-size: 18px
+		&--large
+			font-size: 36px
+			@include media-breakpoint-down(sm)
+				font-size: 20px
+			@include media-breakpoint-down(xs)
+				font-size: 18px
+	&__subtitle
+		text-align: center
+		line-height: 1.45
+		font-family: 'Montserrat', sans-serif
+		margin-top: 30px
+	&__image
+		position: relative
+		height: 400px
+		@include media-breakpoint-down(xs)
+			height: 300px
+	&__image-center
+		background-size: cover
+		height: 400px
+		@include media-breakpoint-down(xs)
+			height: 300px
+	&__gradient-left,
+	&__gradient-right
+		position: absolute
+		top: 0
+		width: 50%
+		height: 100%
+	&__gradient-left
+		left: -3px
+		background: linear-gradient(to right, rgba($accent, 100%), rgba($accent, 0))
+	&__gradient-right
+		right: -3px
+		background: linear-gradient(to left, rgba($accent, 100%), rgba($accent, 0))
+	&__buttons
+		margin-top: 20px
+		a
+			display: inline-block
+			padding: 8px 18px 7px
+			margin: 0 10px
+			margin-top: 20px
+			background-color: white
+			border-radius: 3px
+			text-transform: uppercase
+			text-align: center
+		&-center
+			display: block!important
+			margin: 0 auto!important
+			margin-top: 20px!important
+
+.swiper-button-next, .swiper-container-rtl .swiper-button-prev
+	right: 10%
+	@include media-breakpoint-down(xxl)
+		right: 10%
+	@include media-breakpoint-down(xl)
+		right: 2%
+	@include media-breakpoint-down(lg)
+		right: 10px
+	@include media-breakpoint-down(xs)
+		right: 0
+.swiper-button-prev, .swiper-container-rtl .swiper-button-next
+	left: 10%
+	@include media-breakpoint-down(xxl)
+		left: 10%
+	@include media-breakpoint-down(xl)
+		left: 2%
+	@include media-breakpoint-down(lg)
+		left: 10px
+	@include media-breakpoint-down(xs)
+		left: 0
+
+.swiper-button-next:after, .swiper-container-rtl .swiper-button-prev:after,
+.swiper-button-prev:after, .swiper-container-rtl .swiper-button-next:after
+	font-size: 24px
+	font-weight: 700
+	color: white
+	@include media-breakpoint-down(lg)
+		font-size: 18px
+	@include media-breakpoint-down(md)
+		font-size: 14px
+
+.swiper-pagination-bullet
+	background-color: white
+	border-radius: 20px
+	height: 7px
+	transition: all 0.2s ease-in-out
+
+.swiper-pagination-bullet-active
+	width: 30px
+
+// Блок новости
+.news
+	margin-bottom: 60px
+
+.news-list
+	display: flex
+	justify-content: space-between
+	@include media-breakpoint-down(sm)
+		flex-wrap: wrap
+	&__item
+		width: 350px
+		@include media-breakpoint-down(lg)
+			width: 290px
+		@include media-breakpoint-down(md)
+			width: 210px
+		@include media-breakpoint-down(sm)
+			width: 240px
+			&:last-child
+				display: none
+		@include media-breakpoint-down(xs)
+			width: 100%
+			margin-bottom: 30px
+			&:nth-child(2)
+				display: none
+	&__item-image
+		display: block
+		width: 100%
+		height: 215px
+		margin-bottom: 10px
+		background-color: $accent
+		border-radius: 5px
+		@include media-breakpoint-down(lg)
+			height: 195px
+		@include media-breakpoint-down(md)
+			height: 140px
+		@include media-breakpoint-down(sm)
+			height: 170px
+		@include media-breakpoint-down(xs)
+			height: 250px
+	&__item-info
+		margin-bottom: 6px
+	&__item-time
+		font-size: 12px
+		color: $gray
+	&__item-name
+		display: block
+		font-size: 18px
+		font-weight: 500
+		margin-bottom: 10px
+	&__item-desc
+		font-size: 13px
+		color: $gray
+
+.news-header
+	font-size: 24px
+	font-weight: 700
+	display: flex
+	justify-content: space-between
+	margin-bottom: 25px
+	@include media-breakpoint-down(sm)
+		font-size: 18px
+	&__title
+	&__link
+		text-decoration: underline
+
+// Контент меню
+.burger-content
+	position: absolute
+	top: 60px
+	width: 100%
+	transform: translateX(-100%)
+	height: 100%
+	background-color: white
+	z-index: 99
+	transition: all 0.25s ease-in
+
+	&.active
+		transform: translateX(0)
+		transition: all 0.25s ease-out
+
+.burger-content-menu
+	padding: 25px 0
+	&__item
+		color: $gray
+		display: block
+		padding: 5px 0
+		&.active
+			.burger-content-menu__item-dropdown
+				height: auto
+	&__title
+		margin-bottom: 5px
+		position: relative
+	&__arrow
+		position: absolute
+		right: 0
+		top: 50%
+		transform: translateY(-50%)
+		display: inline-block
+		background-image: url(../img/institute/icons/arrow-dropdown.svg)
+		background-repeat: no-repeat
+		width: 8px
+		height: 4px
+		transition: all .3s ease-in-out
+		&.active
+			transform: rotateX(180deg)
+	&__item-dropdown
+		color: $textcolor
+		height: 0
+		overflow: hidden
+		transition: all .5s ease-in-out
+		li>a
+			display: block
+			padding: 5px 0
+
+.search-box
+	position: fixed
+	height: 75px
+	z-index: 9
+	top: 60px
+	width: 100%
+	transform: translateY(-75px + -60px)
+	background-color: white
+	display: flex
+	align-items: center
+	transition: all .1s ease-out
+	&.show
+		transform: translateY(0)
+
+.search-form
+	width: 100%
+	max-width: 97%
+	&__input
+		border: none
+		padding: 7px 0
+		font-size: 16px
+		width: 100%
+
+// Навигация
+.content-nav 
+	margin-top: 50px
+	&__item 
+		display: flex
+		align-items: center
+		justify-content: center
+		@include shadow
+		background-color: #fff
+		width: 100%
+		height: 100px
+		cursor: pointer
+		text-align: center
+		text-transform: uppercase
+		border-radius: 7px
+		position: relative
+		margin-bottom: 30px
+		padding: 0 10px
+		@include media-breakpoint-down(lg)
+			margin-bottom: 40px
+		&:hover 
+			color: #000
+			@include hover 
+		&::before 
+			content: ''
+			position: absolute
+			top: -15px
+			border-radius: 50%
+			right: 0
+			left: 0
+			margin: auto
+			width: 35px
+			height: 35px
+			background-color: #fff 
+		img 
+			margin: 0 auto
+			display: block
+			position: absolute
+			top: -7px
+
+// Инфографика
+.infographic 
+	background-color: #FF2B42
+	color: #ffffff
+	padding: 40px 0
+	margin-top: 60px
+	text-align: center
+	&__item
+		@include media-breakpoint-down(md)
+			margin: 20px 0
+		@include media-breakpoint-down(xs)
+			margin: 30px 0
+	&__item--black
+		color: $textcolor
+	&__number 
+		font-size: 48px
+		font-weight: 700
+		margin-bottom: 15px
+
+// Кнопка call-center
+.call-center
+	height: 28px
+	line-height: 28px
+	padding: 0 10px
+	padding-top: 1px
+	background: #fff url($uri+'window/call-center.svg') 0 0 no-repeat
+	border-radius: 20px
+	// color: #fe6846
+	&:hover
+		background-color: #fff
+		color: #000
+	@include media-breakpoint-down(md)
+		position: absolute
+		top: 9px
+		left: 113px
+		border: none
+		display: flex
+		align-items: center
+		width: 28px
+		background: url($uri+'window/call-center.svg') center center no-repeat
+		background-size: 20px
+		span
+			display: none

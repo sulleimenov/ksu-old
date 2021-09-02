@@ -1,0 +1,72 @@
+section#sec-menu
+{
+	display: flex;
+	flex-wrap: wrap;
+	padding: 20px 0 55px;
+	position: relative; 
+}
+section#sec-menu a
+{
+	align-items: center;
+	display: block;
+	display: flex;
+	height: 400px;
+	justify-content: center;
+	overflow: hidden;
+	position: relative;
+	width: 50%;
+}
+section#sec-menu a:hover img
+{
+	transform: scale(1.1);
+}
+section#sec-menu a:first-child
+{
+	width: 100%;
+}
+section#sec-menu a:first-child:after
+{
+	background-color: rgba(255,174,0,.64);
+	content: '';
+	height: 100%;
+	left: 0;
+	position: absolute;
+	top: 0;
+	width: 100%;
+}
+section#sec-menu a:nth-child(2):after
+{
+	background-color: rgba(226,0,64,.64);
+	content: '';
+	height: 100%;
+	left: 0;
+	position: absolute;
+	top: 0;
+	width: 100%;
+}
+section#sec-menu a:nth-child(3):after
+{
+	background-color: rgba(0,133,212,.64);
+	content: '';
+	height: 100%;
+	left: 0;
+	position: absolute;
+	top: 0;
+	width: 100%;
+}
+section#sec-menu a h3
+{
+	color: #fff;
+	position: absolute;
+	text-align: center;
+	z-index: 1;
+}
+section#sec-menu a picture,
+section#sec-menu a img,
+section#sec-menu a source
+{
+	object-fit: cover;
+	height: 100%;
+	transition: all 1s ease;
+	width: 100%;
+}

@@ -1,0 +1,40 @@
+.news-entry-title
+	margin-bottom: 25px
+	@include media-breakpoint-down(md)
+		font-size: 32px
+
+.news-entry-info
+	display: flex
+	align-items: center
+	color: $gray
+	margin-bottom: 25px
+	font-size: 12px
+	&__text
+		margin-right: 20px
+		padding-top: 1px
+	&__text--views
+		background: url(../img/icons/news/eye.svg) no-repeat left center
+		padding-left: 16px
+	&__text--read
+		background: url(../img/icons/news/read.svg) no-repeat left center
+		padding-left: 16px
+	
+
+.news-entry-container
+	max-width: 700px
+	margin: 0 auto
+	@include content
+	p
+		margin-bottom: 15px
+		line-height: 1.6rem
+		img
+			display: block
+			margin: 0 auto
+			border-radius: 10px
+			height: auto
+		span
+			img
+				display: block
+				margin: 0 auto
+				border-radius: 10px
+				height: auto

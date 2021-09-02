@@ -1,0 +1,141 @@
+.tape
+	&__title
+		font-size: 36px
+		margin-bottom: 40px
+	&__wrapper
+		display: flex
+		justify-content: space-between
+		flex-wrap: wrap
+		margin-bottom: 30px
+	&__date
+		text-align: center
+		margin-right: 15px
+		color: $accent
+	&__item
+		border-radius: 5px
+		@include shadow
+		width: 49%
+		margin-bottom: 20px
+		padding: 13px 20px
+		background-color: #fff
+		display: flex
+		line-height: 20px
+		align-items: center
+		cursor: pointer
+		@include ease
+		transition: box-shadow 300ms ease, transform 300ms ease
+		overflow: hidden
+		text-overflow: ellipsis
+		&:hover
+			@include hover
+			color: #212121
+		@include media-breakpoint-down(md)
+			width: 100%
+.template
+	position: relative
+	min-height: 800px
+	&-content
+		padding: 0 20px
+		line-height: 20px
+		p
+			line-height: 20px
+			margin-bottom: 14px
+		ul
+			padding-left: 20px
+			li
+				list-style-type: disc
+				margin: 4px 0
+		h2,h3,h4,h5,h6
+			line-height: 30px
+			margin-top: 42px
+			margin-bottom: 25px
+
+.sidebar
+	font-size: 14px
+	background-color: #fff
+	border-radius: 5px
+	width: 350px
+	height: 600px
+	overflow-Y: auto
+	@include shadow
+	padding: 20px 35px
+	@include media-breakpoint-down(lg)
+		width: 290px
+	@include media-breakpoint-down(md)
+		position: fixed
+		z-index: 98
+		width: 100%
+		height: 100%
+		border-radius: 0
+		top: 0
+		bottom: 0
+		right: 0
+		left: 0
+		transform: translateX(-150%)
+		transition: all 0.3s ease
+	&__list
+		border-bottom: 2px solid $yellow
+		padding-bottom: 25px
+		p
+			margin-bottom: 1px
+			line-height: 125%
+		li
+			a
+				display: block
+				padding: 10px 0
+	&__download
+		margin-top: 15px
+		line-height: 20px
+		p
+			margin-bottom: 0
+		&_not
+			color: #bfbfbf
+			text-align: center
+			font-size: 18px
+	&__wrapper
+		text-align: center
+	&__plus
+		display: none
+	&-button--is-active
+		@include media-breakpoint-down(md)
+			position: fixed
+			display: block
+			top: 110px
+			left: 0
+			z-index: 100
+			width: 60px
+			height: 40px
+			background: url($uri+'icons/clip.svg') center center no-repeat
+			background-color: $accent
+			border-radius: 5px
+			border-top-left-radius: 0
+			border-bottom-left-radius: 0
+	&-button--close
+		@include media-breakpoint-down(md)
+			background: $accent url($uri+'icons/sidebar-close.svg') center center no-repeat
+	&--is-active
+		transform: translateX(0)
+		transition: all 0.3s ease
+
+
+// .word, .pdf, .ppt, .excel, .link, .phone
+//   padding: 7px 0 5px 20px
+//   display: block
+// .word
+//   background: url($uri+'icons/visual/word.svg') center left no-repeat
+//   background-size: 13px
+// .pdf
+//   background: url($uri+'icons/visual/pdf.svg') center left no-repeat
+//   background-size: 13px
+// .excel
+//   background: url($uri+'icons/visual/excel.svg') center left no-repeat
+//   background-size: 13px
+// .ppt
+//   background: url($uri+'icons/visual/ppt.svg') center left no-repeat
+//   background-size: 13px
+// .link
+//   background: url($uri+'icons/visual/link.svg') center left no-repeat
+//   background-size: 12px
+// .phone
+//   background: url($uri+'icons/visual/phone.svg') center left no-repeat
+//   background-size: 13px

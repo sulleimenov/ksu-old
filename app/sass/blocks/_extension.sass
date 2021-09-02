@@ -1,0 +1,42 @@
+.container-с
+	padding-left: 15px
+	padding-right: 15px
+	margin: 0 auto
+	max-width: 1140px
+
+.template-content
+	@include media-breakpoint-down(md)
+		padding: 0
+
+.template-content a,
+.news-entry-container a,
+	@include link
+
+.img-link
+	border-bottom: none!important
+
+.text-under
+	position: relative
+	margin-bottom: 24px
+	span
+		position: absolute
+		bottom: -15px
+		left: 0
+		font-size: 12px
+		color: #ababab
+
+.current
+	background-color: $blueLink!important
+	color: #fff
+
+.ya-share2
+	margin-top: 30px!important
+	&__list
+		margin-bottom: 0!important
+		padding-left: 0!important
+	&__item::before
+		width: 0!important
+		height: 0!important
+		background-color: transparent!important
+	&__link
+		border-bottom: none!important

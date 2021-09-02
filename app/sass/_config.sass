@@ -1,0 +1,150 @@
+$uri: '../img/'
+/* ../templates/ksu/img/ */
+/* ../img/ */
+
+//variables
+$accent: #02508F
+$fontsize: 15px
+$textcolor: #212121
+$lineheight: 1.45
+$userfont: roboto, sans-serif
+$systemfont: -apple-system, BlinkMacSystemFont, Arial, sans-serif
+
+//color
+$gray: #828282
+$yellow: #FFC147
+$blueLink: #006ec8
+
+//bootstrap compatible gutter variable => $gutter
+$grid-gutter-width: 30px
+$gutter: $grid-gutter-width
+
+//imports
+// @import 'node_modules/bootstrap/scss/bootstrap-reboot.scss' // Bootstrap Reboot collection
+@import 'node_modules/bootstrap/scss/mixins/_breakpoints.scss' // Bootstrap Breakpoints mixin
+// @import 'node_modules/bootstrap/scss/utilities/_sizing.scss' // Optional Bootstrap Utilites
+@import 'node_modules/bootstrap/scss/bootstrap-grid.scss'
+@import '/app/libs/owl-carousel/owl.theme.default.min.css'
+@import '/app/libs/owl-carousel/owl.carousel.min.css'
+@import '/app/libs/fancybox/jquery.fancybox.min.css'
+@import 'node_modules/swiper/swiper-bundle'
+
+
+//fonts
+@mixin font($fname, $fstyle, $fweight, $furl)
+	@font-face
+		font-family: $fname
+		font-style: $fstyle
+		font-weight: $fweight
+		src: url($furl) format('woff2')
+
+@include font('roboto-oh5', normal, 400, '../fonts/roboto-regular-webfont.woff2')
+@include font('roboto-oh5', italic, 400, '../fonts/roboto-italic-webfont.woff2')
+@include font('roboto-oh5', normal, 700, '../fonts/roboto-bold-webfont.woff2')
+@include font('roboto-oh5', italic, 700, '../fonts/roboto-bolditalic-webfont.woff2')
+
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@700&display=swap')
+
+//reset
+::placeholder
+	color: #666
+
+::selection
+	background-color: $accent
+	color: #fff
+
+*
+	margin: 0
+	padding: 0
+	box-sizing: border-box
+	&::before,
+	&::after
+		box-sizing: border-box
+
+input, textarea
+	outline: none
+	&:focus:required:invalid
+		border-color: red
+	&:required:valid
+		border-color: green
+
+html
+	font-size: $fontsize
+
+body
+	font-family: $userfont
+	font-size: $fontsize
+	line-height: $lineheight
+	color: $textcolor
+	min-width: 320px
+	position: relative
+	overflow-x: hidden
+	overflow-y: scroll
+
+ul
+	li
+		list-style: none
+
+ol
+	margin-left: 20px
+
+button
+	cursor: pointer
+
+a
+	color: $textcolor
+	transition: all 0.1s ease
+	text-decoration: none
+	&:hover
+		color: $yellow
+	
+img
+	max-width: 100%
+
+span
+	text-decoration: none!important
+
+h1, h2, h3, h4, h5, h6
+	line-height: 1.2
+
+
+h1
+	font-size: 36px
+	@include media-breakpoint-down(md)
+		font-size: 32px
+	@include media-breakpoint-down(xs)
+		font-size: 26px
+h2
+	font-size: 32px
+	@include media-breakpoint-down(md)
+		font-size: 28px
+	@include media-breakpoint-down(xs)
+		font-size: 24px
+h3
+	font-size: 24px
+	@include media-breakpoint-down(md)
+		font-size: 20px
+	@include media-breakpoint-down(xs)
+		font-size: 18px
+h4
+	font-size: 18px
+h5
+	font-size: 16px
+h6
+	font-size: 14px
+
+table
+	margin: 25px auto
+	border: 1px solid #bfbfbf
+	border-radius: 5px
+	p
+		margin: 0
+		
+td
+	padding: 10px 15px
+	border: 1px solid #bfbfbf
+
+blockquote
+	box-shadow: inset 3px 0 0 0 rgba($blueLink, 0.84)
+	padding-left: 23px
+	font-style: italic

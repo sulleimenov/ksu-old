@@ -1,0 +1,81 @@
+@mixin content
+	h1, h2, h3, h4, h5, h6
+		margin: 30px 0 13px
+
+	p
+		line-height: 1.45rem
+		margin-bottom: 13px
+
+	ul
+		li
+			position: relative
+			list-style-type: none
+		li:before
+			content: ''
+			position: absolute
+			left: -17px
+			top: 8px
+			width: 5px
+			height: 5px
+			border-radius: 50%
+			background-color: $blueLink
+	
+	ol, ul
+		margin-bottom: 30px
+		padding-left: 22px
+		margin-left: 0
+		li
+			margin-bottom: 10px
+			&:last-child
+				margin-bottom: 0
+
+@mixin link
+	color: $blueLink
+	transition: all 1s ease
+	text-decoration: none!important
+	border-bottom: 1px solid $blueLink
+	&:hover
+		transition: all 1s ease
+		border-bottom: none
+
+@mixin text
+	.text, .text-warning, .text-danger
+		padding: 15px 20px
+		border-radius: 5px
+	.text
+		background-color: #D8F3C8
+	.text-warning
+		background-color: #F8DD87
+	.text-danger
+		background-color: #FFCCCC
+	.text-danger--center
+		text-align: center
+
+@mixin shadow
+	box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.14)
+
+@mixin shadow-dark
+	box-shadow: 0 1px 10px 0 rgba(0, 0, 0, 0.15)
+
+@mixin shadow-2
+	box-shadow: 0 1px 5px 1px rgba(0, 0, 0, 0.03)
+
+@mixin shadow-1
+	box-shadow: 0 0 20px 0 rgba(150, 150, 150, 0.1)
+	
+@mixin shadow-light
+	box-shadow: 0 2px 8px 0 rgba(50, 50, 50, 0.08)
+
+@mixin hover
+	transform: translateY(-4px)
+	box-shadow: 0 12px 18px 0 rgba(0,0,0,0.1)
+
+@mixin hover-1
+	transform: translateY(-1px)
+	box-shadow: 0 0 20px 0 rgba(150, 150, 150, 0.1)
+
+@mixin tr
+	transition: all 0.2s ease
+
+@mixin ease
+	transition: box-shadow 300ms ease, transform 300ms ease
