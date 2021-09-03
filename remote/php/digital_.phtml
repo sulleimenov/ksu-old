@@ -1,0 +1,204 @@
+<!doctype html>
+<html lang="ru">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <link rel="stylesheet" href="/digital/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/digital/css/stars.css">
+    <link rel="stylesheet" href="/digital/css/dodecahedron.css">
+
+    <link href="https://fonts.googleapis.com/css?family=Merriweather|Oswald:700&display=swap&subset=cyrillic" rel="stylesheet">
+
+    <title>Цифровая экосистема КРУ</title>
+
+    <style>
+        html, body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Merriweather', serif;
+        }
+        h1, h2, h3, h4 {
+            font-family: 'Oswald', sans-serif;
+        }
+        #design {
+            width: 100%;
+            height: 100vh;
+            background: radial-gradient(ellipse at bottom, #38475b 0%, #090a0f 100%);
+            overflow: hidden;
+            position: relative;
+        }
+        #content {
+            height: 100vh;
+            overflow-x: hidden;
+            overflow-y: auto;
+        }
+
+        #dodecahedron {
+            bottom: 50vh;
+        }
+
+        #read-more {
+            display: none;
+            z-index: 10000;
+            color: #ffffff;
+            position: absolute;
+
+            text-transform: uppercase;
+
+            bottom: 10vh;
+            font-size: 1.7em;
+            left: 0;
+            right: 0;
+            text-align: center;
+        }
+
+        #design #title {
+            top: 58%;
+            text-align: right;
+            padding-right: 35%;
+        }
+        #design #title span {
+            font: 700 1em/1 "Oswald", sans-serif;
+            text-shadow: 0 0 80px rgba(255,255,255,.5);
+            -webkit-text-fill-color: transparent;
+            -webkit-transform: translate3d(0,0,0);
+            -webkit-backface-visibility: hidden;
+        }
+
+        /*
+        3f83c0 - 5f93cd
+        f8b938 - ffcd54
+        81ba5c - 95cc71
+        833791 - 9251a1
+	e67179 - e88c92
+        */
+
+        .card-links .card.bg-automated {
+            background-color: #3f83c0 !important;
+        }
+        .card-links .card.bg-automated:hover {
+            background-color: #5f93cd !important;
+        }
+        .card-links .card.bg-information {
+            background-color: #f8b938 !important;
+        }
+        .card-links .card.bg-information:hover {
+            background-color: #ffcd54 !important;
+        }
+	.card-links .card.bg-press {
+            background-color: #e67179 !important;
+        }
+        .card-links .card.bg-press:hover {
+            background-color: #e88c92 !important;
+        }
+        .card-links .card.bg-projects {
+            background-color: #7602ca !important;
+        }
+        .card-links .card.bg-projects:hover {
+            background-color: #9402f8 !important;
+        }
+        .card-links .card.bg-feedback {
+            background-color: #81ba5c !important;
+        }
+        .card-links .card.bg-feedback:hover {
+            background-color: #95cc71 !important;
+        }
+
+        #design #title span {
+            background: url(/digital/img/header_bg.png) repeat-y;
+            background-clip: text;
+            -webkit-background-clip: text;
+        }
+        #design #title span {
+            animation: aitf1 80s linear infinite;
+            -webkit-animation: aitf1 80s linear infinite;
+        }
+
+        #content .card {
+            border: none;
+        }
+        #content .card-header {
+            border-bottom-color: #ffffff;
+            border-bottom-width: 4px;
+        }
+
+        @-webkit-keyframes aitf1 {
+            0% { background-position: 0 50%; }
+            100% { background-position: 100% 50%; }
+        }
+
+        @media (max-width: 767px) {
+            #content {
+                overflow: visible;
+            }
+            #read-more {
+                display: block;
+            }
+            #design #title {
+                padding-right: 30%;
+                font-size: 34px;
+            }
+        }
+        @media (max-width: 575px) {
+            #design #title {
+                font-size: 26px;
+            }
+        }
+    </style>
+</head>
+<body>
+<div class="container-fluid ml-0 pl-0">
+	<div class="row ml-0 pl-0">
+		<div class="col-sm-12 col-md-6 col-lg-5 mx-0 px-0">
+			<div id="design">
+				<div id="stars"></div>
+				<div id="stars2"></div>
+				<div id="stars3"></div>
+				<div id="dodecahedron">
+					<div class="plane main">
+						<div class="circle"></div>
+						<div class="circle"></div>
+						<div class="circle"></div>
+						<div class="circle"></div>
+						<div class="circle"></div>
+						<div class="circle"></div>
+					</div>
+				</div>
+				<div id="title"><span>ЦИФРОВАЯ</span><br /> <span>ЭКОСИСТЕМА</span><br /> <span>КРУ</span></div>
+				<div id="constellation">
+					<div class="content">
+						<div id="large-header" class="large-header"><canvas id="demo-canvas"></canvas></div>
+					</div>
+				</div>
+				<a id="read-more" href="#content">перейти</a></div>
+		</div>
+		<div class="col-sm-12 col-md-6 col-lg-7 mx-0 px-0">
+			<div id="content" class="py-3 px-5">
+				<h1 class="mb-4">Цифровая экосистема КРУ</h1>
+				<p>Цифровая экосистема университета &ndash; это, система призванная удовлетворить информационные потребности всех заинтересованных сторон (стейкхолдеров) научно-образовательной, инновационной деятельности университета и должна стать полноценным инструментом коммуникации.</p>
+				<p>Участниками цифровой экосистемы университета являются:</p>
+				<ul>
+					<li>обучающиеся (студенты бакалавриата и магистратуры)</li>
+					<li>научно-педагогические кадры</li>
+					<li>учебно-вспомогательный персонал</li>
+					<li>руководство университета</li>
+					<li>внешние стейкхолдеры</li>
+				</ul>
+				<hr />
+<?
+  $hierarchy = umiHierarchy::getInstance();
+  $page = $hierarchy->getElement($variables['@pageId']);
+  print_r($page->getValue('content'));
+?>
+			</div>
+		</div>
+	</div>
+</div>
+
+<!--<script src="/js/bootstrap.min.js"></script>-->
+<script src="/digital/js/TweenLite.min.js"></script>
+<script src="/digital/js/EasePack.min.js"></script>
+<script src="/digital/js/constellation.js"></script>
+</body>
+</html>

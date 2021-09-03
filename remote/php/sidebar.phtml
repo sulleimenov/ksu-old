@@ -1,0 +1,43 @@
+<? include "lang/langselect.phtml"; ?>
+<? include "include/head.phtml"; ?>
+
+<header class="header header-inner">
+	<? include "top-header.phtml"; ?>
+</header>
+
+<div class="container">
+	<div class="breadcrumbs">
+		<?= $this->render($this->macros('core', 'navibar'), 'library/navibar') ?>
+	</div>
+</div>
+<div class="sidebar-button sidebar-button--is-active"></div>
+<div class="template">
+	<div class="container">
+		<div class="row">
+			<div class="col-xl-4 col-lg-4">
+				<div class="sidebar">
+					<?
+					$hierarchy = umiHierarchy::getInstance();
+					$page = $hierarchy->getElement($variables['@pageId']);
+					if ($page->getValue('spisok')) {
+						echo '<ul class="sidebar__list">';
+						print_r($page->getValue('spisok'));
+						echo '</ul>';
+					}
+					?>
+					<div class="sidebar__download">
+						<?= $page->getValue('vlozhenie'); ?>
+					</div>
+				</div>
+			</div>
+			<div class="col-xl-8 col-lg-8">
+				<div class="template-content">
+					<h1 class="title-content"><? print_r($page->getValue('h1')); ?></h1>
+					<? print_r($page->getValue('content')); ?>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<!---------------- Футер ---------------->
+<? include 'footer.phtml'; ?>

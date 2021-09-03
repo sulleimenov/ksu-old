@@ -1,0 +1,96 @@
+<? include "partials/header.phtml"; ?>
+<?php
+	$hierarchy = umiHierarchy::getInstance();
+	$obMainOfficesPersonal = $hierarchy->getElement($variables['@pageId']);
+	$obOfficesList = $hierarchy->getChildrenList($variables['@pageId']);
+	function str($string) {
+		$strings = mb_substr($string, mb_strrpos($string, ":") + 1, mb_strlen($string));
+		return trim($strings, "");
+	}
+	function str_span($string) {
+		$str = strpos($string, ":");
+		echo $row = substr($string, 0, $str);
+	}
+?>
+
+<div class="container">
+	<? if ($variables['@pageId'] == 4225) : ?>
+	<div class="main-offices-list">
+		<h1 class="main-offices-list__title">
+			<?= $obMainOfficesPersonal->getName() ?>
+		</h1>
+		<div class="main-offices-lists">
+			<?
+				foreach ($obOfficesList as $obOffices) : 
+				$obOffices = $hierarchy->getElement($obOffices);
+			?>
+			<div class="main-offices-item">
+				<div class="main-offices-item__title">
+					<?= $obOffices->getName() ?>
+				</div>
+				<div class="main-offices-item__contacts">
+					<div><?= $obOffices->offices_fio ?></div>
+					<div><?= $obOffices->offices_address ?></div>
+					<div><?= $obOffices->offices_phone ?></div>
+					<div><?= $obOffices->offices_email ?></div>
+				</div>
+				<? if ($obOffices->content) : ?>
+				<a href="<?= $obOffices->link ?>" class="main-offices-item__button">Подробнее</a>
+				<? endif; ?>
+			</div>
+			<? endforeach ?>
+		</div>
+	</div>
+	<? else : ?>
+	<div class="main-offices-personal">
+		<div class="main-offices-personal__left">
+			<div class="main-offices-personal-avatar">
+				<div class="main-offices-personal-avatar__image" style="background-image: url('<?= $obMainOfficesPersonal->offices_photo ?>');background-size: cover;"></div>
+				<div class="main-offices-personal-avatar__name">
+					<?= str($obMainOfficesPersonal->offices_fio) ?>
+					<span><? str_span($obMainOfficesPersonal->offices_fio) ?></span>
+				</div>
+			</div>
+			<? if ($obMainOfficesPersonal->getValue('offices_structural_link')) : ?>
+			<div class="main-offices-personal__box">
+				<div class="main-offices-personal-title">
+					Структурные подразделения
+				</div>
+				<div class="main-offices-personal__lists">
+					<?= $obMainOfficesPersonal->getValue('offices_structural_link') ?>
+				</div>
+			</div>
+			<? endif ?>
+			<div class="main-offices-personal__box">
+				<div class="main-offices-personal-title">
+					Контакты
+				</div>
+				<? if ($obMainOfficesPersonal->offices_address) : ?>
+				<div class="text-under">
+					<?= str($obMainOfficesPersonal->offices_address) ?>
+					<span>Адрес</span>
+				</div>
+				<? endif ?>
+				<? if ($obMainOfficesPersonal->offices_phone) : ?>
+				<div class="text-under">
+					<a href="tel:<?= str($obMainOfficesPersonal->offices_phone) ?>"><?= str($obMainOfficesPersonal->offices_phone) ?></a>
+					<span>Телефон</span>
+				</div>
+				<? endif ?>
+				<? if ($obMainOfficesPersonal->offices_email) : ?>
+				<div class="text-under">
+					<a href="mailto:<?= str($obMainOfficesPersonal->offices_email) ?>"><?= str($obMainOfficesPersonal->offices_email) ?></a>
+					<span>E-mail</span>
+				</div>
+				<? endif ?>
+			</div>
+		</div>
+		<div class="main-offices-personal__right">
+			<h2 class="main-offices-personal__right-title"><?= $obMainOfficesPersonal->getName() ?></h2>
+			<?= $obMainOfficesPersonal->content ?>
+		</div>
+	</div>
+	<? endif ?>
+</div>
+
+<? include 'footer.phtml'; ?>

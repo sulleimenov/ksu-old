@@ -1,0 +1,19 @@
+<?
+$hierarchy = umiHierarchy::getInstance();
+
+foreach ($variables['void:lines'] as $list) :
+	$page = $hierarchy->getElement($list['attribute:id']);
+	$str = $list['node:name'];
+	$text_trim = mb_strimwidth($list['node:name'], 0, 90, "...");
+	echo '
+	<a href="'.$list['attribute:link'].'" class="events__item">
+		<div class="events__date">
+			'.$page->getValue('publish_time')->getFormattedDate('d')." ".$this->translate(strtolower($page->getValue('publish_time')->getFormattedDate('M'))).'
+		</div>
+		<div class="events__anons">
+			'.$text_trim.'
+		</div>
+	</a>
+	';
+endforeach;
+?>

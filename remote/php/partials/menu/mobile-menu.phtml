@@ -1,0 +1,16 @@
+<?php
+foreach ($variables['items']['nodes:item'] as $item) :
+	if (!($item['items'])) :
+		echo '<a href="'.$item['@link'].'" class="burger-content-menu__item">'.$item['@name'].'</a>';
+	else :
+		echo '<div class="burger-content-menu__item">';
+		echo '<div class="burger-content-menu__title">'.$item['@name'].'<span class="burger-content-menu__arrow"></span></div>';
+		echo '<ul class="burger-content-menu__item-dropdown">';
+			foreach ($item['items']['nodes:item'] as $underitem) :
+			echo '<li><a href="'.$underitem['@link'].'">'.$underitem['@name'].'</a></li>';
+			endforeach;
+		echo '</ul>';
+	endif;
+	echo '</div>';
+endforeach;
+?>

@@ -1,0 +1,145 @@
+<? include "./templates/ksu/php/partials/header.phtml"; ?>
+<?
+	$hierarchy = umiHierarchy::getInstance();
+	$getParentPage = $hierarchy->getParent($variables['@pageId']);
+	$parentPage = $hierarchy->getElement($getParentPage);
+	$getChildrenPageList = $hierarchy->getChildrenTree($variables['@pageId']);
+
+	$page = $hierarchy->getElement($variables['@pageId']);
+	$currentPage = $hierarchy->getElement($variables['@pageId']);
+	$rootPageId = $currentPage->id;
+
+	do {
+		$rootPage = $hierarchy->getElement($rootPageId);
+	} while ($rootPageId = $hierarchy->getParent($rootPageId));
+
+	$tags = $page->getValue('tags');
+
+if (!$tags) {
+    $this->macros('content', 'redirect', ['/newslist/all-news']);
+}
+
+$umiHierarchy = umiHierarchy::getInstance();
+$umiLinksHelper = umiLinksHelper::getInstance();
+
+$sel = new selector('pages');
+$sel->types('hierarchy-type')->name('news', 'item');
+
+$sel->where('tags')->equals($tags);
+
+$perPage = 15;
+$currentPage = (int) getRequest('p');
+
+if ($perPage !== -1) {
+    $sel->limit($currentPage * $perPage, $perPage);
+}
+
+$sel->order('publish_time')->desc();
+
+$result = $sel->result();
+$total = $sel->length();
+
+$arrItems = [];
+list(
+    $tplPages,
+    $tpl_page,
+    $tpl_pages_empty
+) = content::loadTemplates('content/tags',
+    'pages',
+    'page',
+    'pages_empty'
+);
+
+/** @var iUmiHierarchyElement $element */
+foreach ($result as $element) {
+    if (!$element) {
+        continue;
+    }
+
+    $elementId = $element->getId();
+
+    $lineArr = [];
+    $lineArr['attribute:id'] = $elementId;
+    $lineArr['node:name'] = $element->getName();
+    $lineArr['attribute:link'] = $umiHierarchy->getPathById($elementId);
+    $lineArr['void:header'] = $element->getName();
+
+    $publishTime = $element->getValue('publish_time');
+    if ($publishTime) {
+        $lineArr['attribute:publish_time'] = $publishTime->getFormattedDate('U');
+    }
+
+    $lent_name = '';
+    $lent_link = '';
+    $lent_id = $element->getParentId();
+    $lent_element = $umiHierarchy->getElement($lent_id);
+    if ($lent_element) {
+        $lent_name = $lent_element->getName();
+        $lent_link = $umiLinksHelper->getLinkByParts($lent_element);
+    }
+    $lineArr['attribute:lent_id'] = $lent_id;
+    $lineArr['attribute:lent_name'] = $lent_name;
+    $lineArr['attribute:lent_link'] = $lent_link;
+
+    $arrItems[] = content::parseTemplate($tpl_page, $lineArr, $elementId);
+    $umiHierarchy->unloadElement($elementId);
+}
+$items = [
+    'items' => [
+        'nodes:item' => $arrItems,
+    ],
+    'void:lines' => $arrItems,
+    'per_page' => $perPage,
+    'total' => $total,
+];
+
+?>
+
+<div class="container">
+	<div class="page">
+		<div class="page-news__list">
+			<?=$this->render($items, 'macros/news_item');?>
+		</div>
+		<div class="page__sidebar-box">
+			<? if ($page->page_sidebar_visible !== 1) : ?>
+			<div class="page__sidebar-item">
+				<div class="page__sidebar-title">
+					<?=$rootPage->name?>
+				</div>
+				<div class="page__sidebar-list">
+				<?php
+if ($parentPage->getValue('menu_sidebar_show')) {
+    echo '<a href="' . $parentPage->link . '" class="page__sidebar-link"><b>' . $parentPage->getValue('menu_sidebar_title') . '</b></a>';
+}
+?>
+					<?
+						if (empty($getChildrenPageList)) :
+							echo $this->render($this->macros('content', 'menu', array(null, 1, $getParentPage)), 'partials/sidebar/sidebar-item');
+						else :
+							echo $this->render($this->macros('content', 'menu', array(null, 1, $variables['@pageId'])), 'partials/sidebar/sidebar-item');
+						endif;
+					?>
+				</div>
+			</div>
+			<? endif ?>
+
+<?php
+$links = $page->page_sidebar_links;
+$spisok = $page->spisok;
+$vlozhenie = $page->vlozhenie;
+?>
+
+			<? if ($links || $spisok || $vlozhenie) : ?>
+			<div class="page__sidebar-item page__sidebar-item--not-title">
+				<div class="page__sidebar-list page__sidebar-list--links">
+					<?=$links?>
+					<?=$spisok?>
+					<?=$vlozhenie?>
+				</div>
+			</div>
+			<? endif ?>
+		</div>
+	</div>
+</div>
+
+<? include "./templates/ksu/php/footer.phtml"; ?>

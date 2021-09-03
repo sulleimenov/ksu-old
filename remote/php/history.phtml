@@ -1,0 +1,45 @@
+<?php $dataId = $this->getPageById(5); var_dump($dataId); ?>
+
+<?php include "lang/langselect.phtml"; ?>
+<?php include "include/head.phtml"; ?>
+<header class="header header-inner">
+  <div class="container">
+    <?php include "top-header.phtml"; ?>
+  </div>
+</header>
+
+<div class="container">
+  <div class="timeline">
+    <div class="timeline__start"></div>
+    <ul class="timeline__items">
+      <?php foreach ($dataId->object_id as $value) {
+        echo '
+        <li class="timeline__item">
+        <div class="timeline__item__wrapper">
+          <div class="timeline__title">
+            '.$value['title_history'].'
+          </div>
+          <div class="timeline__text">
+            <p>История нашего университета ведет свое начало с 1939 года, когда
+              в Кустанае был создан Кустанайский учительский институт.
+              В 1955 году он был преобразован в педагогический институт.</p>
+            <p>Становление вуза в качестве университета способствовал тот факт,
+              что 16 декабря 1991 году Казахстан обрел Независимость и появилась
+              необходимость дальнейшего развития высшего образования в стране.</p>
+            <p>Одним из таких шагов стало преобразование педагогических
+              институтов в университеты, которые должны были стать центрами
+              подготовки высококвалифицированных кадров и
+              научно-исследовательской деятельности</p>
+          </div>
+        </div>
+        <a href="/templates/ksu/img/history/full/1939.jpg" data-fancybox="history" class="timeline__gallery" data-caption="1939"><img src="/templates/ksu/img/history/1939.png" alt="1939" class="timeline__img"></a>
+      </li>
+        ';
+      } ?>
+     </ul>
+    <div class="timeline__end"></div>
+  </div>
+</div>
+
+
+<? include 'footer.phtml'; ?>

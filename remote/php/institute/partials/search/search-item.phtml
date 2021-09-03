@@ -1,0 +1,44 @@
+<?
+switch ($variables['total']) {
+	case '0':
+		$counte_text =	$this->translate("no_results");
+		$counte_text = $counte_text . '!';
+		break;
+	
+	default:
+		$counte_text =	$this->translate("results");
+		$counte_text = $counte_text . ':';
+		break;
+}
+
+if ( $variables['total'] == 0) {
+	$coute = '';
+} else {
+	$coute = $variables['total'];
+};
+
+echo '
+	<div class="search-result-count">
+		'.$counte_text.' <span>'.$coute.'</span>
+	</div>';
+echo '<div class="search-result">';
+foreach ($variables['void:lines'] as $key => $search_item) :
+	echo '
+		<div class="search-result__item">
+			<a href="'.$search_item['attribute:link'].'" class="search-result__title">'.$search_item['attribute:name'].'</a>
+			<div class="search-result__link">'.$search_item['attribute:link'].'</div>
+			<div class="search-result__text">'.$search_item['node:context'].'</div>
+		</div>
+	';
+endforeach;
+echo '</div>';
+
+$limit = 3; //	ссылок в навигации на каждую сторону
+$per_page = $variables['per_page']; // элементов на странице
+$total = $variables['total'];
+echo $this->render(array(
+	"total" => $total,
+	"per_page" => $per_page,
+	"limit" => $limit,
+	"numpages" => $this->macros("system", "numpages", array($total, $per_page, null, null, $limit))), "library/numpages");
+?>

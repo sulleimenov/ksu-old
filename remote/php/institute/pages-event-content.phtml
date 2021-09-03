@@ -1,0 +1,41 @@
+<? 
+	include "header.phtml"; 
+	$getPageById = $this->getPageById($variables['@pageId']);
+?>
+
+<div class="container">
+	<div class="breadcrumbs">
+		<a href="/<?= $variables['@lang'] ?>/"><?= $variables['@title'] ?></a>
+		<?= $this->render($this->macros('core', 'navibar'), 'institute/breadcrumbs') ?>
+	</div>
+
+	<div class="page">
+		<div class="content">
+			<?
+				if ($variables['@pageId'] == '3893') { $currentPage = $variables['@pageId']; }
+				if ($variables['@pageId'] == '4446') { $currentPage = $variables['@pageId']; }
+				if ($variables['@pageId'] == '5282') { $currentPage = $variables['@pageId']; }
+				if ($variables['@pageId'] != $currentPage) :
+					$contentDate = ($getPageById->publish_time) ? $getPageById->publish_time->getFormattedDate('d.m.Y') : '' ;
+					echo '
+					<div class="back-to">Назад</div>
+					<div class="content-header">'.$getPageById->getName('title').'</div>
+					<div class="content-body">
+						<span class="content-events-date">'.$contentDate.'</span>
+						'.$getPageById->anons.'
+						<div class="ya-share2" data-services="vkontakte,facebook,whatsapp,telegram,twitter,odnoklassniki" data-shape="round" data-size="m"></div>
+					</div>
+					';
+				else :
+					echo '<div class="content-header">'.$variables['@header'].'</div>';
+					echo '<div class="content-body">';
+					echo $this->render($this->macros('news', 'lastlist', array('events-idl', null, 10, 0, "", 0, 5)), "institute/partials/events-idl/events-list");
+					echo '</div>';
+				endif;
+			?>
+		</div>
+	</div>
+
+</div>
+
+<? include 'footer.phtml'; ?>

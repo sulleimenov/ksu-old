@@ -1,0 +1,73 @@
+<? 
+	include "header.phtml"; 
+	$getPageById = $this->getPageById($variables['@pageId']);
+?>
+<div class="container">
+	<div class="breadcrumbs">
+		<a href="/"><?= $variables['@title'] ?></a>
+		<?= $this->render($this->macros('core', 'navibar'), 'institute/breadcrumbs') ?>
+	</div>
+
+
+	<div class="page">
+		<div class="content">
+			<div class="content-header">
+				<?= $variables['@header']; ?>
+			</div>
+			<div class="content-body">
+				<?php
+					$children = $hierarchy->getChildrenTree($variables['@pageId']);
+					if (!$getPageById->getValue('content') && count($children) > 0 && $getPageById->link != '/departments/') {
+						reset($children);
+						$this->macros('content', 'redirect', array($this->getPageById(key($children))->link));
+					}
+					// echo $getPageById ? $this->macros('webforms', 'add', array($getPageById->getValue('form_id'))) : '';
+					echo $getPageById ? $getPageById->getValue('content') : '';
+					$childrens = $hierarchy->getChildrenTree($variables['@pageId']);
+					foreach ($childrens as $key => $value) {
+						$getDepList = $hierarchy->getElement($key);
+						// var_dump($getDepList->name);
+					}
+					// var_dump($children);
+				?>
+			</div>
+		</div>
+		<div class="sidebar">
+			<div class="sidebar__wrapper">
+				<div class="sidebar-list">
+					<?
+						$getParentList = $hierarchy->getParent($variables['@pageId']);
+						$getChildrenList = $hierarchy->getChildrenTree($variables['@pageId']);
+						if (empty($getChildrenList)) :
+							echo $this->render($this->macros('content', 'menu', array(null, 1, $getParentList)), 'institute/sidebar_item');
+						else :
+							echo $this->render($this->macros('content', 'menu', array(null, 1, $variables['@pageId'])), 'institute/sidebar_item');
+						endif;
+					?>
+				</div>
+				<?
+					$value = $hierarchy->getParent($variables['@pageId']);
+					$value = $hierarchy->getElement($value);
+					if ($value && ($value->getValue('dep_address') || $value->getValue('dep_phone') || $value->getValue('dep_email'))) :
+				?>
+				<div class="sidebar-contacts">
+					<p class="sidebar-contacts__title"><?= $this->translate('page_contacts'); ?></p>
+					<? if ($value->getValue('dep_address')) : ?>
+					<p class="text-under"><?= $value->getValue('dep_address') ?><span><?= $this->translate('team_address'); ?></span></p>
+					<? endif ?>
+					<? if ($value->getValue('dep_phone')) : ?>
+					<a class="text-under" href="tel:<?= $value->getValue('dep_phone') ?>"><?= $value->getValue('dep_phone') ?><span><?= $this->translate('team_phone'); ?></span></a>
+					<? endif ?>
+					<? if ($value->getValue('dep_email')) : ?>
+					<a class="text-under" href="mailto:<?= $value->getValue('dep_email') ?>"><?= $value->getValue('dep_email') ?><span><?= $this->translate('team_email'); ?></span></a>
+					<? endif ?>
+				</div>
+				<? endif ?>
+			</div>
+		</div>
+	</div>
+
+
+</div>
+
+<? include 'footer.phtml'; ?>

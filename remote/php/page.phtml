@@ -1,0 +1,42 @@
+<? include "lang/langselect.phtml"; ?>
+<? include "include/head.phtml"; ?>
+
+<header class="header header-inner">
+	<? include "top-header.phtml"; ?>
+</header>
+
+<div class="container">
+	<div class="breadcrumbs">
+		<?= $this->render($this->macros('core', 'navibar'), 'library/navibar') ?>
+	</div>
+</div>
+
+<section id="news-item">
+	<div class="container">
+		<div class="page-content">
+			<h1 class="page__content-title">
+				<?= $variables['@header'] ?>
+			</h1>
+			<?= $this->render($variables, $variables['@module'] . '/' . $variables['@method']) ?>
+
+			<?
+			$hierarchy = umiHierarchy::getInstance();
+			$page = $hierarchy->getElement($variables['@pageId']) ?: $hierarchy->getElement($current_page_id);
+			print_r($page? $page->getValue('content'): '');
+			?>
+			<? if ($page && $page->getValue('pic_list')) { ?>
+			<div class="images">
+				<?
+					foreach ($page->getValue('pic_list') as $newspic) {
+						$data = $this->macros('system', 'makeThumbnail', array($newspic->getFilePath(), auto, 00));
+						print_r('<a class="mfp_img" href="' . $data['src'] . '"><img src="' . $data['src'] . '" alt="Alt"></a>');
+					}
+					?>
+				<? }
+				?>
+			</div>
+		</div>
+	</div>
+</section>
+
+<? include 'footer.phtml'; ?>

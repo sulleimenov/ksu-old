@@ -1,0 +1,31 @@
+<?php
+$hierarchy = umiHierarchy::getInstance();
+
+$isHome = ($_SERVER['REQUEST_URI'] != '/') ? '/' : '';
+$lang = $this->translate('lang').'/';
+
+// $element = $hierarchy->getElement($child);
+foreach ($variables['items']['nodes:item'] as $item) :
+	if (!($item['items'])) :
+		$anchor = (!in_array($item['@alt-name'], ['kontakty', 'educational-programs', '3d-tour'])) ? '#' : '';
+		$target = in_array($item['@id'], [1136, 5832]) ? '_blank' : '_self';
+
+		echo '<li><a class="linkanchor" target="'.$target.'" href="'.$isHome.$lang.$anchor.$item['@alt-name'].'">'.$item['@name'].'</a></li>';
+	else :
+		echo '
+			<li class="lectern-header-menu__hover">
+				<a class="link" href="#">'.$item['@name'].'<span class="lectern-header-menu__link"></span></a>
+				<div class="lectern-header-menu-wrapper submenu">
+					<div class="container">
+						<ul class="lectern-header-menu__dropdown">';
+						foreach ($item['items']['nodes:item'] as $underitem) :
+							echo '<li><a href="'.$underitem['@link'].'">'.$underitem['@name'].'</a></li>';
+						endforeach;
+			echo '</ul>
+					</div>
+				</div>
+			</li>
+		';
+	endif;
+endforeach;
+?>

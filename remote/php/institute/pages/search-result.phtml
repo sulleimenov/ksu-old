@@ -1,0 +1,20 @@
+<? include './templates/ksu/php/institute/header.phtml' ?>
+
+<div class="container">
+	<div class="breadcrumbs">
+		<a href="/"><?= $variables['@title'] ?></a>
+		<?= $this->render($this->macros('core', 'navibar'), 'institute/breadcrumbs') ?>
+	</div>
+</div>
+
+<div class="container">
+	<div class="page">
+		<div class="content">
+			<div class="content-body">
+				<?= $this->render($this->macros('search', 'search_do', array('', $_GET['search'])), 'institute/partials/search/search-item'); ?>
+			</div>
+		</div>
+	</div>
+</div>
+
+<? include './templates/ksu/php/institute/footer.phtml' ?>

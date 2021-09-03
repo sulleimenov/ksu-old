@@ -1,0 +1,17 @@
+<? include "lang/langselect.phtml"; ?>
+<? include "include/head.phtml"; ?>
+
+<header class="header header-inner">
+	<? include "top-header.phtml"; ?>
+</header>
+
+<div class="container">
+	<div class="breadcrumbs">
+		<?= $this->render($this->macros('core', 'navibar'), 'library/navibar') ?>
+	</div>
+</div>
+<div class="container">
+	<?= $this->render($this->macros('search', 'search_do', array('', $_GET['search'])), 'modules/search'); ?>
+</div>
+
+<? include 'footer.phtml'; ?>

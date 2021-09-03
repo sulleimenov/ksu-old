@@ -1,0 +1,60 @@
+<?
+	$css_version = 'ver=1.5.12'; // Версия CSS файлов
+	$js_version = 'ver=1.0.22'; // Версия js файлов
+	$hierarchy = umiObjectsCollection::getInstance();
+	switch ($variables['@lang-id']) :
+		case '1':
+			$obj = $hierarchy->getObject(667);
+			break;
+		case '2':
+			$obj = $hierarchy->getObject(671);
+			break;
+		case '3':
+			$obj = $hierarchy->getObject(668);
+			break;
+		default:
+			# code...
+			break;
+	endswitch;
+
+	function debug($error) {
+		echo '<pre style="display:none;">';
+		var_dump($error);
+		echo '</pre>';
+	}
+?>
+<!DOCTYPE html>
+<html lang="<?= urlencode($variables['@lang']); ?>">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="description" content="KSU">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta property="og:image" content="path/to/image.jpg">
+	<meta name="theme-color" content="#009ee0">
+	<title><?= $variables["@header"] ?> | КРУ им.А.Байтурсынова</title>
+	<link rel="shortcut icon" type="image/png" href="/templates/ksu/img/favicon/favicon-512x512.png">
+	<link rel="shortcut icon" type="image/png" sizes="512x512" href="/templates/ksu/img/favicon/favicon-512x512.png">
+	<link rel="shortcut icon" type="image/png" sizes="120x120" href="/templates/ksu/img/favicon/favicon-120x120.png">
+	<link rel="shortcut icon" type="image/png" sizes="192x192" href="/templates/ksu/img/favicon/favicon-192x192.png">
+	<link rel="apple-touch-icon" href="/templates/ksu/img/favicon/apple-touch-icon.png">
+	<link rel="apple-touch-icon" sizes="72x72" href="/templates/ksu/img/favicon/apple-touch-icon-72x72.png">
+	<link rel="apple-touch-icon" sizes="114x114" href="/templates/ksu/img/favicon/apple-touch-icon-114x114.png">
+	<link rel="apple-touch-icon" sizes="180x180" href="/templates/ksu/img/favicon/apple-touch-icon-180x180.png">
+	<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap">
+	<link rel="stylesheet" href="/templates/ksu/libs/fancybox/jquery.fancybox.min.css">
+	<link rel="stylesheet" href="/templates/ksu/css/old.css?<?echo $css_version?>">
+	<link rel="stylesheet" href="/templates/ksu/css/main-new.min.css?<?echo $css_version?>">
+	<link rel="stylesheet" href="/templates/ksu/css/enrollee.css?ver=98">
+	<link rel="stylesheet" href="/templates/ksu/css/tables.css">
+	<script src="/templates/ksu/js/jquery.min.js"></script>
+	<? if (@$variables["full:page"] && @$variables["full:page"]->getAltName()=="enrollee-form") : ?>
+	<link rel="stylesheet" href="/templates/ksu/css/bootstrap.min.css">
+	<link rel="stylesheet" href="/templates/ksu/css/selectize.css">
+	<script src="/templates/ksu/js/enrollee.js"></script>
+	<script src="/templates/ksu/js/selectize.min.js"></script>
+	<? endif ?>
+</head>
+
+<body>

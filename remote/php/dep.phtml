@@ -1,0 +1,79 @@
+<? include "lang/langselect.phtml"; ?>
+<? include "include/head.phtml"; ?>
+<header class="header-inner header">
+  <div class="container">
+    <? include 'top-header.phtml' ?>
+  </div>
+</header>
+<div class="container">
+  <div class="breadcrumbs">
+    <?= $this->render($this->macros('core', 'navibar'), 'library/navibar') ?>
+  </div>
+</div>
+<div id="sync1" class="owl-carousel slider">
+  <?php 
+        if ($variables['@domain'] == 'iel.ksu.edu.kz') {
+          switch ($variables['@lang-id']) {
+            case '2':
+              echo $this->render($this->macros('content', 'menu', array(null, 3,1613)), 'macros/dep_slider');
+              break;
+            case '3':
+              echo $this->render($this->macros('content', 'menu', array(null, 3,1396)), 'macros/dep_slider');
+              break;
+            default:
+              echo $this->render($this->macros('content', 'menu', array(null, 3,408)), 'macros/dep_slider');
+              break;
+          }
+        }
+
+        if ($variables['@domain'] == 'pis.ksu.edu.kz') {
+          switch ($variables['@lang-id']) {
+            case '2':
+              //echo $this->render($this->macros('content', 'menu', array(null, 3,1613)), 'macros/dep_slider');
+              break;
+            case '3':
+              echo $this->render($this->macros('content', 'menu', array(null, 3,3035)), 'macros/dep_slider');
+              break;
+            default:
+              echo $this->render($this->macros('content', 'menu', array(null, 3,1074)), 'macros/dep_slider');
+              break;
+          }
+        }
+     ?>
+</div>
+<div class="container">
+  <div id="sync2" class="owl-carousel navigation-thumbs">
+    <?php
+        if ($variables['@domain'] == 'iel.ksu.edu.kz') {
+          switch ($variables['@lang-id']) {
+            case '2':
+              echo $this->render($this->macros('content', 'menu', array(null, 3,1613)), 'macros/dep_content');
+              break;
+            case '3':
+              echo $this->render($this->macros('content', 'menu', array(null, 3,1396)), 'macros/dep_content');
+              break;
+            default:
+              echo $this->render($this->macros('content', 'menu', array(null, 3,408)), 'macros/dep_content');
+              break;
+          }
+        }
+
+        if ($variables['@domain'] == 'pis.ksu.edu.kz') {
+          switch ($variables['@lang-id']) {
+            case '2':
+              //echo $this->render($this->macros('content', 'menu', array(null, 3,1613)), 'macros/dep_content');
+              break;
+            case '3':
+              echo $this->render($this->macros('content', 'menu', array(null, 3,3035)), 'macros/dep_content');
+              break;
+            default:
+              echo $this->render($this->macros('content', 'menu', array(null, 3,1074)), 'macros/dep_content');
+              break;
+          }
+        }
+     ?>
+  </div>
+</div>
+
+<!---------------- Футер ---------------->
+<? include 'footer.phtml'; ?>

@@ -1,0 +1,82 @@
+<? include "./templates/ksu/php/partials/header.phtml"; ?>
+
+<div class="container">
+	<h1 class="compilations-title"><?= $variables['@header'] ?></h1>
+	<div class="compilations">
+		<div class="compilations__left">
+			<div class="compilation">
+				<?
+					switch ($variables['@pageId']) :
+						case '4237':
+							$lastnews = $this->macros('news', 'lastlist', array('science-and-innovation/materials-of-scientific-conferences/scientific-and-practical-conferences', null, 15, 0,"",0,5));
+							break;
+						case '4239':
+							$lastnews = $this->macros('news', 'lastlist', array('science-and-innovation/materials-of-scientific-conferences/student-scientificand-practical-conferences', null, 15, 0,"",0,5));
+							break;
+						case '4525':
+							$lastnews = $this->macros('news', 'lastlist', array('science-and-innovation/materials-of-scientific-conferences/scientific-and-methodological-conference-innova', null, 15, 0,"",0,5));
+							break;
+						case '4240':
+							$lastnews = $this->macros('news', 'lastlist', array('science-and-innovation/materials-of-scientific-conferences/sultangazin-reading', null, 15, 0,"",0,5));
+							break;
+						case '4243':
+							$lastnews = $this->macros('news', 'lastlist', array('science-and-innovation/materials-of-scientific-conferences/baitursynov-readings', null, 15, 0,"",0,5));
+							break;
+						case '4242':
+							$lastnews = $this->macros('news', 'lastlist', array('science-and-innovation/materials-of-scientific-conferences/altynsarin-readings', null, 15, 0,"",0,5));
+							break;
+						case '4241':
+							$lastnews = $this->macros('news', 'lastlist', array('science-and-innovation/materials-of-scientific-conferences/collections-of-scientific-papers', null, 15, 0,"",0,5));
+							break;
+						
+						default:
+							$lastnews = $this->macros('news', 'lastlist', array('science-and-innovation/materials-of-scientific-conferences/scientific-and-practical-conferences, science-and-innovation/materials-of-scientific-conferences/student-scientificand-practical-conferences, science-and-innovation/materials-of-scientific-conferences/scientific-and-methodological-conference-innova, science-and-innovation/materials-of-scientific-conferences/sultangazin-reading, science-and-innovation/materials-of-scientific-conferences/baitursynov-readings, science-and-innovation/materials-of-scientific-conferences/altynsarin-readings, science-and-innovation/materials-of-scientific-conferences/collections-of-scientific-papers', null, 15, 0,"",0,5));
+							break;
+					endswitch;
+
+
+					if (!$lastnews) : 
+						echo $this->translate('no_materials').'!';
+					endif;
+					echo $this->render($lastnews, 'partials/materials-of-scientific-conferences/compilation-item');
+				?>
+			</div>
+		</div>
+		<div class="compilations__right">
+			<div class="compilation-sidebar">
+				<div class="compilation-sidebar__title">
+					<?= $this->translate('rubrics'); ?>
+				</div>
+				<div class="compilation-sidebar__lists">
+					<?
+						
+						$lastlents = $this->macros('news', 'lastlents', ['/science-and-innovation/materials-of-scientific-conferences', 0, 10, 1]);
+						$lang = 'ru';
+
+						debug($variables);
+						$i=1;
+						foreach ($lastlents["void:lines"] as $lastlents) :
+							$link = $lastlents["attribute:link"];
+							if ($lang == 'ru' and (strpos($link, '/ru') !== 0) and (strpos($_SERVER['REQUEST_URI'], '/ru') === 0)) {
+								$link = '/ru'.$link;
+							}
+							$isActive = ($link == $_SERVER['REQUEST_URI']) ? 'current' : '';
+							if ($_SERVER['REQUEST_URI'] == '/science-and-innovation/materials-of-scientific-conferences/') {
+								if ($i==1) {
+									echo '<a href="'.$lastlents["attribute:link"].'" class="compilation-sidebar__list-item current">'.$lastlents["void:header"].'</a>';
+								} else {
+									echo '<a href="'.$lastlents["attribute:link"].'" class="compilation-sidebar__list-item '.$isActive.'">'.$lastlents["void:header"].'</a>';
+								}
+								$i++;
+							} else {
+								echo '<a href="'.$lastlents["attribute:link"].'" class="compilation-sidebar__list-item '.$isActive.'">'.$lastlents["void:header"].'</a>';
+							}
+						endforeach;
+					?>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+<? include "./templates/ksu/php/footer.phtml"; ?>

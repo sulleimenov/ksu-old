@@ -1,0 +1,18 @@
+<?
+$hierarchy = umiHierarchy::getInstance();
+
+foreach ($variables['void:lines'] as $value) :
+	$page = $hierarchy->getElement($value['attribute:id']);
+	echo '
+		<div class="employee__item">
+			<div class="employee__wrapper">
+				<div class="employee__name">'.$value['node:name'].'</div>
+				<div class="employee__post">'.$page->getValue('best_post').'</div>
+			</div>
+			<div class="employee__dep">'.$page->getValue('best_dep').'</div>
+			<div class="employee__image" style="background: url('.$page->getValue('best_photo').') center no-repeat;"></div>
+		</div>
+	';
+
+endforeach;
+?>

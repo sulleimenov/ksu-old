@@ -1,0 +1,12 @@
+<?
+//print_r($variables);
+$objectsCollection = umiObjectsCollection::getInstance();
+print_r("<ul>");
+foreach ($variables['nodes:banners'] as $banner)
+{
+	$object=$objectsCollection->getObject($banner['attribute:id']);
+	print_r('<li><a href='.$object->getValue('url').'target="_blank"><span class="icon"><i class="'.$object->getValue('class').'"></i></span></a></li>');
+	
+}
+print_r("</ul>");
+?>

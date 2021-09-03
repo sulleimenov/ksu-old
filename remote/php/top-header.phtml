@@ -1,0 +1,105 @@
+<div class="header-top-bg">
+	<div class="container">
+		<div class="header-top">
+			<div class="header-top__left">
+				<div class="social">
+					<a href="https://vk.com/baitursynov_university" target="_blank" class="social__item">
+						<img src="/templates/ksu/img/icons/social/vk.svg" alt="vk">
+					</a>
+					<a href="https://www.instagram.com/baitursynov_university" target="_blank" class="social__item">
+						<img src="/templates/ksu/img/icons/social/instagram.svg" alt="inst">
+					</a>
+					<a href="https://www.youtube.com/channel/UCizkYrzD1lRPrikyNhCSPHQ" target="_blank" class="social__item">
+						<img src="/templates/ksu/img/icons/social/youtube.svg" alt="inst">
+					</a>
+					<a href="https://www.facebook.com/baitursynov.university" target="_blank" class="social__item">
+						<img src="/templates/ksu/img/icons/social/facebook.svg" alt="facebook">
+					</a>
+					<a href="https://telegram.me/ksu_edu" target="_blank" class="social__item">
+						<img src="/templates/ksu/img/icons/social/telegram.svg" alt="inst">
+					</a>
+					<a data-fancybox="" data-src="#callModal" href="javascript:;" class="call-center"><span><?= $this->translate('call_center'); ?></span></a>
+				</div>
+				<div class="header-top__burger-menu">
+					<span></span>
+					<span></span>
+					<span></span>
+				</div>
+				<a href="/" class="header-top__logo"></a>
+			</div>
+			<div class="header-top__right">
+				<div class="header-top__nav">
+					<div class="header-top__nav-item header-top__nav-item--dropdown header-top__nav-item--lang">
+						<?php
+							if ($variables['@lang'] == 'ru') {
+								$lng1 = 'Рус';
+								$lng2 = 'Каз';
+								$lng3 = 'Eng';
+								$href2 = '/kz/';
+								$href3 = '/en/';
+							} elseif ($variables['@lang'] == 'kz') {
+								$lng1 = 'Каз';
+								$lng2 = 'Рус';
+								$lng3 = 'Eng';
+								$href2 = '/ru/';
+								$href3 = '/en/';
+							} else {
+								$lng1 = 'Eng';
+								$lng2 = 'Каз';
+								$lng3 = 'Рус';
+								$href2 = '/kz/';
+								$href3 = '/ru/';
+							}
+							if (substr($variables['@request-uri'], 1, 2) == 'ru' || substr($variables['@request-uri'], 1, 2) == 'kz' ||  substr($variables['@request-uri'], 1, 2) == 'en') {
+								$hrefbase = substr($variables['@request-uri'], 4);
+							} else {
+								$hrefbase = substr($variables['@request-uri'], 1);
+							}
+						?>
+						<span><?= $lng1 ?></span>
+						<div class="header-top__nav-dropdown">
+							<a href="<?= $href2 ?><?= $hrefbase ?>"><?= $lng2 ?></a>
+							<a href="<?= $href3 ?><?= $hrefbase ?>"><?= $lng3 ?></a>
+						</div>
+					</div>
+					<a href="#" class="header-top__nav-item header-top__nav-item--search"></a>
+					<div class="header-top__nav-item header-top__nav-item--dropdown header-top__nav-item--cabinet">
+						<span><?= $this->translate('account'); ?></span>
+						<div class="header-top__nav-dropdown">
+							<a href="https://platonus.ksu.edu.kz" target="_blank">АИС Platonus</a>
+							<a href="https://md.ksu.edu.kz" target="_blank">DOT</a>
+						</div>
+					</div>
+					<a href="/<?= urlencode($variables['@lang']); ?>/rectors-blog" class="header-top__nav-item header-top__nav-item--blog"><?= $this->translate('rectors_blog'); ?></a>
+					<a href="https://portal.ksu.edu.kz/" target="_blank" class="header-top__nav-item header-top__nav-item--portal"><?= $this->translate('portal'); ?></a>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+<div class="burger-content">
+	<div class="container">
+		<div class="burger-content-menu">
+			<?= $this->render($this->macros('content', 'menu', array(null, 3)), 'partials/menu/mobile-menu') ?>
+		</div>
+	</div>
+</div>
+
+<div class="container">
+	<div class="menu">
+		<?= $this->render($this->macros('content', 'menu', array(null, 3, 0, 1, 0)), 'partials/menu/pc-menu') ?>
+		<button class="search"></button>
+	</div>
+</div>
+
+<!-- <div class="header-title-wrapper">
+	<div class="container">
+		<h1 class="header-title"><?= $variables['@title'] ?></h1>
+		<div class="header-breadcrumbs">
+			<?= $this->render($this->macros('core', 'navibar'), 'partials/breadcrumbs/breadcrumb') ?>
+		</div>
+	</div>
+</div> -->
+
+<!-- end-----------line -->

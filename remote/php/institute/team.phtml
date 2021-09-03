@@ -1,0 +1,161 @@
+<? include "header.phtml"; ?>
+
+<div class="container">
+	<div class="breadcrumbs">
+		<a href="/"><?= $variables['@title'] ?></a>
+		<?= $this->render($this->macros('core', 'navibar'), 'institute/breadcrumbs') ?>
+	</div>
+
+
+
+	<div class="page">
+		<div class="content">
+			<div class="content-header">
+				<?= $variables['@header']; ?>
+			</div>
+			<div class="content-body">
+			<?
+				$childrenLists = $hierarchy->getChildrenTree($variables['@pageId']);
+				if ($childrenLists) :
+					echo '<div class="card-list">';
+						foreach ($childrenLists as $key => $childrenList) :
+							$staff = $hierarchy->getElement($key);
+							echo '
+								<div class="card-list__item">
+									<div class="card-list__images" style="background: url('.$staff->photo.') no-repeat center / cover;"></div>
+									<div class="card-list__info">
+										<a href="'.$staff->link.'" class="card-list__info-name not-link">
+											'.$staff->name.'
+										</a>
+										<div class="card-list__info-position text-under">
+											'.$staff->place.'
+											<span>'.$this->translate('team_place').'</span>
+										</div>
+									</div>
+								</div>
+							';
+						endforeach;
+					echo '</div>';
+				endif;
+			?>
+			<? if (!$childrenLists) : ?>
+			<div class="team__box">
+				<? $value = $hierarchy->getElement($variables['@pageId']); ?>
+				<div class="team__box-inner">
+					<div class="team__img" style="background: url(<?= $value->getValue('photo'); ?>) center center / cover no-repeat; width: 165px; min-width: 165px; height: 200px"></div>
+					<div class="team__full-information">
+						<!-- ФИО -->
+						<? if ($value->getValue('name') and $value->getValue('name') !== $variables['@header']) : ?>
+						<div class="team__place team__place--bold">
+							<?= $value->getValue('name'); ?>
+							<span><?= $this->translate('team_fio') ?></span>
+						</div>
+						<? endif; ?>
+						<!-- Должность -->
+						<? if ($value->getValue('place')) : ?>
+						<div class="team__place">
+							<?= $value->getValue('place'); ?>
+							<span><?= $this->translate('team_place') ?></span>
+						</div>
+						<? endif; ?>
+						<!-- Ученая степень -->
+						<? if ($value->getValue('degree_pps')) : ?>
+						<div class="team__place">
+							<?= $value->getValue('degree_pps'); ?>
+							<span><?= $this->translate('team_degree') ?></span>
+						</div>
+						<? endif; ?>
+						<!-- Ученое звание -->
+						<? if ($value->getValue('academic_status')) : ?>
+						<div class="team__place">
+							<?= $value->getValue('academic_status'); ?>
+							<span><?= $this->translate('academic_status') ?></span>
+						</div>
+						<? endif; ?>
+						<!-- Академическая степень -->
+						<? if ($value->getValue('academic_degree_pps')) : ?>
+						<div class="team__place">
+							<?= $value->getValue('academic_degree_pps'); ?>
+							<span><?= $this->translate('team_academic_degree') ?></span>
+						</div>
+						<? endif; ?>
+						<!-- E-mail -->
+						<? if ($value->getValue('email_pps')) : ?>
+						<div class="team__place">
+							<?= $value->getValue('email_pps'); ?>
+							<span><?= $this->translate('team_email') ?></span>
+						</div>
+						<? endif; ?>
+						<!-- Телефон -->
+						<? if ($value->getValue('phone_pps')) : ?>
+						<div class="team__place">
+							<?= $value->getValue('phone_pps'); ?>
+							<span><?= $this->translate('team_phone') ?></span>
+						</div>
+						<? endif; ?>
+						<!-- Адрес -->
+						<? if ($value->getValue('address')) : ?>
+						<div class="team__place">
+							<?= $value->getValue('address'); ?>
+							<span><?= $this->translate('team_address') ?></span>
+						</div>
+						<? endif; ?>
+						<!-- Время приема -->
+						<? if ($value->getValue('reception_time')) : ?>
+						<div class="team__place">
+							<?= $value->getValue('reception_time'); ?>
+							<span><?= $this->translate('team_reception_time') ?></span>
+						</div>
+						<? endif; ?>
+					</div>
+				</div>
+				<div class="team__content">
+					<?= $value->getValue('content'); ?>
+				</div>
+			</div>
+			<? endif ?>
+		</div>
+		</div>
+		<div class="sidebar">
+			<div class="sidebar__wrapper">
+				<div class="sidebar-list">
+					<? 
+					$getChildrenList = $hierarchy->getChildrenTree($variables['@pageId']);
+					$isContent = $hierarchy->getElement($variables['@pageId']);
+					if (empty($getChildrenList) or empty($isContent->content)) {
+						$getParentList = $hierarchy->getParent($variables['@pageId']);
+						echo $this->render($this->macros('content', 'menu', array(null, 4, $getParentList)), 'institute/sidebar_item');
+					} else {
+						foreach ($getChildrenList as $key => $value) {
+							$element = $hierarchy->getElement($key);
+							echo '<a href="'.$element->getAltName().'">'.$element->getName().'</a>';
+						}
+					}
+					?>
+				</div>
+				<?
+					$value = $hierarchy->getParent($variables['@pageId']);
+					$value = $hierarchy->getElement($value);
+					if ($value->getValue('dep_address') || $value->getValue('dep_phone') || $value->getValue('dep_email')) :
+				?>
+				<div class="sidebar-contacts">
+					<p class="sidebar-contacts__title"><?= $this->translate('page_contacts'); ?></p>
+					<? if ($value->getValue('dep_address')) : ?>
+					<p class="text-under"><?= $value->getValue('dep_address') ?><span><?= $this->translate('team_address'); ?></span></p>
+					<? endif ?>
+					<? if ($value->getValue('dep_phone')) : ?>
+					<a class="text-under" href="tel:<?= $value->getValue('dep_phone') ?>"><?= $value->getValue('dep_phone') ?><span><?= $this->translate('team_phone'); ?></span></a>
+					<? endif ?>
+					<? if ($value->getValue('dep_email')) : ?>
+					<a class="text-under" href="mailto:<?= $value->getValue('dep_email') ?>"><?= $value->getValue('dep_email') ?><span><?= $this->translate('team_email'); ?></span></a>
+					<? endif ?>
+				</div>
+				<? endif ?>
+			</div>
+		</div>
+	</div>
+
+
+</div>
+
+<? include 'footer.phtml'; ?>

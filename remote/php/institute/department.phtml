@@ -1,0 +1,24 @@
+<div class="lectern-list">
+	<?
+	$getId = $this->macros('content', 'get_page_id', array('/departments/'));
+	$getChildrenList = $hierarchy->getChildrenList($getId);
+	foreach($getChildrenList as $child){
+		$element = $hierarchy->getElement($child);
+		$parentId = $hierarchy->getParent($child);
+		$parent = $hierarchy->getElement($parentId);
+		if($parent->getAltName() == "departments")
+		echo '
+		<a href="/'.urlencode($variables['@lang']).'/departments/'.$element->getAltName().'" class="lectern-list__item">
+			<div class="lectern-list__name" >
+				'.$element->getName().'
+			</div>
+			<ul class="lectern-list__info">
+				<li>Бакалавриат</li>
+				<li>Магистратура</li>
+				<li>Докторантура</li>
+			</ul>
+			<div class="lectern-list__academic-degree">Академическая степень</div>
+		</a>';
+	}
+	?>
+</div>

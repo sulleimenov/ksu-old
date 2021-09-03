@@ -1,0 +1,87 @@
+<? include "lang/langselect.phtml"; ?>
+<? include "include/head.phtml"; ?>
+<?
+$parents = $variables["parents"]["+page"];
+
+$page = $variables["full:page"];
+$page_id = $page->id;
+$top_categ_id = $this->getPageByPath("/best-employees-of-the-month")->id;
+
+$years = $this->macros("news","lastlents",[$top_categ_id]);
+$years_arr = [];
+foreach ($years["void:lines"] as $year) {
+	$years_arr[$year["node:name"]]=$year["attribute:id"];
+}
+
+$cur_year = date("Y");
+$cur_month = strtolower(date("F")); 
+
+if (count($parents)==0) {
+	$active_year=$years_arr[$cur_year];
+	if (!$active_year){
+		$active_year=$years["void:lines"][0]["attribute:id"];
+	}
+		$months=$this->macros("news","lastlents",[$active_year,'',12]);
+		$months_arr=[];
+			foreach ($months["void:lines"] as $month) {
+				$months_arr[strtolower($this->getPageById($month["attribute:id"])->getAltName())]=$month["attribute:id"];
+			}
+			$active_month=$months_arr[strtolower($cur_month)];
+			if (!$active_month){
+				$active_month=$months["void:lines"][count($months["void:lines"])-1]["attribute:id"];
+			}
+}	else if (count($parents) == 1) {
+	$active_year=$page_id;	
+	$months=$this->macros("news","lastlents",[$active_year,'',12]);
+	if ($this->getPageById($active_year)->getAltName()==$cur_year) {
+		$months_arr=[];
+			foreach ($months["void:lines"] as $month) {
+				$months_arr[strtolower($this->getPageById($month["attribute:id"])->getAltName())]=$month["attribute:id"];
+			}
+			$active_month=$months_arr[strtolower($cur_month)];
+			if (!$active_month){
+				$active_month=$months["void:lines"][count($months["void:lines"])-1]["attribute:id"];
+			}
+	} else $active_month=$months["void:lines"][count($months["void:lines"])-1]["attribute:id"];
+} else if (count($parents) == 2) {
+		$active_year=$parents[1]->id;
+	 	$active_month=$page_id;
+	 	$months=$this->macros("news","lastlents",[$active_year,'',12]);
+	}
+?>
+<header class="header header-inner">
+	<? include 'top-header.phtml' ?>
+</header>
+<div class="container">
+	<div class="best-employee-title">
+		<?= $this->translate('page_best_employees_of_the_month'); ?>
+	</div>
+	<div class="best-employee">
+		<div class="best-employee-year">
+			<? foreach($years["void:lines"] as $year) : ?>
+			<a href="<?= $year['attribute:link'] ?>" class="best-employee-year__item <?= $active_year == $year["attribute:id"] ? " best-employee-year__item--active " : "" ?>">
+				<?= $year['node:name'] ?>
+			</a>
+			<? endforeach; ?>
+		</div>
+		<div class="best-employee-month">
+			<?foreach($months["void:lines"] as $month):?>
+			<a href="<?= $month['attribute:link'] ?>" class="best-employee-month__item <?= $active_month == $month["attribute:id"] ? " best-employee-month__item--active " : "" ?>">
+				<?= $month['node:name'] ?>
+			</a>
+			<?endforeach;?>
+		</div>
+	</div>
+	<div class="employee">
+		<?= $this->render($this->macros('news', 'lastlist', [$active_month, null, 100, false]), 'partials/best-employees/best-employees-cart'); ?>
+		<?php
+		$objects = $this->macros('news', 'lastlist', [$active_month, null, 100, false]);
+		$count = count($objects['void:lines']);
+		$mod = ($count % 3);
+		if ($mod === 2) {
+			echo '<div class="employee-space">&nbsp;</div>';
+		}
+		?>
+	</div>
+</div>
+<? include 'footer.phtml'; ?>

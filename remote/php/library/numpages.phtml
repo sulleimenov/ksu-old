@@ -1,0 +1,77 @@
+<?
+//print_r($variables);
+
+$total = $variables["total"];
+$per_page = $variables["per_page"];
+$limit = $variables["limit"];
+
+$numpages = $variables["numpages"];
+$items = $numpages["items"]["nodes:item"];
+$tobegin_link = $numpages["tobegin_link"];
+$toend_link = $numpages["toend_link"];
+$toprev_link = $numpages["toprev_link"];
+$tonext_link = $numpages["tonext_link"];
+$current_page = $numpages["current-page"];
+?>
+<div class="pagination">
+	<?
+	if ($toprev_link) {
+	?>
+		<a href="<?= $toprev_link["node:value"] ?>" class="pagination-button pagination-button_prev"></a>
+	<?
+	}
+	?>
+	<ul class="pagination__list">
+		<?
+		if ($tobegin_link) {
+			if ($current_page + 1 > $limit) {
+		?>
+				<li><a href="<?= $tobegin_link["node:value"] ?>">1</a></li>
+				<?
+				if ($current_page > $limit) {
+				?>
+					<li class="pagination__dot">...</li>
+				<?
+				}
+				?>
+			<?
+			}
+		}
+		foreach ($items as $item) {
+			if ($item["attribute:page-num"] == $current_page) {
+			?>
+				<li class="active"><a><?= $item["node:num"] ?></a></li>
+			<?
+			} else {
+			?>
+				<li><a href="<?= $item["attribute:link"] ?>"><?= $item["node:num"] ?></a></li>
+				<?
+			}
+		}
+		if ($toend_link) {
+			$total_pages = ceil($total / $per_page);
+			$left_pages = $total_pages - 1 - $current_page;
+			if ($left_pages >= $limit) {
+				if ($left_pages > $limit) {
+				?>
+					<li class="pagination__dot">...</li>
+				<?
+				}
+				?>
+				<li><a href="<?= $toend_link["node:value"] ?>"><?= $toend_link["attribute:page-num"] + 1 ?></a></li>
+		<?
+			}
+		}
+		?>
+	</ul>
+	<?
+	if ($tonext_link) {
+	?>
+		<a href="<?= $tonext_link["node:value"] ?>" class="pagination-button pagination-button_next"></a>
+	<?
+	}
+	?>
+</div>
+<?
+
+?>

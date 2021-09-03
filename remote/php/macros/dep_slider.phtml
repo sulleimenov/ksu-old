@@ -1,0 +1,12 @@
+<?
+$hierarchy = umiHierarchy::getInstance();
+foreach ($variables['void:lines'] as $slider) {
+  $value = $hierarchy->getElement($slider['@id']);
+  echo '
+  <div class="slider-dep__item">
+    <img style="display:none;" class="slider-dep__img" src="'.$value->getValue('icon').'" alt="icons">
+    <div class="slider-dep__name">'.$value->getValue('title_special').'</div>
+  </div>
+  ';
+}
+?>

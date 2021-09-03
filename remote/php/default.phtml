@@ -1,0 +1,347 @@
+<? include "lang/langselect.phtml"; ?>
+<? include "include/head.phtml"; ?>
+<?php
+$_REQUEST['lang'] = $variables['@lang'];
+$hierarchy = umiHierarchy::getInstance();
+?>
+
+<header class="header">
+	<? include('top-header.phtml') ?>
+	<div class="offer">
+		<div class="swiper-container swiper-offer">
+			<div class="swiper-wrapper">
+				<!-- Slider - start -->
+				<?
+				$getPageById = $this->macros('content', 'get_page_id', array('/home/banners'));
+				$homeSliderChildren = $hierarchy->getChildrenList($getPageById);
+
+				foreach ($homeSliderChildren as $homeSliderChildrenId) :
+					$homeSlider = $hierarchy->getElement($homeSliderChildrenId);
+					
+					$buttonOneBlank = $homeSlider->home_slider_button_1_blank ? '' : 'target="_blank"';
+					$buttonTwoBlank = $homeSlider->home_slider_button_2_blank ? '' : 'target="_blank"';
+					$buttonThreeBlank = $homeSlider->home_slider_button_3_blank ? '' : 'target="_blank"';
+					
+					$buttonCenterBlock1 = $homeSlider->home_slider_button_1_newp ? 'offer__buttons-center' : '';
+					$buttonCenterBlock2 = $homeSlider->home_slider_button_2_newp ? 'offer__buttons-center' : '';
+					$buttonCenterBlock3 = $homeSlider->home_slider_button_3_newp ? 'offer__buttons-center' : '';
+					
+					$jsCallModal = ($homeSlider->home_slider_button_3_link === 'javascript:;') ? 'data-fancybox data-src="#callModal"' : '';
+
+					$buttonOne = $homeSlider->home_slider_button_1 ? '<a class="'.$buttonCenterBlock1.'" href="'.$homeSlider->home_slider_button_1_link.'" '.$buttonOneBlank.'>'.$homeSlider->home_slider_button_1.'</a>' : '';
+					$buttonTwo = $homeSlider->home_slider_button_2 ? '<a class="'.$buttonCenterBlock2.'" href="'.$homeSlider->home_slider_button_2_link.'" '.$buttonTwoBlank.'>'.$homeSlider->home_slider_button_2.'</a>' : '';
+					$buttonThree = $homeSlider->home_slider_button_3 ? '<a '.$jsCallModal.' class="'.$buttonCenterBlock3.'" href="'.$homeSlider->home_slider_button_3_link.'" '.$buttonThreeBlank.'>'.$homeSlider->home_slider_button_3.'</a>' : '';
+					
+
+					$subtitle = $homeSlider->home_slider_text_under_button ? '<div class="offer__subtitle">'.$homeSlider->home_slider_text_under_button.'</div>' : '';
+
+					echo '
+						<div class="swiper-slide">
+							<div class="container">
+								<div class="offer__box">
+									<div class="offer__left">
+										<div class="offer__title">'.$homeSlider->content.'</div>
+										<div class="offer__buttons">
+											'.$buttonOne.'
+											'.$buttonTwo.'
+											'.$buttonThree.'
+										</div>
+										'.$subtitle.'
+									</div>
+									<div class="offer__right">
+										<div class="offer__image">
+											<div class="offer__gradient-left"></div>
+											<div style="background-image: url('.$homeSlider->getValue('home_slider_image').'); background-size: cover; height: 400px; width: auto"></div>
+											<div class="offer__gradient-right"></div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					';
+				endforeach;
+				?>
+				<!-- Slider - end -->
+
+				<!-- <div class="swiper-slide">
+					<div class="container">
+						<div class="offer__box">
+							<div class="offer__left">
+								<h2 class="offer__title"><?= $this->translate('cru_named_baitursinova') ?></h2>
+							</div>
+							<div class="offer__right">
+								<div class="offer__image">
+									<div class="offer__gradient-left"></div>
+									<div style="background-image: url('/templates/ksu/img/temp/main-kru.jpg'); background-size: cover;height: 400px; width: auto"></div>
+									<div class="offer__gradient-right"></div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="swiper-slide">
+					<div class="container">
+						<div class="offer__box">
+							<div class="offer__left">
+								<h2 class="offer__title">Приемная комиссия</h2>
+								<div class="offer__buttons">
+									<a href="https://platonus.ksu.edu.kz/registration.html" target="_blank">Подача документов на поступление</a>
+								</div>
+								<div class="offer__buttons" style="margin-top: 0;">
+									<a href="/enrollee/">Абитуриенту</a>
+									<a href="http://school.ksu.edu.kz/ENT/" target="_blank">Заявка на ЕНТ</a>
+								</div>
+							</div>
+							<div class="offer__right">
+								<div class="offer__image">
+									<div class="offer__gradient-left"></div>
+									<div style="background-image: url('/templates/ksu/img/temp/kru-enrollee.jpg'); background-size: cover;height: 400px; width: auto"></div>
+									<div class="offer__gradient-right"></div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="swiper-slide">
+					<div class="container">
+						<div class="offer__box">
+							<div class="offer__left">
+								<h2 class="offer__title" style="font-size: 34px;">Военная кафедра</h2>
+								<div class="offer__buttons">
+									<a href="/block/voennaya-kafedra">Подробнее</a>
+								</div>
+							</div>
+							<div class="offer__right">
+								<div class="offer__image">
+									<div class="offer__gradient-left"></div>
+									<div style="background-image: url('/templates/ksu/img/temp/military_department.jpg'); background-size: cover;height: 400px; width: auto"></div>
+									<div class="offer__gradient-right"></div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="swiper-slide">
+					<div class="container">
+						<div class="offer__box">
+							<div class="offer__left">
+								<h2 class="offer__title">Трехступенчатая система образования</h2>
+								<div class="offer__buttons">
+									<a href="/educational-activity/obrazovatelnye-programmy/bakalavriat/">Бакалавриат</a>
+									<a href="/educational-activity/obrazovatelnye-programmy/magistratura/">Магистратура</a>
+									<a href="/educational-activity/obrazovatelnye-programmy/doktarantura/">Докторантура</a>
+								</div>
+							</div>
+							<div class="offer__right">
+								<div class="offer__image">
+									<div class="offer__gradient-left"></div>
+									<div style="background-image: url('/templates/ksu/img/temp/educational_program.jpg'); background-size: cover;height: 400px; width: auto"></div>
+									<div class="offer__gradient-right"></div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="swiper-slide">
+					<div class="container">
+						<div class="offer__box">
+							<div class="offer__left">
+								<h2 class="offer__title">Coronavirus <br>Covid-19</h2>
+								<div class="offer__buttons">
+									<a href="/covid">Подробнее</a>
+								</div>
+							</div>
+							<div class="offer__right">
+								<div class="offer__image">
+									<div class="offer__gradient-left"></div>
+									<div style="background-image: url('/templates/ksu/img/temp/сoronavirus.jpg'); background-size: cover;height: 400px; width: auto"></div>
+									<div class="offer__gradient-right"></div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div> -->
+			</div>
+
+			<div class="swiper-button-prev"></div>
+			<div class="swiper-button-next"></div>
+			<div class="swiper-pagination"></div>
+		</div>
+	</div>
+</header>
+
+<div class="news">
+	<div class="container">
+		<div class="news-header">
+			<div class="news-header__title"><?= $this->translate('last_news'); ?></div>
+			<div class="news-header__link"><a href="/<?= urlencode($_REQUEST['lang']) ?>/newslist/all-news/"><?= $this->translate('more_news'); ?></a></div>
+		</div>
+		<div class="news-list">
+			<?= $this->render($this->macros('news', 'lastlist', array('newslist/all-news, newslist/for-the-entrant, newslist/education, newslist/science, newslist/university-life, newslist/ruhani-zhagyru', null, null, true)), 'partials/news/news-item') ?>
+		</div>
+	</div>
+</div>
+
+<section id="menu">
+	<div class="container">
+		<div class="row">
+			<div class="col-lg-3 col-md-3 col-sm-6 col-6">
+				<div class="stud-nav stud-nav_student">
+					<a class="stud-nav__link" href="/<?= urlencode($variables['@lang']); ?>/4block/distance_learning/">
+						<div class="stud-nav__title"><?= $dot ?></div>
+					</a>
+				</div>
+			</div>
+
+			<div class="col-lg-3 col-md-3 col-sm-6 col-6">
+				<div class="stud-nav stud-nav_abb">
+					<a class="stud-nav__link" href="/<?= urlencode($variables['@lang']); ?>/enrollee/">
+						<div class="stud-nav__title"><?= $abitur ?></div>
+					</a>
+				</div>
+			</div>
+			<div class="col-lg-3 col-md-3 col-sm-6 col-6">
+				<div class="stud-nav stud-nav_voen">
+					<a class="stud-nav__link" href="/<?= urlencode($variables['@lang']); ?>/4block/voennaya-kafedra/">
+						<div class="stud-nav__title"><?= $voennaya ?></div>
+					</a>
+				</div>
+			</div>
+
+			<div class="col-lg-3 col-md-3 col-sm-6 col-6">
+				<div class="stud-nav stud-nav_grant">
+					<a class="stud-nav__link" href="/<?= urlencode($variables['@lang']); ?>/4block/granty-i-skidki/">
+						<div class="stud-nav__title"><?= $grant ?></div>
+					</a>
+				</div>
+			</div>
+			<!--div class="col-lg-3 col-md-3 col-sm-6 col-6">
+				<div class="stud-nav stud-nav_student">
+					<a class="stud-nav__link" href="/<?= urlencode($variables['@lang']); ?>/4block/nashi-vypuskniki/">
+						<div class="stud-nav__title"><?= $our ?></div>
+					</a>
+				</div>
+			</div-->
+		</div>
+		<div class="content-nav">
+			<div class="row">
+				<div class="col-lg-3 col-md-6 col-sm-6">
+					<a href="https://acportal.ksu.edu.kz/ru" target="_blank" class="content-nav__item">
+						<?= $anti_portal ?>
+						<img src="/templates/ksu/img/icons/header/portal.svg" alt="Портал">
+					</a>
+				</div>
+				<div class="col-lg-3 col-md-6 col-sm-6">
+					<a href="/<?= urlencode($variables['@lang']); ?>/timetable/" class="content-nav__item">
+						<?= $blocktimetable ?>
+						<img src="/templates/ksu/img/icons/header/job.svg" alt="timetable">
+					</a>
+				</div>
+				<div class="col-lg-3 col-md-6 col-sm-6">
+					<a href="/<?= urlencode($variables['@lang']); ?>/block/onlajn-biblioteka" class="content-nav__item">
+						<?= $library ?>
+						<img src="/templates/ksu/img/icons/header/job.svg" alt="book">
+					</a>
+				</div>
+				<div class="col-lg-3 col-md-6 col-sm-6">
+					<a href="/<?= urlencode($variables['@lang']); ?>/digital-ecosystem/" target="_blank" class="content-nav__item">
+						<?= $this->translate('page_digital_ecosystem') ?>
+						<img src="/templates/ksu/img/icons/header/blog.svg" alt="Портал">
+					</a>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-lg-3 col-md-6 col-sm-6">
+					<a href="http://smart.ksu.edu.kz/" target="_self" class="content-nav__item">
+						<?= $this->translate('page_student_service_center') ?>
+						<img src="/templates/ksu/img/icons/header/blog.svg" alt="page_student_service_center">
+					</a>
+				</div>
+
+				<div class="col-lg-3 col-md-6 col-sm-6">
+					<a class="content-nav__item" href="/<?= urlencode($variables['@lang']); ?>/covid/">
+						Covid-19
+						<img src="/templates/ksu/img/icons/header/coronavirus.png" alt="covid">
+					</a>
+				</div>
+				<div class="col-lg-3 col-md-6 col-sm-6">
+					<a class="content-nav__item" href="http://test.ksu.edu.kz/vacancies">
+						Вакансии
+						<img src="/templates/ksu/img/icons/header/portal.svg" alt="Портал">
+					</a>
+				</div>
+				<div class="col-lg-3 col-md-6 col-sm-6">
+					<a class="content-nav__item" href="/<?= urlencode($variables['@lang']); ?>/educational-activity/trudoustrojstvo-i-professional-naya-praktika/">
+						<?= $this->translate('page_career_and_employment_center') ?>
+						<img src="/templates/ksu/img/icons/header/portal.svg" alt="Портал">
+					</a>
+				</div>
+			</div>
+		</div>
+	</div>
+</section>
+
+<section id="sec-menu">
+	<a data-fancybox data-type="iframe" data-src="/smart3d/smart.html" href="javascript:;">
+		<h3 class="sec-menu__title"><?= $regional ?></h3>
+		<picture>
+			<source srcset='/templates/ksu/img/webp/innovation.webp' type='image/webp'>
+			<img src='/templates/ksu/img/innovation.png' alt='SMART-center'>
+		</picture>
+	</a>
+	<a data-fancybox data-src="#engineerModal" href="javascript:;">
+		<h3 class="sec-menu__title-left"><?= $engineering ?></h3>
+		<picture>
+			<source srcset='/templates/ksu/img/webp/sec-mnu1.webp' type='image/webp'>
+			<img src='/templates/ksu/img/sec-mnu1.png' alt='Инжиниринговый центр'>
+		</picture>
+	</a>
+	<a data-fancybox data-type="iframe" data-src="/nii3d/biotech.html" href="javascript:;">
+		<h3 class="sec-menu__title-right"><?= $biotechnology ?></h3>
+		<picture>
+			<source srcset='/templates/ksu/img/webp/sec-mnu2.webp' type='image/webp'>
+			<img src='/templates/ksu/img/sec-mnu2.png' alt='НИИ прикладной биотехнологии'>
+		</picture>
+	</a>
+</section>
+
+<div class="infographic">
+	<div class="container">
+		<div class="row">
+			<div class="col-lg-3">
+				<div class="infographic__item">
+					<div class="infographic__number count1">162</div>
+					<div class="infographic__text">
+						<?= $educational_programs ?>
+					</div>
+				</div>
+			</div>
+			<div class="col-lg-3">
+				<div class="infographic__item infographic__item--black">
+					<div class="infographic__number count2">6532</div>
+					<div class="infographic__text">
+						<?= $number_students ?>
+					</div>
+				</div>
+			</div>
+			<div class="col-lg-3">
+				<div class="infographic__item">
+					<div class="infographic__number count3">549</div>
+					<div class="infographic__text">
+						<?= $teaching_staff ?>
+					</div>
+				</div>
+			</div>
+			<div class="col-lg-3">
+				<div class="infographic__item infographic__item--black">
+					<div class="infographic__number count4">223</div>
+					<div class="infographic__text">
+						<?= $teachers_with_academic ?>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<!---------------- Футер ---------------->
+<? include 'footer.phtml'; ?>

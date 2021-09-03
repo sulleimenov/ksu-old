@@ -1,0 +1,44 @@
+<?
+//print_r($variables['void:lines']);
+
+$hierarchy = umiHierarchy::getInstance(); 
+print_r("<div class=\"header-news__wrapper\">");
+print_r("<div class=\"owl-carousel header-news__item\">");
+$i=0;
+foreach ($variables['void:lines'] as $news)
+{
+	$page = $hierarchy->getElement($news['attribute:id']);
+		//print_r($page->getValue('anons_pic')->getFilePath());
+	$data = $this->macros('system', 'makeThumbnail', array($page->getValue('anons_pic')->getFilePath(), 'auto', 120));
+	print_r('
+		<a href="'.$news['attribute:link'].'" class="link_white">
+			<div class="header-news__latest">
+				<div class="header-news__img" style="background: url('.$data["src"].') center center / cover;">
+					<div class="header-news__date">
+						'.$page->getValue('publish_time')->getFormattedDate('d.m.Y').'
+					</div>
+				</div>
+				<div class="header-news__title">
+					'.$news['node:name'].'
+				</div>
+			</div>
+		</a>
+	');
+	$i++; if($i>=3) break;
+}
+
+
+print_r("</div>");
+
+
+echo '<div style="display:flex; align-items:center;">';
+echo '<a style="background-color:rgba(0,161,225,0.5);padding:6px 10px;border-radius: 3px;color: #fff;" href="/'.urlencode($_REQUEST['lang']).'/clean-session/">'.$this->translate('page_clean_session').'</a>';
+
+echo '
+	<div class="header-news__button" style="width: auto; padding-right:17px;">
+		<a href="/'.urlencode($_REQUEST['lang']).'/newslist/all-news/">'.$this->translate('more_news').'</a>
+	</div>';
+echo '</div>';
+
+print_r("</div>");
+?>

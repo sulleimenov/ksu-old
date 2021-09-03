@@ -1,0 +1,226 @@
+﻿<? include "lang/langselect.phtml"; ?>
+<!-- Перевод -->
+<? include "include/head.phtml"; ?>
+<!-- Шапка -->
+<header class="header header-inner">
+	<div class="container">
+		<? include "top-header.phtml"; ?>
+	</div>
+</header>
+
+<div class="container">
+	<div class="breadcrumbs">
+		<?= $this->render($this->macros('core', 'navibar'), 'library/navibar') ?>
+	</div>
+</div>
+
+
+<div class="page-content">
+
+
+
+   
+    <script src="https://api-maps.yandex.ru/2.1/?apikey=27bf5c05-1f00-4495-a4a3-186a55c2cb57&lang=ru_RU" type="text/javascript">
+    </script>
+    <script type="text/javascript">
+        ymaps.ready(init);
+
+        var myMap;
+        var myPlacemark1;
+        var myPlacemark2;
+        var myPlacemark3;
+        var myPlacemark4;
+        var myPlacemark5;
+        var myPlacemark6;
+        var myPlacemark7;
+        var myPlacemark8;
+        var myPlacemark9;
+        var myPlacemark10;
+        var direct;
+
+        function init(){
+            myMap = new ymaps.Map("map", {
+                center: [53.213751, 63.628676],
+                zoom: 17
+            });
+            myMap.controls.remove('searchControl');
+            myMap.controls.remove('trafficControl');
+
+            myPlacemark1 = new ymaps.Placemark([53.213751, 63.628676], {
+            balloonContentHeader: "Главный корпус",
+            balloonContentBody: "<img src='/templates/ksu/img/map/glav.jpg' width=300>",
+            balloonContentFooter: "ул. Байтурсынова, 47",
+            hintContent: "Подробнее.."
+        	});
+
+            myPlacemark2 = new ymaps.Placemark([53.213650, 63.627572], {
+            balloonContentHeader: "Экономические специальности",
+            balloonContentBody: "<img src='' width=200>",
+            balloonContentFooter: "ул. Байтурсынова, 47",
+            hintContent: "Подробнее.."
+        	});
+
+        	myPlacemark3 = new ymaps.Placemark([53.214365, 63.628602], {
+            balloonContentHeader: "Юридические специальности",
+            balloonContentBody: "<img src='' width=200>",
+            balloonContentFooter: "ул. Байтурсынова, 47",
+            hintContent: "Подробнее.."
+        	});
+
+        	myPlacemark4 = new ymaps.Placemark([53.214137, 63.628552], {
+            balloonContentHeader: "Музей",
+            balloonContentBody: "<img src='' width=200>",
+            balloonContentFooter: "ул. Байтурсынова, 47",
+            hintContent: "Подробнее.."
+        	});
+
+        	myPlacemark5 = new ymaps.Placemark([53.185834, 63.610786], {
+            balloonContentHeader: "Аграрно-технический институт",
+            balloonContentBody: "<img src='/templates/ksu/img/map/shi.jpg' width=300>",
+            balloonContentFooter: "ул. Абая, 28",
+            hintContent: "Подробнее.."
+        	});
+
+            myPlacemark6 = new ymaps.Placemark([53.185552, 63.612524], {
+            balloonContentHeader: "Инженерные специальности",
+            balloonContentBody: "<img src='' width=200>",
+            balloonContentFooter: "ул. Абая, 28",
+            hintContent: "Подробнее.."
+            });
+
+            myPlacemark7 = new ymaps.Placemark([53.220792, 63.625388], {
+            balloonContentHeader: "Педагогический институт",
+            balloonContentBody: "<img src='/templates/ksu/img/map/kspi.jpg' width=300>",
+            balloonContentFooter: "ул. Абая, 28",
+            hintContent: "Подробнее.."
+            });
+
+            myPlacemark8 = new ymaps.Placemark([53.221113, 63.628958], {
+            balloonContentHeader: "Общежитие №1",
+            balloonContentBody: "<img src='/templates/ksu/img/map/обежитие.jpg' width=300>",
+            balloonContentFooter: "ул. Пушкина, 138",
+            hintContent: "Подробнее.."
+            });
+
+            myPlacemark9 = new ymaps.Placemark([53.188456, 63.612637], {
+            balloonContentHeader: "Общежитие №3",
+            balloonContentBody: "<img src='/templates/ksu/img/map/обежитие2.jpg' width=300>",
+            balloonContentFooter: "ул. Абая, 28",
+            hintContent: "Подробнее.."
+            });
+
+            myPlacemark10 = new ymaps.Placemark([53.220939, 63.627942], {
+            balloonContentHeader: "Общежитие №2",
+            balloonContentBody: "<img src='' width=200>",
+            balloonContentFooter: "ул. Пушкина, 133",
+            hintContent: "Подробнее.."
+            });
+
+            myPlacemark11 = new ymaps.Placemark([53.220849, 63.629712], {
+            balloonContentHeader: "Библиотека",
+            balloonContentBody: "<img src='' width=200>",
+            balloonContentFooter: "ул. Пушкина, 136",
+            hintContent: "Подробнее.."
+            });
+
+            myPlacemark12 = new ymaps.Placemark([53.187279, 63.612488], {
+            balloonContentHeader: "Smart- центр",
+            balloonContentBody: "<img src='' width=200>",
+            balloonContentFooter: "ул. Абая, 28",
+            hintContent: "Подробнее.."
+            });
+
+            myPlacemark13 = new ymaps.Placemark([53.186764, 63.613289], {
+            balloonContentHeader: "Спортклуб Сункар ",
+            balloonContentBody: "<img src='' width=200>",
+            balloonContentFooter: "ул. Абая, 28",
+            hintContent: "Подробнее.."
+            });
+
+            myPlacemark14 = new ymaps.Placemark([53.219951, 63.627715], {
+            balloonContentHeader: "Спортклуб Сункар ",
+            balloonContentBody: "<img src='' width=200>",
+            balloonContentFooter: "ул. Пушкина, 86А",
+            hintContent: "Подробнее.."
+            });
+
+            myPlacemark15 = new ymaps.Placemark([53.186347, 63.619662], {
+            balloonContentHeader: "Ветеринарные специальности",
+            balloonContentBody: "<img src='' width=200>",
+            balloonContentFooter: "ул. Маяковского, 99к1",
+            hintContent: "Подробнее.."
+            });
+
+            myPlacemark16 = new ymaps.Placemark([53.186419, 63.621255], {
+            balloonContentHeader: "НИИ прикладной биотехнологии",
+            balloonContentBody: "<img src='' width=200>",
+            balloonContentFooter: "ул. Маяковского, 99к1",
+            hintContent: "Подробнее.."
+            });
+
+
+
+            myMap.geoObjects.add(myPlacemark1);
+            myMap.geoObjects.add(myPlacemark2);
+            myMap.geoObjects.add(myPlacemark3);
+            myMap.geoObjects.add(myPlacemark4);
+            myMap.geoObjects.add(myPlacemark5);
+            myMap.geoObjects.add(myPlacemark6);
+            myMap.geoObjects.add(myPlacemark7);
+            myMap.geoObjects.add(myPlacemark8);
+            myMap.geoObjects.add(myPlacemark9);
+            myMap.geoObjects.add(myPlacemark10);
+            myMap.geoObjects.add(myPlacemark11);
+            myMap.geoObjects.add(myPlacemark12);
+            myMap.geoObjects.add(myPlacemark13);
+            myMap.geoObjects.add(myPlacemark14);
+            myMap.geoObjects.add(myPlacemark15);
+            myMap.geoObjects.add(myPlacemark16);
+            myPlacemark1.balloon.open();
+            
+        }
+        function goTo(direct){
+            place=direct;
+            cords=place.geometry.getCoordinates();        
+        	setTimeout(function () { place.balloon.open(); }, 1500);
+        	myMap.panTo(cords, {duration: 1000});
+       	}        
+
+    </script>
+    <style>
+        .mappy ul li a{
+            display: block;
+            border: 1px solid #acacac;
+            border-radius: 3px;
+            padding:5px 20px;
+            margin-bottom:4px;
+        }
+    </style>
+	<div style="display:flex;justify-content:center;">
+    <div id="map" style="width: 800px; height: 550px" style="display: block; float:left;"></div>
+    <div class="mappy" style="margin-left: 9px;">
+        <ul>
+            <li><a href="#" onclick="goTo(myPlacemark1)"> Главный корпус </a></li>
+            <li><a href="#" onclick="goTo(myPlacemark2)"> Экономические специальности</a></li>
+            <li><a href="#" onclick="goTo(myPlacemark3)"> Юридические специальности</a></li>
+            <li><a href="#" onclick="goTo(myPlacemark4)"> Музей</a></li>
+            <li><a href="#" onclick="goTo(myPlacemark5)"> Аграрно-технический институт</a></li>
+            <li><a href="#" onclick="goTo(myPlacemark6)"> Инженерные специальности</a></li>
+            <li><a href="#" onclick="goTo(myPlacemark7)"> Педагогический институт</a></li>
+            <li><a href="#" onclick="goTo(myPlacemark8)"> Общежитие №1</a></li>
+            <li><a href="#" onclick="goTo(myPlacemark10)"> Общежитие №2</a></li>
+            <li><a href="#" onclick="goTo(myPlacemark9)"> Общежитие №3</a></li>
+            <li><a href="#" onclick="goTo(myPlacemark11)"> Библиотека</a></li>
+            <li><a href="#" onclick="goTo(myPlacemark12)"> Smart- центр</a></li>
+            <li><a href="#" onclick="goTo(myPlacemark13)"> Спортклуб Сункар 1</a></li>
+            <li><a href="#" onclick="goTo(myPlacemark14)"> Спортклуб Сункар 2</a></li>
+            <li><a href="#" onclick="goTo(myPlacemark15)"> Ветеринарные специальности</a></li>
+            <li><a href="#" onclick="goTo(myPlacemark16)"> НИИ прикладной биотехнологии</a></li>
+
+        </ul>
+    </div>
+	</div>
+</div>
+
+<!---------------- Футер ---------------->
+<? include 'footer.phtml'; ?>

@@ -1,0 +1,22 @@
+<?
+//print_r($variables['void:lines']);
+
+$hierarchy = umiHierarchy::getInstance(); 
+$i = 0;
+foreach ($variables['void:lines'] as $news) :
+	$page = $hierarchy->getElement($news['attribute:id']);
+	$data = $this->macros('system', 'makeThumbnail', array($page->getValue('anons_pic')->getFilePath(), 350, 'auto', 100));
+	echo '
+		<div class="news-list__item">
+			<a href="'.$news['attribute:link'].'" class="news-list__item-image" style="background: url('.$data["src"].') center / cover; background-repeat: no-repeat;"></a>
+			<div class="news-list__item-info">
+				<div class="news-list__item-time">'.$page->getValue('publish_time')->getFormattedDate('d.m.Y').'</div>
+			</div>
+			<a href="'.$news['attribute:link'].'" class="news-list__item-name">'.$news['node:name'].'</a>
+			<div class="news-list__item-desc">
+			</div>
+		</div>
+	';
+	$i++; if($i>=3) break;
+endforeach;
+?>

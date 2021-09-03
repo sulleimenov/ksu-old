@@ -1,0 +1,179 @@
+<? //print_r($variables) ;
+	$page=$variables["full:page"];
+?>
+<? include "lang/langselect.phtml"; ?> <!-- Перевод -->
+<? include "include/head.phtml"; ?> <!-- Шапка -->
+	<header class="header header-inner">
+		<div class="container">
+			<? include 'top-header.phtml' ?>
+		</div>
+	</header>
+
+	<div class="container">
+		<div class="breadcrumbs">
+			<?= $this->render($this->macros('core', 'navibar'), 'library/navibar') ?>
+		</div>
+	</div>
+  <div class="template enrollee">
+    <div class="container">
+      <div class="row">
+        <div class="col-12">
+          <div class="template-content">
+						<h1 class="title-content"><?=$page->getValue('h1'); ?></h1>
+						<h3><?=$page->getValue('content'); ?></h3>
+        	</div>
+        </div>
+      </div>
+      <form action="" method="post" name="enrollee_form" enctype="multipart/form-data" >
+      <fieldset id="personal_info">
+      	<legend for="personal_info"> Персональная информация</legend>
+      	<div class="row">
+      		<div class="input-group col-12 col-md-4">
+      			<label for="enrollee_photo" class="custom-file-label">
+      				<?=$this->translate("Ваше фото")?>:
+		 			<input type="file" class="form-control custom-file-input" placeholder="Ваше фото" name="photo" id="enrollee_photo" />
+		 		</label>
+			</div>
+      	</div>
+      	<div class="row"> 
+      		<div class="input-group col-12 col-md-4">
+      			<label><?=$this->translate("Фамилия")?>:
+		 		<input type="text" class="form-control" placeholder="" name="fam" required="required"/>
+		 		</label>
+			</div>
+			<div class="input-group col-12 col-md-4">
+				<label><?=$this->translate("Имя")?>:
+		 			<input type="text" class="form-control" placeholder="" name="name" required="required"/>
+		 		</label>	
+			</div>
+			<div class="input-group col-12 col-md-4">
+				<label><?=$this->translate("Отчество")?>:
+		 			<input type="text" class="form-control" placeholder="" name="patronimic" />
+		 		</label>
+			</div>
+      	</div>
+
+      	<div class="row"> 
+      		<div class="input-group col-12 col-md-4">
+      			<label><?=$this->translate("ИИН")?>:
+		 			<input type="text" class="form-control" placeholder="" name="iin" required="required" size="13" />
+		 		</label>
+			</div>
+			<div class="input-group col-12 col-md-4">
+				<label><?=$this->translate("Email")?>:
+		 			<input type="email" class="form-control" placeholder="" name="email" required="required" />
+		 		</label>	
+			</div>
+			<div class="input-group col-12 col-md-4">
+				<label><?=$this->translate("Телефон")?>:
+		 			<input type="phone" class="form-control" placeholder="" name="phone" required="required"/>
+		 		</label>
+			</div>
+			<div class="input-group col-6 col-md-2">
+				<label for="select_sex"><?=$this->translate("Пол")?>:
+		 			<select name="sex" required="required" class="selectize-js" id="select_sex">
+		 				<option value=""></option>
+		 				<option value="4"><?=$this->translate("Мужской")?></option>
+		 				<option value="5"><?=$this->translate("Женский")?></option>
+		 			</select>
+		 		</label>	
+			</div>
+			
+			<div class="input-group col-6 col-md-3">
+				<label for="select_nationality"><?=$this->translate("Национальность")?>:
+		 			<select name="nationality" required="required" class="selectize-js" id="select_nationality">
+		 				<option value=""></option>
+		 				<?
+							$objects= new selector("objects");
+    						$objects->types('object-type')->id(144);
+		 				?>
+		 				<?foreach ($objects->result() as $res ):?>
+		 					<option value="<?=$res->id?>"><?=$res->name?></option>
+		 				<?endforeach;?>
+		 			</select>
+		 		</label>	
+			</div>
+
+			<div class="input-group col-6 col-md-3">
+				<label for="select_sitizenship"><?=$this->translate("Гражданство")?>:
+						<?
+							$objects= new selector("objects");
+    						$objects->types('object-type')->id(143);
+		 				?>
+		 			<select name="sitizenship" required="required" class="selectize-js" id="select_sitizenship">
+		 				<option value=""></option>
+		 				<?foreach ($objects->result() as $res ):?>
+		 					<option value="<?=$res->id?>"><?=$res->name?></option>
+		 				<?endforeach;?>
+		 			</select>
+		 		</label>	
+			</div>
+      	</div>
+
+
+      </fieldset>
+      <fieldset id="adress_info">
+      	<legend for="adress_info"><?=$this->translate("Адресные данные")?></legend>
+		<div class="row">
+      		<div class="input-group col-12 col-md-3">
+				<label for="select_region"><?=$this->translate("Область")?>:
+				<?$region=$this->macros("custom","getKato",[0]);?>
+		 			<select name="region" required="required" class="selectize-js" id="select_region">
+		 				<option value="0"><?=$this->translate("Выберите область")?></option>
+		 				
+		 				<?foreach($region["result"] as $res):?>
+		 					<option value="<?=$res->id?>"><?=$res->name?></option>
+		 				<?endforeach;?>
+		 			</select>
+		 		</label>
+			</div>
+			<div class="input-group col-12 col-md-3 offset-md-1">
+				<label for="select_city"><?=$this->translate("Город")?>:
+		 			<select name="city" required="required" class="selectize-js" id="select_city">
+		 				<option value="0"> </option>
+		 			</select>
+		 		</label>
+			</div>
+      	</div>
+      	<div class="row">
+      		<div class="input-group col-12 col-md-4">
+				<label><?=$this->translate("Улица/мкр")?>:
+		 			<input type="text" class="form-control" placeholder="" name="street" required="required"/>
+		 		</label>
+			</div>
+			<div class="input-group col-6 col-md-1 " >
+				<label><?=$this->translate("Дом")?>:
+		 			<input type="text" class="form-control" placeholder="" name="house" required="required"/>
+		 		</label>
+			</div>
+			<div class="input-group col-6 col-md-1 offset-md-1">
+				<label><?=$this->translate("Квартира")?>:
+		 			<input type="text" class="form-control" placeholder="" name="flat" required="required"/>
+		 		</label>
+			</div>
+      	</div>
+      </fieldset>	
+      <fieldset id="born_info">
+      	<legend for="born_info"><?=$this->translate("Место рождения")?></legend>
+
+      </fieldset>	
+
+      <fieldset id="previous_edu">
+      	<legend for="previous_edu"><?=$this->translate("Предыдущее образование")?></legend>
+
+      </fieldset>	
+
+      <fieldset id="next_edu">
+      	<legend for="next_edu"><?=$this->translate("Желаемое образование")?></legend>
+
+      </fieldset>	
+      
+      <div class="btn_wrap">
+      	<button id="save_info" class="btn" type="submit"><?=$this->translate("Сохранить")?></button>
+      </div>
+      </form>
+    </div>
+  </div>
+
+<!---------------- Футер ---------------->
+<? include 'footer.phtml'; ?>

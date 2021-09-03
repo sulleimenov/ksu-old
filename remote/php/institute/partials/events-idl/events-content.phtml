@@ -1,0 +1,20 @@
+<? 
+	include "header.phtml"; 
+	$getPageById = $this->getPageById($variables['@pageId']);
+?>
+
+<div class="container">
+	<div class="breadcrumbs">
+		<a href="/"><?= $variables['@title'] ?></a>
+		<?= $this->render($this->macros('core', 'navibar'), 'institute/breadcrumbs') ?>
+	</div>
+	<div class="sidebar">
+		<div class="sidebar__content">
+			<?php
+				echo $getPageById->getValue('content');
+			?>
+		</div>
+	</div>
+</div>
+
+<? include 'footer.phtml'; ?>

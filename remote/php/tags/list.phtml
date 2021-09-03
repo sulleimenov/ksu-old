@@ -1,0 +1,224 @@
+<?php
+include './templates/ksu/php/lang/langselect.phtml';
+include './templates/ksu/php/include/head.phtml';
+
+debug($variables);
+?>
+
+<header class="header header-inner">
+	<div class="container">
+		<?php include "./templates/ksu/php/top-header.phtml"; ?>
+	</div>
+</header>
+
+<div class="container-с">
+	<div class="breadcrumbs">
+		<?= $this->render($this->macros('core', 'navibar'), 'library/navibar') ?>
+	</div>
+    
+    <?php
+        $hierarchy = umiHierarchy::getInstance();
+        $umiLinksHelper = umiLinksHelper::getInstance();
+        
+        $tag = getRequest('tag');
+        
+        if (!$tag) {
+            $this->macros( 'content', 'redirect', ['/newslist/all-news']);
+        }
+
+			$sel = new selector('pages');
+			$sel->types('hierarchy-type')->name('news', 'item');
+
+/*
+			$baseTypes = 'news-item'; //getRequest('param2');
+			if ($baseTypes !== '') {
+				$arrBaseTypes = preg_split("/\s+/is", $baseTypes);
+				foreach ($arrBaseTypes as $s_next_type) {
+					$arrNextType = explode('.', $s_next_type);
+					if (umiCount($arrNextType) === 2) {
+						$hierarchyType = umiHierarchyTypesCollection::getInstance()
+							->getTypeByName($arrNextType[0], $arrNextType[1]);
+						if ($hierarchyType instanceof iUmiHierarchyType) {
+							$hierarchyTypeId = $hierarchyType->getId();
+							$sel->types('hierarchy-type')->id($hierarchyTypeId);
+						}
+					}
+				}
+			}
+*/
+
+			$arrTags = preg_split("/\s*,\s*/is", $tag);
+			$sel->where('tags')->equals($arrTags);
+
+$perPage = 15;
+$currentPage = (int) getRequest('p');
+
+			if ($perPage !== -1) {
+				$sel->limit($currentPage * $perPage, $perPage);
+			}
+
+			$sel->order('publish_time')->desc();
+
+			$result = $sel->result();
+			$total = $sel->length();
+
+			$blockArr = [];
+
+			$arrItems = [];
+
+$umiHierarchy = umiHierarchy::getInstance();
+list(
+	$tplPages,
+	$tpl_page,
+	$tpl_pages_empty
+	) = content::loadTemplates('content/tags',
+	'pages',
+	'page',
+	'pages_empty'
+);
+
+			/** @var iUmiHierarchyElement $element */
+			foreach ($result as $element) {
+				if (!$element) {
+					continue;
+				}
+
+				$elementId = $element->getId();
+
+				$lineArr = [];
+				$lineArr['attribute:id'] = $elementId;
+				$lineArr['node:name'] = $element->getName();
+				$lineArr['attribute:link'] = $umiHierarchy->getPathById($elementId);
+				$lineArr['void:header'] = $element->getName();
+
+				$publishTime = $element->getValue('publish_time');
+				if ($publishTime) {
+					$lineArr['attribute:publish_time'] = $publishTime->getFormattedDate('U');
+				}
+
+$lent_name = '';
+$lent_link = '';
+$lent_id = $element->getParentId();
+$lent_element = $hierarchy->getElement($lent_id);
+if ($lent_element) {
+	$lent_name = $lent_element->getName();
+	$lent_link = $umiLinksHelper->getLinkByParts($lent_element);
+}
+$lineArr['attribute:lent_id']   = $lent_id;
+$lineArr['attribute:lent_name'] = $lent_name;
+$lineArr['attribute:lent_link'] = $lent_link;
+
+				$arrItems[] = content::parseTemplate($tpl_page, $lineArr, $elementId);
+				$umiHierarchy->unloadElement($elementId);
+			}
+$items2 = [
+	'items' => [
+		'nodes:item' => $arrItems,
+	],
+	'void:lines' => $arrItems,
+	'per_page' => $perPage,
+	'total' => $total,
+];
+
+        $items = $this->macros('content', 'pagesByDomainTags', [$tag, 'tags/item', null, 15]);
+        foreach ($items['items']['nodes:item'] as &$item) {
+            $element = $hierarchy->getElement($item['attribute:id']);
+            
+            $lent_name = '';
+            $lent_link = '';
+            $lent_id = $element->getParentId();
+            
+            $lent_element = $hierarchy->getElement($lent_id);
+            if ($lent_element) {
+                $lent_name = $lent_element->getName();
+                $lent_link = $umiLinksHelper->getLinkByParts($lent_element);
+            }
+            
+            $item['attribute:lent_id']   = $lent_id;
+            $item['attribute:lent_name'] = $lent_name;
+            $item['attribute:lent_link'] = $lent_link;
+        }
+        $items['void:lines'] = $items['items']['nodes:item'];
+
+debug($items);
+debug($items2);
+
+    ?>
+    
+    <div class="page-news">
+        <div class="page-news__list">
+            <?= $this->render($items2, 'macros/news_item'); ?>
+        </div>
+        
+        <div class="page-news__right">
+			<div class="page-news-category">
+				<div class="page-news-title">
+					<?= $this->translate("rubrics"); ?>
+				</div>
+				<div class="page-news-box">
+					<?
+
+						$lastlist = $this->macros("news", "lastlents", ["/newslist",0,10,1]);
+						foreach ($lastlist["void:lines"] as $newslist) :
+	
+						$lang = 'ru';
+						$link = $newslist["attribute:link"];
+						if ($lang == 'ru' and (strpos($link, '/ru') !== 0) and (strpos($_SERVER['REQUEST_URI'], '/ru') === 0)) {
+							$link = '/ru'.$link;
+						}
+						$isActive = ($link == $_SERVER['REQUEST_URI']) ? 'current' : '';
+											
+					?>
+					<a href="<?= $newslist["attribute:link"] ?>" class="page-news-category__item <?= $isActive ?>">
+						<?= $this->translate($this->getPageById($newslist["attribute:id"])->getAltName()); ?>
+					</a>
+					<? endforeach; ?>
+				</div>
+			</div>
+			<?
+				$hierarchy = umiHierarchy::getInstance();
+				$getId = $this->macros('content', 'get_page_id', array('/home/'));
+				$value = $hierarchy->getElement($getId);
+				if ($value) :
+			?>
+			<? 
+			$events = $this->macros('news', 'lastlist', ['conferences', 0, 2, 1]);
+			if ($events) : ?>
+			<div class="page-news-category">
+				<div class="page-news-title">
+					<?= $this->translate('announcements'); ?>
+				</div>
+				<div class="page-news-events">
+					<div class="page-news-events__lists">
+						<?
+						$i = 0;
+						foreach ($events["items"]["nodes:item"] as $event) :
+							$page = $hierarchy->getElement($event['attribute:id']);
+							echo '
+								<a href="'.$event["attribute:link"].'" class="page-news-events__item" style="display:block;">
+									'.$event["node:name"].'
+									<span>'.$this->translate(strtolower($page->getValue('date_of_the_event')->getFormattedDate('l'))).', '.$page->getValue('date_of_the_event')->getFormattedDate('d').' '.$this->translate(strtolower($page->getValue('date_of_the_event')->getFormattedDate('F'))).'</span>
+								</a>
+							';
+							$i++; if($i>=2) break;
+						endforeach ?>
+					</div>
+				</div>
+				<a href="/<?= $variables['@lang'] ?>/news-events" class="page-news-events__button"><?= $this->translate('all_announcements'); ?></a>
+			</div>
+			<? endif ?>
+			<div class="page-news-category page-news-category--mobile">
+				<div class="page-news-title">
+					<?= $this->translate("page_contacts"); ?>
+				</div>
+				<div class="page-news-contacts">
+					<?= $value->getValue('content') ?>
+				</div>
+			</div>
+			<? endif; ?>
+		</div>
+    </div>
+</div>
+
+<!---------------- Футер ---------------->
+<?php include './templates/ksu/php/footer.phtml'; ?>

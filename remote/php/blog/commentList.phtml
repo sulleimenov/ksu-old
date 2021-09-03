@@ -1,0 +1,82 @@
+<?
+$hierarchy = umiHierarchy::getInstance(); 
+echo "<div class='comments'>";
+echo "<h2>".$this->translate("blog_messages")."</h2>";
+echo "<ul class=\"media-list\">";
+foreach ($variables['void:lines'] as $key) {
+?>
+
+
+<li class="media">
+    <div class="media-body">
+      <div class="panel panel-info">
+        <div class="panel-heading">
+          <div class="author_com">
+          	<?
+			$author= $this->macros('users', 'viewAuthor', array($key['attribute:author_id']));
+			if($author['fname']!='') echo $author['fname'];
+			else echo $author['nickname']; 
+			?>
+          </div>
+          <div class="metadata">
+            <span class="date">
+            	<?
+            	$page=$hierarchy->getElement($key['attribute:id']);
+            	echo date("d-m-Y",strtotime($page->getValue('publish_time')));
+            	?></span>
+          </div>          
+        </div>
+        <div class="panel-body">
+          <div class="media-text text-justify">
+          	<?=$key['node:message'] ?>
+          </div>
+
+
+					<div class="media">
+                        <div class="media-body">
+                            <div class="panel panel-info">
+                                <div class="panel-heading">
+                                    <div class="author_com"><?
+                    
+                                    echo $this->translate("blog_answer");
+                                    ?>
+                                      
+                                    </div>
+                                    <!--<div class="metadata">
+                                        <span class="date">19 ноября 2015, 10:28</span>
+                                    </div>-->
+                                </div>
+                                <div class="panel-body">
+                                    <div class="media-text text-justify">
+
+										<?
+										
+										echo $page->getValue('tekst_otveta');
+										?>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+
+        </div>
+      </div>     
+    </div>
+</li>
+<? 
+	}
+	echo "</ul>";
+echo "</div>";
+?>
+<? 
+$limit = 3; //	ссылок в навигации на каждую сторону
+$per_page = $variables['per_page']; // элементов на странице
+$total = $variables['total'];
+
+echo $this->render(array(
+	"total" => $total,
+	"per_page" => $per_page,
+	"limit" => $limit,
+	"numpages" => $this->macros("system", "numpages", array($total, $per_page, null, null, $limit))), "library/numpages");
+?>
