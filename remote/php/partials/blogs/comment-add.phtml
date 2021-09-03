@@ -1,0 +1,101 @@
+<?
+$parent_id = $variables['parent_id'];
+$action = "/comments/post/" . $parent_id . "/";
+?>
+<div>
+	<form method="post" data-action=<?= $action ?> id="form_for_comments">
+		<h2><?= $this->translate("leave_message_blog"); ?></h2>
+		<div class="elem_wrapper">
+			<div class="form_element">
+				<input type="text" name="title" required="required" />
+				<span class="highlight"></span><span class="bar"></span>
+				<label>
+					<?= $this->translate("comment_title"); ?></p>
+				</label>
+			</div>
+			<div class="form_element">
+				<input type="text" name="author_nick" id="author_nick" required="required" onchange="f()" />
+				<span class="highlight"></span><span class="bar"></span>
+				<label>
+					<?= $this->translate("comment_nick"); ?>
+				</label>
+			</div>
+			<div class="form_element">
+				<input type="text" name="author_email" id="author_email" required="required" onchange="f()" />
+				<span class="highlight"></span><span class="bar"></span>
+				<label>
+					<p><?= $this->translate("comment_mail"); ?></p>
+				</label>
+			</div>
+		</div>
+		<div style="display:flex; justify-content:space-between;">
+			<div class="form_element" style="width: 100%;">
+				<textarea id="comment" name="comment" onchange="f()" required="required"></textarea>
+				<span class="highlight"></span><span class="bar"></span>
+				<label>
+					<p><?= $this->translate("comment_text"); ?></p>
+				</label>
+			</div>
+		</div>
+		<div style="display:flex; justify-content:flex-end;">
+			<div class="form_element">
+				<input type="checkbox" id="rules" name="rules" value="a1" onchange="f()" />
+				<span><?= $this->translate("blog"); ?>
+					<span id="rule" onclick="show('block')"><?= $this->translate("rules"); ?></span> <?= $this->translate("agree"); ?>
+				</span>
+			</div>
+		</div>
+		<div class="agree_group" style="display:flex; justify-content:flex-end;">
+			<div class="form_element">
+				<?= $this->render($this->macros('system', 'captcha'), 'partials/blogs/captcha') ?>
+			</div>
+			<script type="text/javascript">
+				$(document).ready(function() {
+					$(".btn-submit").on("click", function() {
+						var form = $(this).closest("form");
+						var action = form.data("action");
+						form.prop("action", action);
+						form.submit();
+					});
+				});
+			</script>
+			<div class="form_element">
+				<input class="btn btn-submit" name="butt" id="butt" type="button" disabled="disabled" value=<?= $this->translate("send"); ?> />
+			</div>
+		</div>
+		<div style="display:flex; justify-content:flex-end;">
+			<? $errors = $this->macros("system", "listErrorMessages", []); ?>
+			<? foreach ($errors["items"]["nodes:item"] as $value) : ?>
+				<?= $value["node:message"] ?>
+			<? endforeach; ?>
+		</div>
+		<div>
+			<!--Всплывающее окно -->
+			<div onclick="show('none')" id="wrap"></div>
+			<div id="window">
+				<!--<img class="close" onclick="show('none')" src="http://sergey-oganesyan.ru/wp-content/uploads/2014/01/close.png"/>-->
+				<?
+				$hierarchy = umiHierarchy::getInstance();
+				$page_id = $hierarchy->getIdByPath('/rectors-blog/rules/');
+				$page = $hierarchy->getElement($page_id);
+				//print_r($page->getValue('content'));
+				?>
+			</div>
+			<!--Конец блока всплывающего окна -->
+		</div>
+	</form>
+</div>
+<script type="text/javascript">
+	function show(state) {
+		document.getElementById('window').style.display = state;
+		document.getElementById('wrap').style.display = state;
+	}
+
+	function f() {
+		var rul = document.getElementById('rules');
+		if (rul.checked == false)
+			document.getElementById('butt').disabled = true;
+		else
+			document.getElementById('butt').disabled = false;
+	}
+</script>

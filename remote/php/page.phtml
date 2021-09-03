@@ -17,8 +17,6 @@
 			<h1 class="page__content-title">
 				<?= $variables['@header'] ?>
 			</h1>
-			<?= $this->render($variables, $variables['@module'] . '/' . $variables['@method']) ?>
-
 			<?
 			$hierarchy = umiHierarchy::getInstance();
 			$page = $hierarchy->getElement($variables['@pageId']) ?: $hierarchy->getElement($current_page_id);
