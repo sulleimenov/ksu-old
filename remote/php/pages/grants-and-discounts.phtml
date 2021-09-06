@@ -1,0 +1,25 @@
+<? include "./templates/ksu/php/partials/header.phtml"; ?>
+
+<div class="container">
+	<div class="tape">
+		<h1 class="tape__title">
+			<?= $variables['@header'] ?>
+		</h1>
+		<div class="tape__wrapper">
+			<?= $this->render($this->macros('news', 'lastlist', array('granty-stipendii-lgoty-po-oplate', null, 6, false)), 'partials/grants-and-discounts/item'); ?>
+		</div>
+	</div>
+	<div class="page">
+		<div class="page__content-box">
+			<div class="page__content">
+				<?
+				$hierarchy = umiHierarchy::getInstance();
+				$page = $hierarchy->getElement($variables['@pageId']);
+				echo $page->content;
+				?>
+			</div>
+		</div>
+	</div>
+</div>
+
+<? include "./templates/ksu/php/footer.phtml"; ?>
