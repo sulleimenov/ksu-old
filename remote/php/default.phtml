@@ -89,7 +89,7 @@ $hierarchy = umiHierarchy::getInstance();
 			<div class="col-lg-3 col-md-3 col-sm-6 col-6">
 				<div class="stud-nav stud-nav_student">
 					<a class="stud-nav__link" href="/<?= urlencode($variables['@lang']); ?>/4block/distance_learning/">
-						<div class="stud-nav__title"><?= $dot ?></div>
+						<div class="stud-nav__title"><?= $this->translate('distance_education') ?></div>
 					</a>
 				</div>
 			</div>
@@ -97,14 +97,14 @@ $hierarchy = umiHierarchy::getInstance();
 			<div class="col-lg-3 col-md-3 col-sm-6 col-6">
 				<div class="stud-nav stud-nav_abb">
 					<a class="stud-nav__link" href="/<?= urlencode($variables['@lang']); ?>/enrollee/">
-						<div class="stud-nav__title"><?= $abitur ?></div>
+						<div class="stud-nav__title"><?= $this->translate('for-the-entrant') ?></div>
 					</a>
 				</div>
 			</div>
 			<div class="col-lg-3 col-md-3 col-sm-6 col-6">
 				<div class="stud-nav stud-nav_voen">
 					<a class="stud-nav__link" href="/<?= urlencode($variables['@lang']); ?>/4block/voennaya-kafedra/">
-						<div class="stud-nav__title"><?= $voennaya ?></div>
+						<div class="stud-nav__title"><?= $this->translate('military_department') ?></div>
 					</a>
 				</div>
 			</div>
@@ -112,35 +112,28 @@ $hierarchy = umiHierarchy::getInstance();
 			<div class="col-lg-3 col-md-3 col-sm-6 col-6">
 				<div class="stud-nav stud-nav_grant">
 					<a class="stud-nav__link" href="/<?= urlencode($variables['@lang']); ?>/4block/granty-i-skidki/">
-						<div class="stud-nav__title"><?= $grant ?></div>
+						<div class="stud-nav__title"><?= $this->translate('grants_and_discounts') ?></div>
 					</a>
 				</div>
 			</div>
-			<!--div class="col-lg-3 col-md-3 col-sm-6 col-6">
-				<div class="stud-nav stud-nav_student">
-					<a class="stud-nav__link" href="/<?= urlencode($variables['@lang']); ?>/4block/nashi-vypuskniki/">
-						<div class="stud-nav__title"><?= $our ?></div>
-					</a>
-				</div>
-			</div-->
 		</div>
 		<div class="content-nav">
 			<div class="row">
 				<div class="col-lg-3 col-md-6 col-sm-6">
 					<a href="https://acportal.ksu.edu.kz/ru" target="_blank" class="content-nav__item">
-						<?= $anti_portal ?>
+						<?= $this->translate('anti_corruption_portal') ?>
 						<img src="/templates/ksu/img/icons/header/portal.svg" alt="Портал">
 					</a>
 				</div>
 				<div class="col-lg-3 col-md-6 col-sm-6">
 					<a href="/<?= urlencode($variables['@lang']); ?>/timetable/" class="content-nav__item">
-						<?= $blocktimetable ?>
+						<?= $this->translate('timetable') ?>
 						<img src="/templates/ksu/img/icons/header/job.svg" alt="timetable">
 					</a>
 				</div>
 				<div class="col-lg-3 col-md-6 col-sm-6">
 					<a href="/<?= urlencode($variables['@lang']); ?>/block/onlajn-biblioteka" class="content-nav__item">
-						<?= $library ?>
+						<?= $this->translate('online_library') ?>
 						<img src="/templates/ksu/img/icons/header/job.svg" alt="book">
 					</a>
 				</div>
@@ -158,7 +151,6 @@ $hierarchy = umiHierarchy::getInstance();
 						<img src="/templates/ksu/img/icons/header/blog.svg" alt="page_student_service_center">
 					</a>
 				</div>
-
 				<div class="col-lg-3 col-md-6 col-sm-6">
 					<a class="content-nav__item" href="/<?= urlencode($variables['@lang']); ?>/covid/">
 						Covid-19
@@ -184,21 +176,21 @@ $hierarchy = umiHierarchy::getInstance();
 
 <section id="sec-menu">
 	<a data-fancybox data-type="iframe" data-src="/smart3d/smart.html" href="javascript:;">
-		<h3 class="sec-menu__title"><?= $regional ?></h3>
+		<h3 class="sec-menu__title"><?= $this->translate('smart_center') ?></h3>
 		<picture>
 			<source srcset='/templates/ksu/img/webp/innovation.webp' type='image/webp'>
 			<img src='/templates/ksu/img/innovation.png' alt='SMART-center'>
 		</picture>
 	</a>
 	<a data-fancybox data-src="#engineerModal" href="javascript:;">
-		<h3 class="sec-menu__title-left"><?= $engineering ?></h3>
+		<h3 class="sec-menu__title-left"><?= $this->translate('engineering_center') ?></h3>
 		<picture>
 			<source srcset='/templates/ksu/img/webp/sec-mnu1.webp' type='image/webp'>
 			<img src='/templates/ksu/img/sec-mnu1.png' alt='Инжиниринговый центр'>
 		</picture>
 	</a>
 	<a data-fancybox data-type="iframe" data-src="/nii3d/biotech.html" href="javascript:;">
-		<h3 class="sec-menu__title-right"><?= $biotechnology ?></h3>
+		<h3 class="sec-menu__title-right"><?= $this->translate('research_institute_of_applied_biotechnology') ?></h3>
 		<picture>
 			<source srcset='/templates/ksu/img/webp/sec-mnu2.webp' type='image/webp'>
 			<img src='/templates/ksu/img/sec-mnu2.png' alt='НИИ прикладной биотехнологии'>
@@ -213,7 +205,7 @@ $hierarchy = umiHierarchy::getInstance();
 				<div class="infographic__item">
 					<div class="infographic__number count1">162</div>
 					<div class="infographic__text">
-						<?= $educational_programs ?>
+						<?= $this->translate('implemented_educational_programs') ?>
 					</div>
 				</div>
 			</div>
@@ -221,7 +213,7 @@ $hierarchy = umiHierarchy::getInstance();
 				<div class="infographic__item infographic__item--black">
 					<div class="infographic__number count2">6532</div>
 					<div class="infographic__text">
-						<?= $number_students ?>
+						<?= $this->translate('contingent_of_students') ?>
 					</div>
 				</div>
 			</div>
@@ -229,7 +221,7 @@ $hierarchy = umiHierarchy::getInstance();
 				<div class="infographic__item">
 					<div class="infographic__number count3">549</div>
 					<div class="infographic__text">
-						<?= $teaching_staff ?>
+						<?= $this->translate('teaching_staff') ?>
 					</div>
 				</div>
 			</div>
@@ -237,7 +229,7 @@ $hierarchy = umiHierarchy::getInstance();
 				<div class="infographic__item infographic__item--black">
 					<div class="infographic__number count4">223</div>
 					<div class="infographic__text">
-						<?= $teachers_with_academic ?>
+						<?= $this->translate('teachers_with_academic_degrees_and_titles') ?>
 					</div>
 				</div>
 			</div>
