@@ -32,4 +32,4 @@ echo $this->render(array(
 	"per_page" => $per_page,
 	"limit" => $limit,
 	"numpages" => $this->macros("system", "numpages", array($total, $per_page, null, null, $limit))
-), "library/numpages");
+), "partials/pagination/pagination");
