@@ -1,13 +1,8 @@
 <?
-// print_r('<pre>');
-// print_r($variables['items']['nodes:item']);
-// print_r('</pre>');
 $hierarchy = umiHierarchy::getInstance();
 foreach ($variables['void:lines'] as $news) {
 	$page = $hierarchy->getElement($news['@id']);
 	echo '
-	
-	<div class="row">
 		<div class="guide">
 			<div class="guide__img"><img src="'.$page->getValue('image').'" alt="'.($page->getValue('image') ? $page->getValue('image')->getAlt() : '').'" />
 				<div class="guide__name">'.$page->getValue('name').'</div>
@@ -36,7 +31,5 @@ foreach ($variables['void:lines'] as $news) {
 				}
 	echo '</div>
 			</div>
-		</div>
-	</div>';
+		</div>';
 }
-?>
