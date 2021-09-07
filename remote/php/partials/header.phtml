@@ -1,21 +1,7 @@
-<?
-$css_version = 'ver=1.5.15'; // Версия CSS файлов
-$js_version = 'ver=1.0.24'; // Версия js файлов
+<?php
+$css_version = 'ver=2.0.0';
+$js_version = 'ver=2.0.0';
 $hierarchy = umiObjectsCollection::getInstance();
-switch ($variables['@lang-id']):
-	case '1':
-		$obj = $hierarchy->getObject(667);
-		break;
-	case '2':
-		$obj = $hierarchy->getObject(671);
-		break;
-	case '3':
-		$obj = $hierarchy->getObject(668);
-		break;
-	default:
-		# code...
-		break;
-endswitch;
 
 function debug($error)
 {
