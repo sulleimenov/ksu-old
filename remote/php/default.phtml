@@ -78,7 +78,7 @@ $hierarchy = umiHierarchy::getInstance();
 			<div class="news-header__link"><a href="/<?= urlencode($_REQUEST['lang']) ?>/newslist/all-news/"><?= $this->translate('more_news'); ?></a></div>
 		</div>
 		<div class="news-list">
-			<?= $this->render($this->macros('news', 'lastlist', array('newslist/all-news, newslist/for-the-entrant, newslist/education, newslist/science, newslist/university-life, newslist/ruhani-zhagyru', null, null, true)), 'partials/news/news-item') ?>
+			<?= $this->render($this->macros('news', 'lastlist', array('newslist/all-news, newslist/for-the-entrant, newslist/education, newslist/science, newslist/university-life, newslist/ruhani-zhagyru', null, null, true)), 'partials/news/news-home-item') ?>
 		</div>
 	</div>
 </div>

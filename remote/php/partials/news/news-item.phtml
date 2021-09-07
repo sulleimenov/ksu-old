@@ -1,22 +1,63 @@
 <?
-// items-ы на главной странице
+// items-ы в самой странице "новости"
 
-$hierarchy = umiHierarchy::getInstance(); 
-$i = 0;
-foreach ($variables['void:lines'] as $news) :
+function trim_news($str, $znaki = 100) {
+	$str = strip_tags(trim($str));
+	if (mb_strlen($str, 'utf-8') <= $znaki) {
+		return $str;
+	}
+	$arrStr1 = explode(' ', $str);
+	$arrStr2 = explode(' ', mb_substr($str, 0, $znaki));
+	$str = '';
+	foreach ($arrStr2 as $key => $val) {
+		if ($val == $arrStr1[$key]) {
+				$str .= $val . ' ';
+		}
+	}
+	return trim($str) . '...';
+}
+
+$langURI = $_REQUEST['lang'] ? '/'.$_REQUEST['lang'] : ($_REQUEST['pre_lang'] ? $_REQUEST['pre_lang'] : '');
+
+
+$hierarchy = umiHierarchy::getInstance();
+foreach ($variables['void:lines'] as $news) {
 	$page = $hierarchy->getElement($news['attribute:id']);
-	$data = $this->macros('system', 'makeThumbnail', array($page->getValue('anons_pic')->getFilePath(), 350, 'auto', 100));
+
+	$tags = '';
+	foreach ($page->getValue('tags') as $tag) {
+		$tags .= '<a href="'.$langURI.'/tags/?tag='.$tag.'">'.$tag.'</a>';
+	}
+
+	$cropText = $page->getValue('anons');
+	$isImages = ($page->getValue('anons_pic')) ? $page->getValue('anons_pic') : '/images/News/pictures/bbn-breaking-news.jpg';
+	$dateOfTheEvents = $news["attribute:lent_link"] == '/conferences/' ? $this->translate('published').': ' : '';
+	
 	echo '
-		<div class="news-list__item">
-			<a href="'.$news['attribute:link'].'" class="news-list__item-image" style="background: url('.$data["src"].') center / cover; background-repeat: no-repeat;"></a>
-			<div class="news-list__item-info">
-				<div class="news-list__item-time">'.$page->getValue('publish_time')->getFormattedDate('d.m.Y').'</div>
+	<div class="page-news-list__item">
+		<div class="page-news-list__text">
+			<a href="'.$news['attribute:link'].'" class="page-news-list__title">'.$news['node:name'].'</a>
+			<div class="page-news-list__subtitle">
+				'.trim_news($cropText, 125).'
 			</div>
-			<a href="'.$news['attribute:link'].'" class="news-list__item-name">'.$news['node:name'].'</a>
-			<div class="news-list__item-desc">
+			<div class="page-news-list__info">
+				<a href="'.$news['attribute:lent_link'].'" class="page-news-list__category">'.$news['attribute:lent_name'].'</a>
+				<div class="page-news-list__date">'.$dateOfTheEvents.$page->publish_time->getFormattedDate('d.m.Y').'</div>
+				<div class="page-news-list__times"></div>
+			</div>
+			<div class="page-news-list__tags">
+				'.$tags.'
 			</div>
 		</div>
-	';
-	$i++; if($i>=3) break;
-endforeach;
-?>
+		<a href="'.$news['attribute:link'].'" class="page-news-list__images" style="background: url('.$isImages.') center / cover no-repeat;"></a>
+	</div>';
+}
+
+$limit = 3; //	ссылок в навигации на каждую сторону
+$per_page = $variables['per_page']; // элементов на странице
+$total = $variables['total'];
+echo $this->render(array(
+	"total" => $total,
+	"per_page" => $per_page,
+	"limit" => $limit,
+	"numpages" => $this->macros("system", "numpages", array($total, $per_page, null, null, $limit))), "library/numpages");
