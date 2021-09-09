@@ -1,12 +1,9 @@
 <?php
-// $len = count($variables['items']['nodes:item']);
-// if($i == $len - 1 || $getPageById->content == NULL) {
-
 echo '<a href="/">'.$this->translate('page_home').' / </a>';
 
 foreach ($variables['items']['nodes:item'] as $breadcrumbs) :
 	$getPageById = $this->getPageById($breadcrumbs['attribute:id']);
-	if($getPageById->content == NULL) {
+	if($getPageById->content === NULL) {
 		echo '<span>'.$breadcrumbs['node:text'].' / </span>';
 	}	else {
 		echo '<a href='.$breadcrumbs['attribute:link'].'>'.$breadcrumbs['node:text'].' / </a>';
