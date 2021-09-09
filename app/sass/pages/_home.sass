@@ -1,3 +1,84 @@
+.news
+	margin-bottom: 40px
+
+.news-header
+	font-size: 18px
+	font-weight: 700
+	display: flex
+	justify-content: space-between
+	margin-bottom: 25px
+	&__title
+	&__link
+
+.news-list
+	display: flex
+	justify-content: space-between
+	&__item
+		position: relative
+		width: 255px
+		height: 380px
+		background: #F8F8F7
+		padding: 30px 25px
+		border-radius: 3px
+		overflow: hidden
+		@include media-breakpoint-down(lg)
+			width: 210px
+			height: 335px
+	&__header
+		display: flex
+		justify-content: space-between
+		color: $gray
+		font-size: 10px
+		text-transform: uppercase
+		margin-bottom: 13px
+	&__title
+		font-weight: 700
+		margin-bottom: 29px
+		position: relative
+		line-height: 1.30
+		&::after
+			content: ''
+			position: absolute
+			left: 0
+			bottom: -10px
+			width: 39px
+			height: 2px
+			background-color: $gray
+	&__desc
+		font-size: 12px
+		color: $gray
+		@include media-breakpoint-down(lg)
+			display: none
+	&__info
+		position: absolute
+		bottom: 180px
+		display: flex
+		align-items: center
+		font-size: 10px
+		text-transform: uppercase
+		color: $gray
+	&__link
+		color: $gray
+	&__views
+		font-size: 11px
+		margin-left: 20px
+	&__image
+		position: absolute
+		left: 0
+		bottom: 0
+		width: 255px
+		height: 162px
+		background-color: $blue
+		@include media-breakpoint-down(lg)
+			width: 210px
+			height: 145px
+		&::after
+			content: ''
+			position: absolute
+			left: 25px
+			top: 0
+			border: 10px solid transparent
+			border-top: 10px solid #F8F8F7
 
 .stud-nav
 	position: relative
