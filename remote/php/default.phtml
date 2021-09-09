@@ -1,56 +1,52 @@
-<? include "include/head.phtml"; ?>
-<?php
-$_REQUEST['lang'] = $variables['@lang'];
-$hierarchy = umiHierarchy::getInstance();
-?>
+<? include_once "./templates/ksu/php/partials/header-top.phtml"; ?>
 
-<header class="header">
-	<? include('top-header.phtml') ?>
-	<div class="offer">
-		<div class="swiper-container swiper-offer">
-			<div class="swiper-wrapper">
-				<!-- Slider - start -->
-				<?
-				$getPageById = $this->macros('content', 'get_page_id', array('/home/banners'));
-				$homeSliderChildren = $hierarchy->getChildrenList($getPageById);
+<? $hierarchy = umiHierarchy::getInstance(); ?>
 
-				foreach ($homeSliderChildren as $homeSliderChildrenId) :
-					$homeSlider = $hierarchy->getElement($homeSliderChildrenId);
-					
-					$buttonOneBlank = $homeSlider->home_slider_button_1_blank ? '' : 'target="_blank"';
-					$buttonTwoBlank = $homeSlider->home_slider_button_2_blank ? '' : 'target="_blank"';
-					$buttonThreeBlank = $homeSlider->home_slider_button_3_blank ? '' : 'target="_blank"';
-					
-					$buttonCenterBlock1 = $homeSlider->home_slider_button_1_newp ? 'offer__buttons-center' : '';
-					$buttonCenterBlock2 = $homeSlider->home_slider_button_2_newp ? 'offer__buttons-center' : '';
-					$buttonCenterBlock3 = $homeSlider->home_slider_button_3_newp ? 'offer__buttons-center' : '';
-					
-					$jsCallModal = ($homeSlider->home_slider_button_3_link === 'javascript:;') ? 'data-fancybox data-src="#callModal"' : '';
+<div class="offer">
+	<div class="swiper-container swiper-offer">
+		<div class="swiper-wrapper">
+			<!-- Slider - start -->
+			<?
+			$getPageById = $this->macros('content', 'get_page_id', array('/home/banners'));
+			$homeSliderChildren = $hierarchy->getChildrenList($getPageById);
 
-					$buttonOne = $homeSlider->home_slider_button_1 ? '<a class="'.$buttonCenterBlock1.'" href="'.$homeSlider->home_slider_button_1_link.'" '.$buttonOneBlank.'>'.$homeSlider->home_slider_button_1.'</a>' : '';
-					$buttonTwo = $homeSlider->home_slider_button_2 ? '<a class="'.$buttonCenterBlock2.'" href="'.$homeSlider->home_slider_button_2_link.'" '.$buttonTwoBlank.'>'.$homeSlider->home_slider_button_2.'</a>' : '';
-					$buttonThree = $homeSlider->home_slider_button_3 ? '<a '.$jsCallModal.' class="'.$buttonCenterBlock3.'" href="'.$homeSlider->home_slider_button_3_link.'" '.$buttonThreeBlank.'>'.$homeSlider->home_slider_button_3.'</a>' : '';
-					
+			foreach ($homeSliderChildren as $homeSliderChildrenId) :
+				$homeSlider = $hierarchy->getElement($homeSliderChildrenId);
 
-					$subtitle = $homeSlider->home_slider_text_under_button ? '<div class="offer__subtitle">'.$homeSlider->home_slider_text_under_button.'</div>' : '';
+				$buttonOneBlank = $homeSlider->home_slider_button_1_blank ? '' : 'target="_blank"';
+				$buttonTwoBlank = $homeSlider->home_slider_button_2_blank ? '' : 'target="_blank"';
+				$buttonThreeBlank = $homeSlider->home_slider_button_3_blank ? '' : 'target="_blank"';
 
-					echo '
+				$buttonCenterBlock1 = $homeSlider->home_slider_button_1_newp ? 'offer__buttons-center' : '';
+				$buttonCenterBlock2 = $homeSlider->home_slider_button_2_newp ? 'offer__buttons-center' : '';
+				$buttonCenterBlock3 = $homeSlider->home_slider_button_3_newp ? 'offer__buttons-center' : '';
+
+				$jsCallModal = ($homeSlider->home_slider_button_3_link === 'javascript:;') ? 'data-fancybox data-src="#callModal"' : '';
+
+				$buttonOne = $homeSlider->home_slider_button_1 ? '<a class="' . $buttonCenterBlock1 . '" href="' . $homeSlider->home_slider_button_1_link . '" ' . $buttonOneBlank . '>' . $homeSlider->home_slider_button_1 . '</a>' : '';
+				$buttonTwo = $homeSlider->home_slider_button_2 ? '<a class="' . $buttonCenterBlock2 . '" href="' . $homeSlider->home_slider_button_2_link . '" ' . $buttonTwoBlank . '>' . $homeSlider->home_slider_button_2 . '</a>' : '';
+				$buttonThree = $homeSlider->home_slider_button_3 ? '<a ' . $jsCallModal . ' class="' . $buttonCenterBlock3 . '" href="' . $homeSlider->home_slider_button_3_link . '" ' . $buttonThreeBlank . '>' . $homeSlider->home_slider_button_3 . '</a>' : '';
+
+
+				$subtitle = $homeSlider->home_slider_text_under_button ? '<div class="offer__subtitle">' . $homeSlider->home_slider_text_under_button . '</div>' : '';
+
+				echo '
 						<div class="swiper-slide">
 							<div class="container">
 								<div class="offer__box">
 									<div class="offer__left">
-										<div class="offer__title">'.$homeSlider->content.'</div>
+										<div class="offer__title">' . $homeSlider->content . '</div>
 										<div class="offer__buttons">
-											'.$buttonOne.'
-											'.$buttonTwo.'
-											'.$buttonThree.'
+											' . $buttonOne . '
+											' . $buttonTwo . '
+											' . $buttonThree . '
 										</div>
-										'.$subtitle.'
+										' . $subtitle . '
 									</div>
 									<div class="offer__right">
 										<div class="offer__image">
 											<div class="offer__gradient-left"></div>
-											<div style="background-image: url('.$homeSlider->getValue('home_slider_image').'); background-size: cover; height: 400px; width: auto"></div>
+											<div style="background-image: url(' . $homeSlider->getValue('home_slider_image') . '); background-size: cover; height: 400px; width: auto"></div>
 											<div class="offer__gradient-right"></div>
 										</div>
 									</div>
@@ -58,23 +54,22 @@ $hierarchy = umiHierarchy::getInstance();
 							</div>
 						</div>
 					';
-				endforeach;
-				?>
-				<!-- Slider - end -->
-			</div>
-
-			<div class="swiper-button-prev"></div>
-			<div class="swiper-button-next"></div>
-			<div class="swiper-pagination"></div>
+			endforeach;
+			?>
+			<!-- Slider - end -->
 		</div>
+
+		<div class="swiper-button-prev"></div>
+		<div class="swiper-button-next"></div>
+		<div class="swiper-pagination"></div>
 	</div>
-</header>
+</div>
 
 <div class="news">
 	<div class="container">
 		<div class="news-header">
 			<div class="news-header__title"><?= $this->translate('last_news'); ?></div>
-			<div class="news-header__link"><a href="/<?= urlencode($_REQUEST['lang']) ?>/newslist/all-news/"><?= $this->translate('more_news'); ?></a></div>
+			<div class="news-header__link"><a href="/<?= urlencode($variables['@lang']) ?>/newslist/all-news/"><?= $this->translate('more_news'); ?></a></div>
 		</div>
 		<div class="news-list">
 			<?= $this->render($this->macros('news', 'lastlist', array('newslist/all-news, newslist/for-the-entrant, newslist/education, newslist/science, newslist/university-life, newslist/ruhani-zhagyru', null, null, true)), 'partials/news/news-home-item') ?>
