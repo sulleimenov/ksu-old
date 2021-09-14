@@ -13,7 +13,7 @@ foreach ($variables['void:lines'] as $compilation) :
 		<div class="compilation__box">
 			<div class="compilation__box-item compilation__date">'.$this->translate('published').': <span>'.$obPage->getValue('publish_time')->getFormattedDate('d.m.Y').'</span></div>
 			<div class="compilation__box-item compilation__isbn">'.$obPage->getValue('spc_isbn').'</div>
-			<a href="'.$obPage->getValue('spc_link_download').'" target="_blank" class="compilation__box-item compilation__download">Скачать сборник</a>
+			<a href="'.$obPage->getValue('spc_link_download').'" target="_blank" class="compilation__box-item compilation__download">'.$this->translate('download_collection').'</a>
 		</div>
 	</div>
 	';

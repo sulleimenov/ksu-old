@@ -18,7 +18,7 @@
 				if ($variables['@pageId'] != $currentPage) :
 					$contentDate = ($getPageById->publish_time) ? $getPageById->publish_time->getFormattedDate('d.m.Y') : '' ;
 					echo '
-					<div class="back-to">Назад</div>
+					<div class="back-to">'.$this->translate('back_to').'</div>
 					<div class="content-header">'.$getPageById->getName('title').'</div>
 					<div class="content-body">
 						<span class="content-events-date">'.$contentDate.'</span>

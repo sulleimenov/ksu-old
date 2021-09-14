@@ -222,7 +222,7 @@
 			</span>
 		</div>
 		<div class="news-entry-info__text news-entry-info__text--read">
-			<? echo decl_of_numb(round($all_read), array("мин", "мин", "мин")); ?> читать
+			<? echo decl_of_numb(round($all_read), array("мин", "мин", "мин")); ?> <?= $this->translate('read') ?>
 		</div>
 		<div class="news-entry-info__text news-entry-info__text--views">
 			<?= $this->macros('custom', 'counter', [$variables['@pageId']]); ?>

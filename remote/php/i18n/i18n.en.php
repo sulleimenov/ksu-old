@@ -21,6 +21,7 @@ return [
 	'no_materials' => 'Materials not added',
 	'search' => 'Search',
 	'enter_text' => 'Enter...',
+	'download_collection' => 'Download collection',
 	'published' => 'Published',
 	'announcements' => 'Announcements',
 	'all_announcements' => 'All announcements',
@@ -34,6 +35,7 @@ return [
 	'account' => 'Personal cabinet',
 	'call_center' => 'Call-center',
 	'read_more' => 'Read more',
+	'read' => 'read',
 	'military_department' => 'Military department',
 	'grants_and_discounts' => 'Grants, discounts, dormitory',
 	'our_graduates' => 'Our graduates',
@@ -48,6 +50,7 @@ return [
 	'online_library' => 'Online Library',
 	'timetable' => 'Timetable',
 	'distance_education' => 'Distance learning',
+	'back_to' => 'Back',
 	//Pojo
 	'pojo_accessibility_tools' => 'Accessibility tools',
 	'pojo_enlarge_text' => 'Enlarge text',
