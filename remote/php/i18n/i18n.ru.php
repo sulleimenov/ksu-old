@@ -20,6 +20,7 @@ return [
 	'no_results' => 'Результаты не найдены',
 	'no_materials' => 'Материалы не добавлены',
 	'search' => 'Поиск',
+	'enter' => 'Введите запрос',
 	'enter_text' => 'Введите текст...',
 	'download_collection' => 'Скачать сборник',
 	'published' => 'Опубликовано',

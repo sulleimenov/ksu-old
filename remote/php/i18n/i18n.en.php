@@ -20,6 +20,7 @@ return [
 	'no_results' => 'No results found',
 	'no_materials' => 'Materials not added',
 	'search' => 'Search',
+	'enter' => 'Enter a request',
 	'enter_text' => 'Enter...',
 	'download_collection' => 'Download collection',
 	'published' => 'Published',
