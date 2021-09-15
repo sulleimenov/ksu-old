@@ -1,7 +1,9 @@
 <?php
-$css_version = 'ver=2.0.0';
+$css_version = 'ver=2.0.1';
 $js_version = 'ver=2.0.0';
 $hierarchy = umiObjectsCollection::getInstance();
+
+$_REQUEST['lang'] = $variables['@lang'];
 
 function debug($error)
 {
@@ -126,7 +128,7 @@ function debug($error)
 	<a id="pojo-a11y-skip-content" class="pojo-skip-link pojo-skip-content" tabindex="1" accesskey="s" href="#content">Skip to content</a>
 	<nav id="pojo-a11y-toolbar" class="pojo-a11y-toolbar-left" role="navigation">
 		<div class="pojo-a11y-toolbar-toggle">
-				<a class="pojo-a11y-toolbar-link pojo-a11y-toolbar-toggle-link" href="javascript:void(0);" title="Инструменты доступности">
+				<a class="pojo-a11y-toolbar-link pojo-a11y-toolbar-toggle-link" href="javascript:void(0);" title="<?= $this->translate('pojo_accessibility_tools') ?>">
 					<span class="pojo-sr-only sr-only">Open toolbar</span>
 					<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" fill="currentColor" width="1em">
 							<g>

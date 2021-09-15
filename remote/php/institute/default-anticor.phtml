@@ -23,13 +23,14 @@
 					$content_trim = mb_strimwidth($value->getValue('content'), 0, 560, "...");
 					echo $content_trim;
 					if (mb_strlen($value->getValue('content')) > 560) :
-						echo '<button class="button button--more"><a href="/' . $variables['@lang'] . '/' . $value->getAltName('@alt_name') . '">Читать далее</a></button>';
+						echo '<button class="button button--more"><a href="/' . $variables['@lang'] . '/' . $value->getAltName('@alt_name') . '">'.$this->translate('read_more').'</a></button>';
 					endif;
 					?>
 				</div>
+				<!-- https://old2.kspi.kz/images/corruption-2019-rus.jpg -->
 				<? if ($value->getValue('photo')) : ?>
-					<a class="lectern-history__img d-none-768" href="https://old2.kspi.kz/images/corruption-2019-rus.jpg" target="_blank" style="height: auto;">
-						<div class="lectern-history__img" style="background: url(<?= $value->getValue('photo'); ?>) right top no-repeat; background-size: contain; height: 100%;"></div>
+					<a class="lectern-history__img d-none-768" href="<?= $value->getValue('photo') ?>" target="_blank" style="height: auto;">
+						<div class="lectern-history__img" style="background: url(<?= $value->getValue('photo'); ?>) right top no-repeat; background-size: contain; height: 228px;"></div>
 					</a>
 				<? endif; ?>
 			</div>
@@ -121,15 +122,15 @@
 				<div class="lectern-contact__list">
 					<div class="text-under text-under--address">
 						<?= $value->getValue('address'); ?>
-						<span>Адрес</span>
+						<span><?= $this->translate('team_address') ?></span>
 					</div>
 					<div class="text-under">
 						<?= $value->getValue('phone'); ?>
-						<span>Телефон</span>
+						<span><?= $this->translate('team_phone') ?></span>
 					</div>
 					<div class="text-under">
 						<?= $value->getValue('email'); ?>
-						<span>Электронный адрес</span>
+						<span><?= $this->translate('team_email') ?></span>
 					</div>
 					<? if ($value->youtube) : ?>
 						<div class="text-under text-under--youtube">
