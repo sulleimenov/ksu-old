@@ -1,10 +1,15 @@
 {
 	"name": "optimizedhtml",
+	"homepage": "https://sulleimenov.github.io/ksu",
 	"version": "5.0.0",
 	"description": "OptimizedHTML 5 - Lightweight Gulp Starter",
 	"main": "index.js",
 	"author": "WebDesign Master",
 	"license": "ISC",
+	"scripts": {
+		"deploy": "gh-pages -d dist",
+		"predeploy": "gulp build"
+	},
 	"devDependencies": {
 		"@babel/core": "^7.13.14",
 		"@babel/preset-env": "^7.13.12",
@@ -15,6 +20,7 @@
 		"browser-sync": "^2.26.14",
 		"browsersync-ssi": "^0.2.4",
 		"del": "^6.0.0",
+		"gh-pages": "^3.2.3",
 		"gulp": "^4.0.2",
 		"gulp-autoprefixer": "^7.0.1",
 		"gulp-clean-css": "^4.3.0",
@@ -28,11 +34,11 @@
 		"gulp-sass": "^4.1.0",
 		"gulp-sass-glob": "^1.1.0",
 		"gulp-stylus": "^2.7.0",
-		"swiper": "^6.5.7",
 		"webpack-stream": "^6.1.2"
 	},
 	"dependencies": {
 		"gsap": "^3.6.1",
-		"jquery": "^3.6.0"
+		"jquery": "^3.6.0",
+		"swiper": "^6.5.7"
 	}
 }
