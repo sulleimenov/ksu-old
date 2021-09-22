@@ -30,9 +30,9 @@ foreach ($variables['void:lines'] as $news) {
 	}
 
 	$cropText = $page->getValue('anons');
-	$isImages = ($page->getValue('anons_pic')) ? $page->getValue('anons_pic') : '/images/News/pictures/bbn-breaking-news.jpg';
+	$isImages = ($page->getValue('anons_pic')) ? $this->macros('system', 'makeThumbnail', array($page->getValue('anons_pic')->getFilePath(), 220, 'auto', 100)) : '/images/News/pictures/bbn-breaking-news.jpg';
 	$dateOfTheEvents = $news["attribute:lent_link"] == '/conferences/' ? $this->translate('published').': ' : '';
-	
+
 	echo '
 	<div class="page-news-list__item">
 		<div class="page-news-list__text">
@@ -49,7 +49,7 @@ foreach ($variables['void:lines'] as $news) {
 				'.$tags.'
 			</div>
 		</div>
-		<a href="'.$news['attribute:link'].'" class="page-news-list__images" style="background: url('.$isImages.') center / cover no-repeat;"></a>
+		<a href="'.$news['attribute:link'].'" class="page-news-list__images" style="background: url('.$isImages["src"].') center / cover no-repeat;"></a>
 	</div>';
 }
 
