@@ -149,8 +149,12 @@
 		padding: 10px 15px
 		position: relative
 		cursor: pointer
+		text-align: center
 		&:first-child
 			margin-left: 0
+			width: 100px
+		@include media-breakpoint-down(lg)
+			padding: 10px 5px
 		&:hover
 			.nav__item-dropdown
 				display: block
@@ -179,7 +183,6 @@
 				padding: 8px 15px
 				color: $textcolor
 	&__logo
-		margin-right: 10px
 		display: flex
 		align-items: center
 
