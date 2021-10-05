@@ -37,9 +37,11 @@
 			<div class="guidance">
 				<?php foreach ($valueChildren as $key) {
 					$value = $hierarchy->getElement($key);
-
+					if ($value->getIsActive()) {
+						
+					
 				?>
-					<a href="/<?= urlencode($variables['@lang']) . '/administration/' . $value->getAltName() ?>" class="guidance__item">
+					<a style="<?= $isVisible ?>" href="/<?= urlencode($variables['@lang']) . '/administration/' . $value->getAltName() ?>" class="guidance__item">
 						<div class="guidance__name">
 							<span><?= substr($value->getValue('name'), 0, strpos($value->getValue('name'), ' ')); ?></span>
 							<?= substr($value->getValue('name'), strpos($value->getValue('name'), ' ')); ?>
@@ -54,7 +56,7 @@
 						<div class="guidance__images" style="background-image: url(<?= $value->getValue('photo'); ?>);">
 						</div>
 					</a>
-				<?php } ?>
+				<?php } } ?>
 			</div>
 		</div>
 	<?php
