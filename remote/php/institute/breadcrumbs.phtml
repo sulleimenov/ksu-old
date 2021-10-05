@@ -2,7 +2,7 @@
 	foreach ($variables['items']['nodes:item'] as $breadcrumbs) {
 		$getPageById = $this->getPageById($breadcrumbs['attribute:id']);
 
-	if($getPageById->content == NULL) {
+	if($getPageById->content === NULL) {
 		echo '<a>'.$breadcrumbs['node:text'].'</a>';
 	}	else {
 		echo '<a href='.$breadcrumbs['attribute:link'].'>'.$breadcrumbs['node:text'].'</a>';
