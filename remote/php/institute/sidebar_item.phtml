@@ -1,5 +1,5 @@
 <?
-$hierarchy = umiObjectsCollection::getInstance();
+$hierarchy = umiHierarchy::getInstance();
 	switch ($variables['@lang-id']) :
 		case '1':
 			$lang = 'ru';
@@ -21,7 +21,8 @@ foreach ($variables['items']['nodes:item'] as $value) {
 		$link = '/ru'.$link;
 	}
 	$isActive = ($link == $_SERVER['REQUEST_URI']) ? 'current' : '';
-	
-	echo '<a href="'.$value['@link'].'" class="'.$isActive.'">'.$value['@name'].'</a>';
+	$data = $hierarchy->getElement($value['@id']);
+	$isHeadDep = ($data->place === 'И.о. заведующего кафедрой') ? 'is-head-dev' : '';
+	echo '<a href="'.$value['@link'].'" class="'.$isActive.' '.$isHeadDep.'">'.$value['@name'].'</a>';
 }
 ?>
