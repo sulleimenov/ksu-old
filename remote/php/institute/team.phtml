@@ -16,8 +16,34 @@
 				$childrenLists = $hierarchy->getChildrenTree($variables['@pageId']);
 				if ($childrenLists) :
 					echo '<div class="card-list">';
+                        // первый проход в цикле - ищем заведующих
 						foreach ($childrenLists as $key => $childrenList) :
 							$staff = $hierarchy->getElement($key);
+                            if (!$staff->department_head) {
+                                continue;
+                            }
+							echo '
+								<div class="card-list__item" style="border-bottom: 3px ridge #b3c4ff;">
+									<div class="card-list__images" style="background: url('.$staff->photo.') no-repeat center / cover;"></div>
+									<div class="card-list__info">
+										<a href="'.$staff->link.'" class="card-list__info-name not-link">
+											'.$staff->name.'
+										</a>
+										<div class="card-list__info-position text-under">
+											'.$staff->place.'
+											<span>'.$this->translate('team_place').'</span>
+										</div>
+									</div>
+								</div>
+							';
+						endforeach;
+                        
+                        // второй проход в цикле - выводим всех кроме заведущих
+                        foreach ($childrenLists as $key => $childrenList) :
+							$staff = $hierarchy->getElement($key);
+                            if ($staff->department_head) {
+                                continue;
+                            }
 							echo '
 								<div class="card-list__item">
 									<div class="card-list__images" style="background: url('.$staff->photo.') no-repeat center / cover;"></div>
