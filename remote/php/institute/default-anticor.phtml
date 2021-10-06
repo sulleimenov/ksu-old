@@ -91,7 +91,8 @@
 	<div class="lectern-list-wrapper" id="<?= $value->getAltName('@alt_name') ?>">
 		<div class="lectern-title"><?= $value->getValue('h1'); ?></div>
 
-		<div class="lectern-list">
+		<!-- <div class="lectern-list"> -->
+			<div class="row">
 			<?
 			$getChildrenList = $hierarchy->getChildrenList($getPageId);
 			foreach ($getChildrenList as $child) {
@@ -100,16 +101,18 @@
 				$parent = $hierarchy->getElement($parentId);
 				if ($parent->getAltName() == "professional-development")
 					echo '
-				<a href="/' . urlencode($variables['@lang']) . '/professional-development/' . $element->getAltName() . '" class="lectern-list__item">
-					<div class="lectern-list__name" >
-						' . $element->getName() . '
+					<div class="col-lg-4 col-md-6 mb-4">
+						<a href="/' . urlencode($variables['@lang']) . '/professional-development/' . $element->getAltName() . '" class="card-item">
+							'.$element->getName().'
+							<div class="lectern-list__img" style="background: url('.$element->getValue('header_pic').') top right no-repeat; background-size: contain;"></div>
+						</a>
 					</div>
-					<div class="lectern-list__img" style="background: url(' . $element->getValue('header_pic') . ') top right no-repeat; background-size: contain;">&nbsp;</div>
-				</a>';
+				';
 			}
 			?>
+			</div>
 		</div>
-	</div>
+	<!-- </div> -->
 
 	<?php
 	$getId = $this->macros('content', 'get_page_id', array('/contacts/'));
