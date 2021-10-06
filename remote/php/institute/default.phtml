@@ -38,8 +38,6 @@
 				<?php foreach ($valueChildren as $key) {
 					$value = $hierarchy->getElement($key);
 					if ($value->getIsActive()) {
-						
-					
 				?>
 					<a style="<?= $isVisible ?>" href="/<?= urlencode($variables['@lang']) . '/administration/' . $value->getAltName() ?>" class="guidance__item">
 						<div class="guidance__name">
@@ -88,14 +86,16 @@
 					$istrImgClass = 'lectern-list__item--img';
 				endif;
 				if($parent->getAltName() == "departments") {
-				echo '
-					<a href="/'.urlencode($variables['@lang']).'/departments/'.$element->getAltName().'" class="lectern-list__item '.$istrImgClass.'">
-						<div class="lectern-list__name" >
-							'.$element->getName().'
-						</div>
-						'.$degree.'
-						'.$istrImg.'
-					</a>';
+					if ($element->getIsActive()) {
+						echo '
+							<a href="/'.urlencode($variables['@lang']).'/departments/'.$element->getAltName().'" class="lectern-list__item '.$istrImgClass.'">
+								<div class="lectern-list__name" >
+									'.$element->getName().'
+								</div>
+								'.$degree.'
+								'.$istrImg.'
+							</a>';
+					}
 				}
 			}
 			?>
