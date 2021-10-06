@@ -1,0 +1,166 @@
+<?php
+	include "header.phtml"; 
+	$getPageById = $this->getPageById($variables['@pageId']);
+
+function DOMinnerHTML(DOMNode $element) 
+{ 
+    $innerHTML = ""; 
+    $children  = $element->childNodes;
+
+    foreach ($children as $child) 
+    { 
+        $innerHTML .= $element->ownerDocument->saveHTML($child);
+    }
+
+    return $innerHTML; 
+}
+
+$pages = [
+    'ru' => [
+        'b' => 4432,
+        'm' => 1279,
+        'd' => 1280,
+    ],
+    'kz' => [
+        'b' => 4614,
+        'm' => 1291,
+        'd' => 1292,
+    ],
+    'en' => [
+        'b' => 0,
+        'm' => 0,
+        'd' => 0,
+    ],
+];
+$titles = [
+    'ru' => [
+        'b' => 'Бакалавриат',
+        'm' => 'Магистратура',
+        'd' => 'Докторантура',
+    ],
+    'kz' => [
+        'b' => 'Бакалавриат',
+        'm' => 'Магистратура',
+        'd' => 'Докторантура',
+    ],
+    'en' => [
+        'b' => 'Bachelor',
+        'm' => 'Masters\'s',
+        'd' => 'Doctoral',
+    ],
+];
+
+$language = $variables['@lang'];
+$lang = $language ?: 'ru';
+
+$dep = $getPageById->getValue('tags');
+$dep = count($dep > 0) ? $dep[0] : '';
+
+debug($dep);
+
+$bachelorPage = $this->getPageById($pages[$lang]['b']);
+$bachelorContent = $bachelorPage->getvalue('content');
+$bachelor = DOMDocument::loadHTML('<?xml encoding="utf-8" ?>'.$bachelorContent);
+$xpath = new DOMXPath($bachelor);
+$bachelorHTML = [];
+foreach($xpath->query('//div[@class="slider-item" and @data-id="'.$dep.'"]') as $program) {
+  $bachelorHTML[] = DOMinnerHTML($program);
+}
+
+$mastersPage = $this->getPageById($pages[$lang]['m']);
+$mastersContent = $mastersPage->getvalue('content');
+$masters = DOMDocument::loadHTML('<?xml encoding="utf-8" ?>'.$mastersContent);
+$xpath = new DOMXPath($masters);
+$mastersHTML = [];
+foreach($xpath->query('//div[@class="slider-item" and @data-id="'.$dep.'"]') as $program) {
+  $mastersHTML[] = DOMinnerHTML($program);
+}
+
+$doctorsPage = $this->getPageById($pages[$lang]['d']);
+$doctorsContent = $doctorsPage->getvalue('content');
+$doctors = DOMDocument::loadHTML('<?xml encoding="utf-8" ?>'.$doctorsContent);
+$xpath = new DOMXPath($doctors);
+$doctorsHTML = [];
+foreach($xpath->query('//div[@class="slider-item" and @data-id="'.$dep.'"]') as $program) {
+  $doctorsHTML[] = DOMinnerHTML($program);
+}
+
+?>
+<div class="container">
+	<div class="breadcrumbs">
+		<a href="/<?= $variables['@lang'] ?>/"><?= $variables['@title'] ?></a>
+		<?= $this->render($this->macros('core', 'navibar'), 'institute/breadcrumbs') ?>
+	</div>
+
+
+	<div class="page">
+		<div class="content">
+			<div class="content-header">
+				<?= $variables['@header']; ?>
+			</div>
+			<div class="content-body">
+                <h3 style="color: #506690; border-bottom: 1px solid #506690; border-top: 1px solid #506690; padding: .5rem 0 .4rem; margin: 0 0 2rem;"><?= $titles[$lang]['b'] ?></h3>
+                <?php
+				foreach ($bachelorHTML as $item) {
+                    echo '<div style="margin-bottom: 2rem;">'.$item.'</div>';
+                }
+                ?>
+                
+                <?php if (count($mastersHTML) > 0) : ?>
+                <h3 style="color: #506690; border-bottom: 1px solid #506690; border-top: 1px solid #506690; padding: .5rem 0 .4rem; margin: 4rem 0 2rem;"><?= $titles[$lang]['m'] ?></h3>
+				<?php
+                foreach ($mastersHTML as $item) {
+                    echo '<div style="margin-bottom: 2rem;">'.$item.'</div>';
+                }
+                ?>
+                <?php endif; ?>
+                
+                <?php if (count($doctorsHTML) > 0) : ?>
+                <h3 style="color: #506690; border-bottom: 1px solid #506690; border-top: 1px solid #506690; padding: .5rem 0 .4rem; margin: 4rem 0 2rem;"><?= $titles[$lang]['d'] ?></h3>
+                <?php
+				foreach ($doctorsHTML as $item) {
+                    echo '<div style="margin-bottom: 2rem;">'.$item.'</div>';
+                }
+                ?>
+                <?php endif; ?>
+			</div>
+		</div>
+		<div class="sidebar">
+			<div class="sidebar__wrapper">
+				<div class="sidebar-list">
+					<?
+						$getParentList = $hierarchy->getParent($variables['@pageId']);
+						$getChildrenList = $hierarchy->getChildrenTree($variables['@pageId']);
+						if (empty($getChildrenList)) :
+							echo $this->render($this->macros('content', 'menu', array(null, 1, $getParentList)), 'institute/sidebar_item');
+						else :
+							echo $this->render($this->macros('content', 'menu', array(null, 1, $variables['@pageId'])), 'institute/sidebar_item');
+						endif;
+					?>
+				</div>
+				<?
+					$value = $hierarchy->getParent($variables['@pageId']);
+					$value = $hierarchy->getElement($value);
+					if ($value && ($value->getValue('dep_address') || $value->getValue('dep_phone') || $value->getValue('dep_email'))) :
+				?>
+				<div class="sidebar-contacts">
+					<p class="sidebar-contacts__title"><?= $this->translate('page_contacts'); ?></p>
+					<? if ($value->getValue('dep_address')) : ?>
+					<p class="text-under"><?= $value->getValue('dep_address') ?><span><?= $this->translate('team_address'); ?></span></p>
+					<? endif ?>
+					<? if ($value->getValue('dep_phone')) : ?>
+					<a class="text-under" href="tel:<?= $value->getValue('dep_phone') ?>"><?= $value->getValue('dep_phone') ?><span><?= $this->translate('team_phone'); ?></span></a>
+					<? endif ?>
+					<? if ($value->getValue('dep_email')) : ?>
+					<a class="text-under" href="mailto:<?= $value->getValue('dep_email') ?>"><?= $value->getValue('dep_email') ?><span><?= $this->translate('team_email'); ?></span></a>
+					<? endif ?>
+				</div>
+				<? endif ?>
+			</div>
+		</div>
+	</div>
+
+
+</div>
+
+<? include 'footer.phtml'; ?>
