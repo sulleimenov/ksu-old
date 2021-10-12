@@ -195,8 +195,13 @@ function debug($error) {
 		$bgImg = 'bg-'.$subdomain.'.jpg';
 	} else {
 		$bgImg = 'bg-ati.jpg';
+		$page = $hierarchy->getElement($variables["parents"]["+page"][1]->id);
+		if ($page) {
+			$bgImg = 'departments/'.$subdomain.'.jpg';
+		} else {
+			$bgImg = 'bg-ati.jpg';
+		}
 	}
-
 	?>
 	<header class="lectern-header-wrapper">
 		<div class="container container-custom">
@@ -271,17 +276,18 @@ function debug($error) {
 		<div class="container">
 			<div class="lectern-offer__box">
 				<div class="lectern-offer__top">
-
-					<?php if (in_array($variables['@domain'], ['agro.ksu.edu.kz', 'eti.ksu.edu.kz', 'iel.ksu.edu.kz', 'pis.ksu.edu.kz', 'acportal.ksu.edu.kz'])) : ?>
-						<img class="lectern-offer__logo" src="/templates/ksu/img/institute/logos/<?= $variables['@domain']; ?>.png" />
-					<?php endif; ?>
-
-					<h1 class="lectern-offer__title">
-						<?= $variables['@site-name']; ?>
-					</h1>
-					<div class="lectern-offer__subtitle">
-						<?= $this->translate('cru_named_baitursinova') ?>
-					</div>
+					<?
+						if (in_array($variables['@domain'], ['agro.ksu.edu.kz', 'eti.ksu.edu.kz', 'iel.ksu.edu.kz', 'pis.ksu.edu.kz', 'acportal.ksu.edu.kz'])) :
+							echo '<img class="lectern-offer__logo" src="/templates/ksu/img/institute/logos/'.$variables['@domain'].'.png" />';
+						endif;
+						$page = $hierarchy->getElement($variables["parents"]["+page"][1]->id);
+						if ($page) {
+							echo '<h1 class="lectern-offer__title">'.$page->getValue('h1').'</h1>';
+						} else {
+							echo '<h1 class="lectern-offer__title">'.$variables['@site-name'].'</h1>';
+							echo '<div class="lectern-offer__subtitle">'.$this->translate('cru_named_baitursinova').'</div>';
+						}
+					?>
 				</div>
 				<div class="lectern-offer__bottom">
 					<div class="lectern-social">
