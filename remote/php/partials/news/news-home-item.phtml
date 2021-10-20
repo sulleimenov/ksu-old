@@ -1,22 +1,43 @@
 <?
 // items-ы на главной странице
+function trim_news($str, $znaki = 45) {
+	$str = strip_tags(trim($str));
+	if (mb_strlen($str, 'utf-8') <= $znaki) {
+		return $str;
+	}
+	$arrStr1 = explode(' ', $str);
+	$arrStr2 = explode(' ', mb_substr($str, 0, $znaki));
+	$str = '';
+	foreach ($arrStr2 as $key => $val) {
+		if ($val == $arrStr1[$key]) {
+				$str .= $val . ' ';
+		}
+	}
+	return trim($str) . '...';
+}
 
-$hierarchy = umiHierarchy::getInstance(); 
+$hierarchy = umiHierarchy::getInstance();
 $i = 0;
 foreach ($variables['void:lines'] as $news) :
 	$page = $hierarchy->getElement($news['attribute:id']);
-	$data = $this->macros('system', 'makeThumbnail', array($page->getValue('anons_pic')->getFilePath(), 350, 'auto', 100));
+	$i++;
+	
+	$data = $this->macros('system', 'makeThumbnail', array($page->getValue('anons_pic')->getFilePath(), 255, 'auto', 100));
 	echo '
-		<div class="news-list__item">
-			<a href="'.$news['attribute:link'].'" class="news-list__item-image" style="background: url('.$data["src"].') center / cover; background-repeat: no-repeat;"></a>
-			<div class="news-list__item-info">
-				<div class="news-list__item-time">'.$page->getValue('publish_time')->getFormattedDate('d.m.Y').'</div>
-			</div>
-			<a href="'.$news['attribute:link'].'" class="news-list__item-name">'.$news['node:name'].'</a>
-			<div class="news-list__item-desc">
+		<div class="col-lg-3 col-md-6 col-sm-6 col-dn">
+			<div class="news-list__item">
+				<a href="' . $news['attribute:link'] . '" class="news-list__image" style="background-image: url(' . $data["src"] . ');">
+					<div class="news-list__rubric">' . $news['attribute:lent_name'] . '</div>
+				</a>
+				<div class="news-list__info">
+					<a href="' . $news['attribute:link'] . '" class="news-list__title" title="' . $news['node:name'] . '">' . trim_news($news['node:name']) . '</a>
+					<div class="news-list__bottom">
+						<div class="news-list__date">' . $page->getValue('publish_time')->getFormattedDate('d.m.Y') . '</div>
+						<div class="news-list__view">'.$page->getValue('counter').'</div>
+					</div>
+				</div>
 			</div>
 		</div>
 	';
-	$i++; if($i>=3) break;
+	if ($i >= 4) break;
 endforeach;
-?>

@@ -67,12 +67,18 @@
 
 <div class="news">
 	<div class="container">
-		<div class="news-header">
-			<div class="news-header__title"><?= $this->translate('last_news'); ?></div>
-			<div class="news-header__link"><a href="/<?= urlencode($variables['@lang']) ?>/newslist/all-news/"><?= $this->translate('more_news'); ?></a></div>
+		<div class="row">
+			<div class="col-lg-12">
+				<div class="news-header">
+					<div class="news-header__title"><?= $this->translate('last_news'); ?></div>
+					<div class="news-header__link"><a href="/<?= urlencode($variables['@lang']) ?>/newslist/all-news/"><?= $this->translate('more_news'); ?></a></div>
+				</div>
+			</div>
 		</div>
 		<div class="news-list">
+			<div class="row">
 			<?= $this->render($this->macros('news', 'lastlist', array('newslist/all-news, newslist/for-the-entrant, newslist/education, newslist/science, newslist/university-life, newslist/ruhani-zhagyru', null, null, true)), 'partials/news/news-home-item') ?>
+			</div>
 		</div>
 	</div>
 </div>
