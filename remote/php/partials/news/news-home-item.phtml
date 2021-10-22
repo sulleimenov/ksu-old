@@ -1,20 +1,5 @@
 <?
 // items-ы на главной странице
-function trim_news($str, $znaki = 45) {
-	$str = strip_tags(trim($str));
-	if (mb_strlen($str, 'utf-8') <= $znaki) {
-		return $str;
-	}
-	$arrStr1 = explode(' ', $str);
-	$arrStr2 = explode(' ', mb_substr($str, 0, $znaki));
-	$str = '';
-	foreach ($arrStr2 as $key => $val) {
-		if ($val == $arrStr1[$key]) {
-				$str .= $val . ' ';
-		}
-	}
-	return trim($str) . '...';
-}
 
 $hierarchy = umiHierarchy::getInstance();
 $i = 0;
@@ -26,11 +11,11 @@ foreach ($variables['void:lines'] as $news) :
 	echo '
 		<div class="col-lg-3 col-md-6 col-sm-6 col-dn">
 			<div class="news-list__item">
-				<a href="' . $news['attribute:link'] . '" class="news-list__image" style="background-image: url(' . $data["src"] . ');">
+				<a href="'.$news['attribute:link'].'" class="news-list__image" style="background-image: url('.$data["src"].'); background-position:center;">
 					<div class="news-list__rubric">' . $news['attribute:lent_name'] . '</div>
 				</a>
 				<div class="news-list__info">
-					<a href="' . $news['attribute:link'] . '" class="news-list__title" title="' . $news['node:name'] . '">' . trim_news($news['node:name']) . '</a>
+					<a href="'.$news['attribute:link'].'" class="news-list__title" title="'.$news['node:name'].'">'.mb_strimwidth($news['node:name'], 0, 51, '...').'</a>
 					<div class="news-list__bottom">
 						<div class="news-list__date">' . $page->getValue('publish_time')->getFormattedDate('d.m.Y') . '</div>
 						<div class="news-list__view">'.$page->getValue('counter').'</div>
