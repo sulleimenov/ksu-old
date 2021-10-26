@@ -1,0 +1,31 @@
+<? include "./templates/ksu/php/partials/header.phtml"; ?>
+
+<div class="container">
+	<div class="tape">
+		<h1 class="tape__title" style="text-align: center;">
+			<?= $variables['@header'] ?>
+		</h1>
+		<div class="tape__wrapper">
+			<?
+				if ($this->macros('news', 'lastlist', array('announcements', null, 6, false), 'partials/grants-and-discounts/item')) {
+					echo $this->render($this->macros('news', 'lastlist', array('announcements', null, 6, false)), 'partials/grants-and-discounts/item');
+				} else {
+					echo $this->translate('no_ad').'!';
+				}
+			?>
+		</div>
+	</div>
+	<div class="page">
+		<div class="page__content-box">
+			<div class="page__content">
+				<?
+				$hierarchy = umiHierarchy::getInstance();
+				$page = $hierarchy->getElement($variables['@pageId']);
+				echo $page->content;
+				?>
+			</div>
+		</div>
+	</div>
+</div>
+
+<? include "./templates/ksu/php/partials/footer.phtml"; ?>

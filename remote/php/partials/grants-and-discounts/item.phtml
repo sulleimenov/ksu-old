@@ -19,8 +19,8 @@ foreach ($variables['void:lines'] as $list) {
 	}
 	echo '
 	<a class="tape__item" href="' . $list['attribute:link'] . '">
-		<div class="tape__date">' . $page->getValue('publish_time')->getFormattedDate('d <br> M') . '</div>
-		<div class="tape__anons">' . $result_str . '</div>
+		<div class="tape__date">'.$page->getValue('publish_time')->getFormattedDate('d').'<br>'.$this->translate($page->getValue('publish_time')->getFormattedDate('m')).'</div>
+		<div class="tape__anons">'.$result_str.'</div>
 	</a>
 	';
 }

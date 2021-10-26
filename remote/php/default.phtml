@@ -70,8 +70,14 @@
 		<div class="row">
 			<div class="col-lg-12">
 				<div class="news-header">
-					<div class="news-header__title"><?= $this->translate('last_news'); ?></div>
-					<div class="news-header__link"><a href="/<?= urlencode($variables['@lang']) ?>/newslist/all-news/"><?= $this->translate('more_news'); ?></a></div>
+					<div class="news-header__left">
+						<div class="news-header__title"><?= $this->translate('last_news'); ?></div>
+					</div>
+					<div class="news-header__right">
+						<a class="news-header__link" href="/<?= urlencode($variables['@lang']) ?>/newslist/all-news"><?= $this->translate('more_news'); ?></a>
+						<a class="news-header__link" href="/<?= urlencode($variables['@lang']) ?>/announcements"><?= $this->translate('announcements'); ?></a>
+						<a class="news-header__link" href="/<?= urlencode($variables['@lang']) ?>/conferences"><?= $this->translate('conferences'); ?></a>
+					</div>
 				</div>
 			</div>
 		</div>
@@ -219,7 +225,7 @@
 			</div>
 			<div class="col-lg-3">
 				<div class="infographic__item">
-					<div class="infographic__number count3">698</div>
+					<div class="infographic__number count3">663</div>
 					<div class="infographic__text">
 						<?= $this->translate('teaching_staff') ?>
 					</div>
@@ -227,7 +233,7 @@
 			</div>
 			<div class="col-lg-3">
 				<div class="infographic__item infographic__item--black">
-					<div class="infographic__number count4">223</div>
+					<div class="infographic__number count4">205</div>
 					<div class="infographic__text">
 						<?= $this->translate('teachers_with_academic_degrees_and_titles') ?>
 					</div>
@@ -235,6 +241,10 @@
 			</div>
 		</div>
 	</div>
+</div>
+
+<div class="container">
+	<? include "./templates/ksu/php/partials/yt-slider.phtml"; ?>
 </div>
 
 <? include "./templates/ksu/php/partials/footer.phtml"; ?>
