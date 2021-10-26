@@ -1,0 +1,210 @@
+<?php
+$yt = mt_rand(100, 999);
+?>
+<div class="yt-container" data-yt="<?= $yt ?>">
+	<button class="prev-page">
+		<svg width="1em" height="1em" fill="currentColor" viewBox="0 0 1024 1024" stroke-width="70px">
+			<defs>
+				<filter id="normal">
+					<feDropShadow dx="0" dy="0" stdDeviation="0"></feDropShadow>
+				</filter>
+				<filter id="shadow">
+					<feDropShadow dx="1" dy="2" stdDeviation="1"></feDropShadow>
+				</filter>
+			</defs>
+			<path d="M793.869 53.224l-53.404-53.224-510.334 512 510.334 512 53.404-53.224-457.278-458.776z"></path>
+		</svg>
+	</button>
+	<ul class="yt-videos">
+
+	</ul>
+	<button class="next-page">
+		<svg width="1em" height="1em" fill="currentColor" viewBox="0 0 1024 1024" stroke-width="70px">
+			<defs>
+				<filter id="normal">
+					<feDropShadow dx="0" dy="0" stdDeviation="0"></feDropShadow>
+				</filter>
+				<filter id="shadow">
+					<feDropShadow dx="1" dy="2" stdDeviation="1"></feDropShadow>
+				</filter>
+			</defs>
+			<path d="M283.534 0l-53.402 53.226 457.281 458.774-457.281 458.774 53.402 53.226 510.334-512z"></path>
+		</svg>
+	</button>
+</div>
+<!--
+<div id="yt-modal-<?= $yt ?>" class="yt-video-item">
+    <iframe width="100%" height="100%" src="https://www.youtube.com/embed/UtHOiPz8qrM" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+</div>
+-->
+<style>
+	.yt-container {
+		display: flex;
+		flex-flow: row nowrap;
+		align-items: center;
+		justify-content: space-between;
+		margin: 60px -5rem 0;
+	}
+
+	.yt-container>button {
+		padding: 8px;
+		border: 0px;
+		#background-color: rgba(0, 0, 0, .19);
+		box-sizing: border-box;
+		border-radius: 50%;
+		transition: opacity 0.5s ease 0s;
+		display: inline-flex;
+		align-items: center;
+		justify-content: center;
+	}
+
+	.yt-container>button:hover {
+		opacity: 0.6;
+	}
+
+	.yt-container>button>svg {
+		font-size: 18px;
+		#filter: url(#shadow);
+	}
+
+	.yt-container>ul.yt-videos {
+		flex-grow: 1;
+
+		overflow-x: hidden;
+
+		display: flex;
+		flex-flow: row nowrap;
+
+		margin: 0 1rem;
+		list-style: none;
+	}
+
+	.yt-container>ul.yt-videos>li {
+		width: calc(25% - 1rem);
+		min-width: calc(25% - 1rem);
+		margin: 0 .5rem;
+		position: relative;
+		cursor: pointer;
+
+		transition: transform .5s;
+	}
+
+	.yt-container>ul.yt-videos>li>a>img {
+		width: 100%;
+	}
+
+	.yt-container>ul.yt-videos>li>a>span {
+		position: absolute;
+		top: calc(50% - 24px);
+		left: calc(50% - 34px);
+	}
+
+	.yt-container>ul.yt-videos>li>a>h4 {
+		display: none;
+		font-size: .85rem;
+		font-weight: normal;
+		line-height: 1.2;
+		color: #999999;
+	}
+</style>
+<script>
+	jQuery(function($) {
+
+		var itemsPerPage = 4;
+		var playlistId = 'PL4KMLxbQWiW83poI6ultOTDPj-f7kh-0u';
+		var pages = {};
+		var videos = [];
+		var apiKey = 'AIzaSyCnOYKo3rqsNuUDh6b3wvjSz42o8rABFXo';
+		var currentPage = 0;
+
+		var videosContainer = $('.yt-container[data-yt="<?= $yt ?>"] ul.yt-videos');
+
+		var btnPrev = $('.yt-container[data-yt="<?= $yt ?>"] button.prev-page');
+		var btnNext = $('.yt-container[data-yt="<?= $yt ?>"] button.next-page');
+
+		btnPrev.prop('disabled', true);
+
+		btnPrev.click(function() {
+			currentPage--;
+			if (currentPage >= 0) {
+				var d = currentPage * itemsPerPage;
+				$('li', videosContainer).css({
+					transform: 'translate(calc(-' + d + '00% - ' + d + 'rem))'
+				});
+			} else {
+				currentPage = 0;
+				$(this).prop('disabled', true);
+			}
+		});
+
+		btnNext.click(function() {
+			currentPage++;
+			btnPrev.prop('disabled', false);
+			loadPage(currentPage).then(function() {
+				var d = currentPage * itemsPerPage;
+				$('li', videosContainer).css({
+					transform: 'translate(calc(-' + d + '00% - ' + d + 'rem))'
+				});
+			});
+		});
+
+		function loadPage(page) {
+			if (!videos[page * itemsPerPage]) {
+				var pageToken = pages[page] || '';
+				return $.get('https://youtube.googleapis.com/youtube/v3/playlistItems?part=snippet&maxResults=' + itemsPerPage + '&pageToken=' + pageToken + '&playlistId=' + playlistId + '&key=' + apiKey, function(response) {
+					pages[page + 1] = response.nextPageToken;
+
+					for (var i = 0; i < itemsPerPage; i++) {
+						if (response.items[i]) {
+							videos.push(response.items[i]);
+
+							var item = $('<li/>', {
+								'data-id': response.items[i].snippet.resourceId.videoId
+							});
+							// var itemLink = $('<a/>', {'data-fancybox': true, 'data-src': '#yt-modal-<?= $yt ?>'});
+							var itemLink = $('<a/>', {
+								'data-fancybox': true,
+								'data-src': 'https://www.youtube.com/embed/' + response.items[i].snippet.resourceId.videoId
+							});
+
+							itemLink.append($('<img/>', {
+								src: response.items[i].snippet.thumbnails.medium.url
+							}));
+							itemLink.append($('<span/>').append($('<svg viewBox="0 0 68 48" width="68px"><g fill-rule="evenodd"><path class="fr-youtube-svg" fill="rgb(255, 0, 0)" opacity="0.8" d="M31.386 0h5.873c2.423.06 4.849.08 7.273.153 3.306.094 6.614.219 9.914.46 1.23.092 2.46.2 3.684.35.936.121 1.875.253 2.79.491a8.56 8.56 0 0 1 4.23 2.623 8.597 8.597 0 0 1 1.9 3.66c.52 2.09.755 4.24.95 6.382v19.415c-.193 2.209-.424 4.424-.932 6.586a8.575 8.575 0 0 1-6.352 6.415c-.918.211-1.854.334-2.788.445-2.585.29-5.185.436-7.782.56a367.25 367.25 0 0 1-11.351.307c-.449.014-.9-.017-1.345.036h-4.26c-5.366-.045-10.733-.139-16.094-.417-2.57-.145-5.145-.305-7.696-.666-.912-.138-1.83-.294-2.697-.616a8.596 8.596 0 0 1-4.698-4.222c-.388-.764-.628-1.592-.802-2.428-.423-2.006-.64-4.047-.813-6.087-.242-2.984-.348-5.978-.39-8.971v-1.06c.037-2.699.129-5.397.323-8.09.17-2.245.386-4.493.825-6.704.138-.67.289-1.342.54-1.98.92-2.382 2.935-4.322 5.365-5.117.517-.172 1.052-.275 1.588-.368C9.988.93 11.348.802 12.708.684 14.985.5 17.267.382 19.55.29c2.926-.116 5.854-.187 8.782-.233C29.349.03 30.369.042 31.386 0"></path><path fill="#fff" d="M27.381 13.692c5.937 3.412 11.869 6.832 17.802 10.25-5.934 3.416-11.865 6.837-17.802 10.25-.002-6.834-.002-13.667 0-20.5z"></path></g></svg>')));
+							itemLink.append($('<h4/>', {
+								text: response.items[i].snippet.title
+							}));
+
+							item.append(itemLink)
+
+							item.appendTo(videosContainer);
+						}
+					}
+				});
+			}
+
+			return new Promise(function(resolve) {
+				resolve();
+			});
+		}
+
+		if (!playlistId) {
+			$.get('https://youtube.googleapis.com/youtube/v3/channels?part=contentDetails%2CbrandingSettings&id=UCizkYrzD1lRPrikyNhCSPHQ&key=' + apiKey, function(response) {
+				playlistId = response.items[0].contentDetails.relatedPlaylists.uploads;
+				loadPage(currentPage);
+			});
+		} else {
+			$.get('https://youtube.googleapis.com/youtube/v3/playlists?part=contentDetails&id=' + playlistId + '&key=' + apiKey, function(response) {
+				var count = response.items[0].contentDetails.itemCount;
+				pageCount = Math.ceil(count / itemsPerPage);
+				full(pageCount);
+			});
+		}
+
+		async function full(pageCount) {
+			for (var i = 0; i < pageCount; i++) {
+				await loadPage(i);
+			}
+		}
+	});
+</script>
