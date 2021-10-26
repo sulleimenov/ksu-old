@@ -15,7 +15,7 @@ foreach ($variables['void:lines'] as $news) :
 					<div class="news-list__rubric">' . $news['attribute:lent_name'] . '</div>
 				</a>
 				<div class="news-list__info">
-					<a href="'.$news['attribute:link'].'" class="news-list__title" title="'.$news['node:name'].'">'.mb_strimwidth($news['node:name'], 0, 51, '...').'</a>
+					<a href="'.$news['attribute:link'].'" class="news-list__title" title="'.$news['node:name'].'">'.mb_strimwidth($news['node:name'], 0, 61, '...').'</a>
 					<div class="news-list__bottom">
 						<div class="news-list__date">' . $page->getValue('publish_time')->getFormattedDate('d.m.Y') . '</div>
 						<div class="news-list__view">'.$page->getValue('counter').'</div>
