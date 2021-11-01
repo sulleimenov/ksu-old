@@ -89,6 +89,7 @@ document.addEventListener('DOMContentLoaded', () => {
 		loop: false,
 		preloadImages: false,
 		lazy: true,
+		autoHeight: true,
 		autoplay: {
 			delay: 5000,
 		},
