@@ -14,6 +14,9 @@ return [
 	'page_best_employees_of_the_month' => 'Айдың үздік қызметкерлері',
 	'page_digital_ecosystem' => 'Сандық экожүйе',
 	'page_career_and_employment_center' => 'Мансап және жұмысқа орналастыру орталығы',
+	'page_documents' => 'Нормативтік құжаттар',
+	'page_grants' => 'Распределение вакантных грантов',
+	'page_hostel' => 'Жатақханадағы орындарды бөлу',
 	// Интерфейс
 	'date_of_the_events' => 'Өткізу күні',
 	'results' => 'Іздеу нәтижелері',

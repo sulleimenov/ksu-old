@@ -14,6 +14,9 @@ return [
 	'page_best_employees_of_the_month' => 'Лучшие сотрудники месяца',
 	'page_digital_ecosystem' => 'Цифровая экосистема',
 	'page_career_and_employment_center' => 'Центр карьеры и трудоустройства',
+	'page_documents' => 'Нормативные документы',
+	'page_grants' => 'Распределение вакантных грантов',
+	'page_hostel' => 'Распределение мест в общежитии',
 	// Интерфейс
 	'date_of_the_events' => 'Дата проведения',
 	'results' => 'Результаты',

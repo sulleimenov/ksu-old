@@ -36,18 +36,15 @@
 			</div>
 			<div class="card">
 				<div class="row">
-					<?php
-					$getPageId = $this->macros('content', 'get_page_id', array('/navigtaion/'));
-					$valueChildren = $hierarchy->getChildrenTree($getPageId);
-					foreach ($valueChildren as $key => $value) :
-						$value = $hierarchy->getElement($key);
-						echo '
-						<div class="col-lg-4 col-md-6 mb-4">
-							<a href="'.$value->link.'" class="card-item">'.$value->name.'</a>
-						</div>
-						';
-					endforeach;
-					?>
+				<div class="col-lg-4 col-md-6 mb-4">
+					<a href="/<?= urlencode($variables['@lang']) ?>/navigation/normativnye-dokumenty/" class="card-item"><?= $this->translate('page_documents') ?></a>
+				</div>
+				<div class="col-lg-4 col-md-6 mb-4">
+					<a target="_blank" href="https://ksu.edu.kz/4block/granty-i-skidki/" class="card-item"><?= $this->translate('page_grants') ?></a>
+				</div>
+				<div class="col-lg-4 col-md-6 mb-4">
+					<a target="_blank" href="https://ksu.edu.kz/<?= urlencode($variables['@lang']) ?>/studencheskaya-zhizn/obwezhitie/" class="card-item"><?= $this->translate('page_hostel') ?></a>
+				</div>
 				</div>
 			</div>
 		</div>
