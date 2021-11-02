@@ -29,7 +29,7 @@
 
 
 				$subtitle = $homeSlider->home_slider_text_under_button ? '<div class="offer__subtitle">' . $homeSlider->home_slider_text_under_button . '</div>' : '';
-
+				if ($homeSlider->getIsActive()) :
 				echo '
 						<div class="swiper-slide">
 							<div class="container">
@@ -54,6 +54,7 @@
 							</div>
 						</div>
 					';
+				endif;
 			endforeach;
 			?>
 			<!-- Slider - end -->
