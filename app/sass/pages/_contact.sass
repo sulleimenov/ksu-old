@@ -1,39 +1,28 @@
-.contact
-	margin-bottom: 79px
+.contacts
+	margin-bottom: 30px
 	&__title
-		position: relative
 		font-weight: 700
-		margin-bottom: 37px
-		min-height: 32px
-		&:before
-			position: absolute
-			bottom: 0
-			content: ''
-			background-color: #f7c052
-			height: 2px
-			width: 100%
-			@include media-breakpoint-down(lg)
-				bottom: -9px
-			@include media-breakpoint-down(sm)
-				bottom: 0
-
-	&__map
-		background: url($uri+'icons/location.svg') 0 center no-repeat
-		background-size: 14px
-		padding-left: 25px
-		margin-bottom: 17px
-	&__phone
-		background: url($uri+'icons/telephone.svg') 0 4px no-repeat
-		background-size: 14px
-		padding-left: 25px
-		margin-bottom: 17px
-		a
-			text-decoration: none
-	&__email
-		background:url($uri+'icons/email.svg') 0 center no-repeat
-		background-size: 14px
-		padding-left: 25px
+		font-size: 18px
+		padding-bottom: 2px
+		border-bottom: 2px solid $accent
+		color: $accent
+		margin-bottom: 10px
+	&__lists
+		padding-left: 16px
+	&__item
+		list-style-type: disc
+		margin-bottom: 5px
 	&__download
-		background: url($uri+'icons/download.svg') left -1px no-repeat
-		background-size: 14px
-		padding-left: 25px
+		display: flex
+		flex-direction: column
+		padding-left: 50px
+		background: url(../img/contacts/tel.png) left center no-repeat
+		background-size: 38px
+		a
+			border-bottom: none!important
+	&__download-title
+		font-size: 18px
+		font-weight: 700
+		color: $accent
+	&__download-file
+		color: $accent
