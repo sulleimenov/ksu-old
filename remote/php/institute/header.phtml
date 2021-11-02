@@ -256,10 +256,13 @@ function debug($error) {
 						$hrefbase = substr($variables['@request-uri'], 1);
 					endif;
 					?>
-						<a <? if ($variables['@request-uri'] == '/kz/') { echo 'style="text-decoration:underline"'; } ?> href="<?= $href2 ?><?= $hrefbase ?>"><?= $lng2 ?></a>
-						<span>/</span>
 						<a <? if ($variables['@request-uri'] == '/ru/') { echo 'style="text-decoration:underline"'; } ?> href="<?= $href1 ?><?= $hrefbase ?>"><?= $lng1 ?></a>
-						<? if ($variables['@domain'] != 'https://acportal.ksu.edu.kz') : ?>
+						<span>/</span>
+						<a <? if ($variables['@request-uri'] == '/kz/') { echo 'style="text-decoration:underline"'; } ?> href="<?= $href2 ?><?= $hrefbase ?>"><?= $lng2 ?></a>
+						
+						<? if ($variables['@domain'] == 'acportal.ksu.edu.kz') : ?>
+						
+						<? else : ?>
 						<span>/</span>
 						<a <? if ($variables['@request-uri'] == '/en/') { echo 'style="text-decoration:underline"'; } ?> href="<?= $href3 ?><?= $hrefbase ?>"><?= $lng3 ?></a>
 						<? endif ?>
