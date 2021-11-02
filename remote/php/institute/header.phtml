@@ -259,8 +259,10 @@ function debug($error) {
 						<a <? if ($variables['@request-uri'] == '/kz/') { echo 'style="text-decoration:underline"'; } ?> href="<?= $href2 ?><?= $hrefbase ?>"><?= $lng2 ?></a>
 						<span>/</span>
 						<a <? if ($variables['@request-uri'] == '/ru/') { echo 'style="text-decoration:underline"'; } ?> href="<?= $href1 ?><?= $hrefbase ?>"><?= $lng1 ?></a>
+						<? if ($variables['@domain'] != 'https://acportal.ksu.edu.kz') : ?>
 						<span>/</span>
 						<a <? if ($variables['@request-uri'] == '/en/') { echo 'style="text-decoration:underline"'; } ?> href="<?= $href3 ?><?= $hrefbase ?>"><?= $lng3 ?></a>
+						<? endif ?>
 					</div>
 					<div class="lectern-header__search">
 						<svg width="18" height="17" viewBox="0 0 18 17" fill="none" xmlns="http://www.w3.org/2000/svg">

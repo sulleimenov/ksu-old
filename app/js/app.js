@@ -70,6 +70,15 @@ document.addEventListener('DOMContentLoaded', () => {
 	}
 	navigation()
 
+	function popupCallCenter() {
+		setTimeout(() => {
+			document.querySelector('.popup-call').classList.remove('show')
+		}, 20000);
+	}
+	
+	popupCallCenter()
+	
+
 	const swiperAbout = new Swiper('.swiper-about', {
 		loop: false,
 		preloadImages: false,
