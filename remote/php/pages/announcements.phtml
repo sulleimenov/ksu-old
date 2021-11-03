@@ -7,11 +7,30 @@
 		</h1>
 		<div class="tape__wrapper">
 			<?
-				if ($this->macros('news', 'lastlist', array('announcements', null, 6, false), 'partials/grants-and-discounts/item')) {
-					echo $this->render($this->macros('news', 'lastlist', array('announcements', null, 6, false)), 'partials/grants-and-discounts/item');
-				} else {
+				$announcements = $this->macros('news', 'lastlist', ['announcements', 'null', 5]);
+				$hierarchy = umiHierarchy::getInstance();
+				if ($announcements) :
+					foreach ($announcements["void:lines"] as $announcement) :
+						$data = $hierarchy->getElement($announcement['attribute:id']);
+						echo '
+						<a class="tape__item" href="'.$announcement['attribute:link'].'" style="width: 100%;">
+							<div class="tape__date">'.$data->getValue('publish_time')->getFormattedDate('d').'&nbsp;'.$this->translate($data->getValue('publish_time')->getFormattedDate('m')).'<br>'.$data->getValue('publish_time')->getFormattedDate('Y').'</div>
+							<div class="tape__anons">'.$announcement['node:name'].'</div>
+						</a>';
+					endforeach;
+				else :
 					echo $this->translate('no_ad').'!';
-				}
+				endif;
+				
+				$limit = 3; //ссылок в навигации на каждую сторону
+				$per_page = $announcements['per_page']; // элементов на странице
+				$total = $announcements['total'];
+				echo $this->render(array(
+					"total" => $total,
+					"per_page" => $per_page,
+					"limit" => $limit,
+					"numpages" => $this->macros("system", "numpages", array($total, $per_page, null, null, $limit))
+				), "partials/pagination/pagination");
 			?>
 		</div>
 	</div>
