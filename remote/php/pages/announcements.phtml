@@ -2,12 +2,12 @@
 
 <div class="container">
 	<div class="tape">
-		<h1 class="tape__title" style="text-align: center;">
+		<h1 class="tape__title">
 			<?= $variables['@header'] ?>
 		</h1>
 		<div class="tape__wrapper">
 			<?
-				$announcements = $this->macros('news', 'lastlist', ['announcements', 'null', 5]);
+				$announcements = $this->macros('news', 'lastlist', ['announcements', 'null', 10]);
 				$hierarchy = umiHierarchy::getInstance();
 				if ($announcements) :
 					foreach ($announcements["void:lines"] as $announcement) :
