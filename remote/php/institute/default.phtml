@@ -102,6 +102,20 @@
 		</div>
 	</div>
 
+	<? if ($variables['@domain'] == 'pis.ksu.edu.kz') : ?>
+	<div class="row" style="margin-top: 50px;">
+		<div class="col-lg-4 col-md-4">
+			<iframe style="border-radius: 10px;" width="100%" height="200" src="https://www.youtube.com/embed/VpUgYAUHvGM" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+		</div>
+		<div class="col-lg-4 col-md-4">
+			<iframe style="border-radius: 10px;" width="100%" height="200" src="https://www.youtube.com/embed/X2zAFc4GPwk" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+		</div>
+		<div class="col-lg-4 col-md-4">
+			<iframe style="border-radius: 10px;" width="100%" height="200" src="https://www.youtube.com/embed/sUC-bRnN0zY" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+		</div>
+	</div>
+	<? endif; ?>
+
 	<?php
 	$getId = $this->macros('content', 'get_page_id', array('/contacts/'));
 	$value = $hierarchy->getElement($getId);
