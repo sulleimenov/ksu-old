@@ -8,7 +8,7 @@ foreach ($variables['items']['nodes:item'] as $item) :
 	if ($item['items']) :
 		echo '<ul class="nav__item-dropdown">';
 		foreach ($item['items']['nodes:item'] as $underitem) :
-			$target = in_array($underitem['@id'], [45, 83, 109, 4305, 4306, 4307, 4510, 5853]) ? '_blank' : '_self';
+			$target = in_array($underitem['@id'], [45, 83, 109, 4305, 4306, 4307, 4510, 5853, 6517]) ? '_blank' : '_self';
 
 			echo '<li><a href="'.$underitem['@link'].'" target="'.$target.'">'.$underitem['@name'].'</a></li>';
 
