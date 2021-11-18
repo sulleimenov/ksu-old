@@ -260,7 +260,7 @@ function debug($error) {
 						<span>/</span>
 						<a <? if ($variables['@request-uri'] == '/kz/') { echo 'style="text-decoration:underline"'; } ?> href="<?= $href2 ?><?= $hrefbase ?>"><?= $lng2 ?></a>
 						
-						<? if ($variables['@domain'] == 'acportal.ksu.edu.kz') : ?>
+						<? if ($variables['@domain'] == 'acportal.ksu.edu.kz' or $variables['@domain'] == 'idl.ksu.edu.kz') : ?>
 						
 						<? else : ?>
 						<span>/</span>
