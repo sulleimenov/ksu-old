@@ -1,7 +1,0 @@
-<?
-foreach ($variables['items']['nodes:item'] as $value) {
-	$isActive = ($value['@link'] == $_SERVER['REQUEST_URI']) ? ' page__sidebar-link--active' : '';
-	$target = in_array($value['@id'], [45, 83, 109, 4305, 4306, 4307, 6492, 5081, 6411]) ? '_blank' : '_self';
-	echo '<a href="'.$value['@link'].'" target="'.$target.'" class="page__sidebar-link'.$isActive.'">'.$value['@name'].'</a>';
-}
-?>
