@@ -77,7 +77,30 @@ document.addEventListener('DOMContentLoaded', () => {
 	}
 	
 	popupCallCenter()
-	
+
+	function dissertationBoardDocs() {
+		const buttonDocs = document.querySelectorAll('.announcements-dissertation__button-docs');
+		const buttonDocsContent = document.querySelectorAll('.announcements-dissertation__docs');
+		
+		buttonDocs.forEach(item => {
+			item.addEventListener('click', (event) => {
+				let prevElement = item.previousElementSibling
+				let prev = prevElement.previousElementSibling
+				if (!prev.classList.contains('show')) {
+					let docsHeight = prev.clientHeight
+					console.log(docsHeight);
+				}
+				
+				prev.classList.toggle('show')
+
+				setTimeout(() => {
+					prev.style.height = docsHeight + 'px'
+					prev.style.display = ''
+				}, 1)
+			})
+		});
+	}
+	dissertationBoardDocs()
 
 	const swiperAbout = new Swiper('.swiper-about', {
 		loop: false,
